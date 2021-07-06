@@ -53,7 +53,7 @@ If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommen
     - ...but the design follows the general look and feel
 
 ## What you can do for me
-- Create a concise layout especially for the data-table, ideally for the whole app
+- Create a concise layout for the data-table
 - Solve above mentioned problems
 - The layout should work well on Tablets, Smartphones, Screens (in order of importance)
 - Bonus 1: Make it look nice :) Target audience are bakers, restaurants, in general people who work with food and care for the environment
