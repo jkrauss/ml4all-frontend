@@ -56,6 +56,5 @@ If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommen
 - Create a concise layout especially for the data-table, ideally for the whole app
 - Solve above mentioned problems
 - The layout should work well on Tablets, Smartphones, Screens (in order of importance)
-- Bonus 1: Use only colors from svelte material ui, define what's missing in "foodsight.css"
-- Bonus 2: Make it look nice :) Target audience are bakers, restaurants, in general people who work with food and care for the environment
-- Bonus 3: Give a humble developer with basic frontend-knowledge a simple 1-2-3 guide how to handle layout/design for the app
+- Bonus 1: Make it look nice :) Target audience are bakers, restaurants, in general people who work with food and care for the environment
+- Bonus 2: Give a humble developer with basic frontend-knowledge a simple 1-2-3 guide how to handle layout/design for the app
