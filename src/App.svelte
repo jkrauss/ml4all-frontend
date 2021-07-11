@@ -2,8 +2,8 @@
 	import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
 	import Img from "@smui/common/Img.svelte";
 	import Button, { Icon } from "@smui/button";
+
 	import Foodtable from "./Foodtable.svelte";
-	import Foodtable2 from "./Foodtable2.svelte";
 	import Tailwind from "./Tailwind.svelte";
 </script>
 
@@ -24,8 +24,7 @@
 	</TopAppBar>
 </header>
 <div class="p-2 h-full">
-	<Foodtable2 />
-	<!-- <Foodtable /> -->
+	<Foodtable />
 </div>
 <footer class="fullwide">Here goes the footer</footer>
 

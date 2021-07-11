@@ -1,3 +1,4 @@
+<!-- making table smaler on biger screens -->
 <div class="md:w-10/12 w-full">
 	<table class="w-full">
 		<caption><slot name="caption" /></caption>
