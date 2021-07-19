@@ -52,5 +52,5 @@ If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommen
     - save the token in the browser-data and submit it with every subsequent request in an authentication-header
 - The built version somehow doesn't get the complete styling
     - compare results of `npm run dev` and `npm run build` / `npm run start`
-    - font, round corners, ... missing
+    - font, color of little sort-triangles... missing
 - make the "search"-field and the pagination-elements align / grow / shrink with the DataTable

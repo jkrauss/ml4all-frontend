@@ -35,9 +35,12 @@
 		if (typeof window === "undefined") return;
 		loaded = false;
 		// use window.location.origin , see https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc
-		console.log(window.location.origin + "/api/forecast/?store=2&days=1")
+		//TODO: need to set authentication-header, containing the received token from login
+		const res = await fetch("https://foodsight.azurewebsites.net/api/forecast/?store=2&days=1");
+		// use for prod later when CORS-headers are set strict
 		//const res = await fetch(window.location.origin + "/api/forecast/?store=2&days=1");
-		const res = await fetch("tableData.json");
+		//use for quick local iterations
+		//const res = await fetch("tableData.json");
 		const body = await res.json();
 		data = body; 
 		setTimeout(() => (loaded = true), 500);
