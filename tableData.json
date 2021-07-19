@@ -1,0 +1,98 @@
+[
+    {
+        "id" : 1,
+        "product" : "Brötchen", 
+        "forecast" : 83,
+        "order_range" : "72-94",
+        "order_qty" : 83,
+        "comment" : ""
+    },
+    {
+        "id" : 2,
+        "product" : "Croissants", 
+        "forecast" : 42,
+        "order_range" : "38-48",
+        "order_qty" : 42,
+        "comment" : "Bestellung Familie Bäcker 20 Stück"
+    },
+    {
+        "id" : 3,
+        "product" : "Rheingauer", 
+        "forecast" : 13,
+        "order_range" : "11-16",
+        "order_qty" : 13,
+        "comment" : ""
+    },
+    {
+        "id" : 4,
+        "product" : "Meisterkruste", 
+        "forecast" : 23,
+        "order_range" : "20-25",
+        "order_qty" : 23,
+        "comment" : ""
+    },
+    {
+        "id" : 5,
+        "product" : "Brötchen", 
+        "forecast" : 83,
+        "order_range" : "72-94",
+        "order_qty" : 83,
+        "comment" : ""
+    },
+    {
+        "id" : 6,
+        "product" : "Croissants", 
+        "forecast" : 42,
+        "order_range" : "38-48",
+        "order_qty" : 42,
+        "comment" : "Bestellung Familie Bäcker 20 Stück"
+    },
+    {
+        "id" : 7,
+        "product" : "Rheingauer", 
+        "forecast" : 13,
+        "order_range" : "11-16",
+        "order_qty" : 13,
+        "comment" : ""
+    },
+    {
+        "id" : 8,
+        "product" : "Meisterkruste", 
+        "forecast" : 23,
+        "order_range" : "20-25",
+        "order_qty" : 23,
+        "comment" : ""
+    },
+    {
+        "id" : 9,
+        "product" : "Brötchen", 
+        "forecast" : 83,
+        "order_range" : "72-94",
+        "order_qty" : 83,
+        "comment" : ""
+    },
+    {
+        "id" : 10,
+        "product" : "Croissants", 
+        "forecast" : 42,
+        "order_range" : "38-48",
+        "order_qty" : 42,
+        "comment" : "Bestellung Familie Bäcker 20 Stück"
+    },
+    {
+        "id" : 11,
+        "product" : "Rheingauer", 
+        "forecast" : 13,
+        "order_range" : "11-16",
+        "order_qty" : 13,
+        "comment" : ""
+    },
+    {
+        "id" : 12,
+        "product" : "Meisterkruste", 
+        "forecast" : 23,
+        "order_range" : "20-25",
+        "order_qty" : 23,
+        "comment" : ""
+    }
+]
