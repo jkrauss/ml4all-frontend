@@ -15,8 +15,8 @@
 
   function auth() {
     if ($user) {
+      localStorage.removeItem("auth");
       $user = undefined;
-      localStorage.getItem("auth");
     } else {
       $modal.title = "Login";
       $modal.component = Login;

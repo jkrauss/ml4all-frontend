@@ -4,7 +4,7 @@
   import Label from "@smui/list/Label.svelte";
   let userData = { grant_type: "password", username: "", password: "" };
   import axios from "axios";
-  import { user } from "../stores";
+  import { modal, user } from "../stores";
 </script>
 
 <div class="flex flex-col w-full justify-center items-center py-16">
@@ -12,17 +12,24 @@
     action=""
     class="flex flex-col justify-center items-center gap-2"
     on:submit|preventDefault={async () => {
-      console.log(userData);
-
+      if (!userData.username || !userData.password) return;
+      var bodyFormData = new FormData();
+      bodyFormData.append("username", userData.username);
+      bodyFormData.append("password", userData.password);
       let request = await axios.post(
         "https://foodsight.azurewebsites.net/token",
-        userData,
+        bodyFormData,
         {
           headers: {
+            "Content-Type": "multipart/form-data",
             Authorization: "Basic Og==",
           },
         }
       );
+      console.log(request.data);
+      if (request.data) {
+        $modal = {};
+      }
       $user = request.data;
       localStorage.setItem("auth", JSON.stringify(request.data));
     }}

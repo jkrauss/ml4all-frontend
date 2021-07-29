@@ -50,12 +50,11 @@
     let request = await axios.get(
       `https://foodsight.azurewebsites.net/api/forecast/?store=2&days=1`
     );
-    const res = request.data;
     // use for prod later when CORS-headers are set strict
     //const res = await fetch(window.location.origin + "/api/forecast/?store=2&days=1");
     //use for quick local iterations
     //const res = await fetch("tableData.json");
-    const body = await res.json();
+    const body = request.data;
     data = body;
     setTimeout(() => (loaded = true), 500);
   }

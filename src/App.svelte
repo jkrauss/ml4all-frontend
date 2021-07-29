@@ -1,24 +1,34 @@
 <script>
-  import { axios } from "axios";
+  import axios from "axios";
   import Modal from "./lib/Modal.svelte";
   import Foodtable from "./Foodtable.svelte";
   import Tailwind from "./Tailwind.svelte";
   import Nav from "./lib/nav/main.svelte";
   import { user } from "./lib/stores";
+  import { onMount } from "svelte";
 
-  $: if ($user) {
-    axios.interceptors.request.use(
-      (config) => {
-        config.headers.authorization = `Bearer ${$user.access_token}`;
-        return config;
-      },
-      (error) => {
-        return Promise.reject(error);
+  onMount(() => {
+    getUserFromLocalstorage();
+  });
+
+  $: getUserFromLocalstorage($user);
+
+  function getUserFromLocalstorage() {
+    if ($user && Object.keys($user).length != 0) {
+      axios.interceptors.request.use(
+        (config) => {
+          config.headers.authorization = `Bearer ${$user.access_token}`;
+          console.log(config);
+          return config;
+        },
+        (error) => {
+          return Promise.reject(error);
+        }
+      );
+    } else {
+      if (localStorage.getItem("auth")) {
+        $user = JSON.parse(localStorage.getItem("auth"));
       }
-    );
-  } else {
-    if (localStorage.getItem("auth")) {
-      $user = JSON.parse(localStorage.getItem("auth"));
     }
   }
 </script>
@@ -29,9 +39,12 @@
 
 <Nav />
 
-<div class="p-2 h-full">
-  <Foodtable />
-</div>
+{#if $user}
+  <div class="p-2 h-full">
+    <Foodtable />
+  </div>
+{/if}
+
 <footer>Here goes the footer</footer>
 
 <svelte:head>
