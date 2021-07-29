@@ -1,0 +1,37 @@
+<script>
+  import IconButton from "@smui/icon-button";
+  import { modal } from "./stores.js";
+</script>
+
+{#if $modal && Object.keys($modal).length != 0}
+  <div
+    class="fixed top-0 bottom-0 left-0 right-0 overflow-hidden flex justify-center items-center"
+  >
+    <div
+      class="bg-black bg-opacity-75 w-screen h-full z-10 absolute top-0 left-0 bottom-0 right-0 "
+      on:click={() => {
+        $modal = {};
+      }}
+    />
+    <main
+      class="bg-white rounded w-6/12 z-20 flex flex-col divide-y divide-gray-600"
+    >
+      <header class="p-2 flex justify-between items-center">
+        <h1 class="text-2xl">{$modal?.title}</h1>
+        <IconButton
+          class="material-icons"
+          on:click={() => {
+            $modal = {};
+          }}
+          >close
+          <!--
+                      form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
+                  -->
+        </IconButton>
+      </header>
+      <main class="p-2">
+        <svelte:component this={$modal?.component} />
+      </main>
+    </main>
+  </div>
+{/if}

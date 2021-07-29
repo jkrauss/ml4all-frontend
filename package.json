@@ -21,6 +21,8 @@
     "@smui/textfield": "^4.2.0",
     "@smui/top-app-bar": "latest",
     "node-sass": "^6.0.1",
+    "npm-run-all": "^4.1.5",
+    "postcss-cli": "^8.3.1",
     "postcss-load-config": "^3.1.0",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
@@ -29,14 +31,15 @@
     "rollup-plugin-terser": "^7.0.0",
     "svelte": "^3.0.0",
     "svelte-preprocess": "^4.7.3",
-    "svelte-simple-datatables": "*"
+    "svelte-simple-datatables": "*",
+    "tailwindcss": "^2.2.7"
   },
   "dependencies": {
     "autoprefixer": "^9.8.6",
+    "axios": "^0.21.1",
     "postcss": "^8.3.5",
     "sirv-cli": "^1.0.0",
     "ss-search": "^1.6.1",
-    "svelte-material-ui": "^4.2.0",
-    "tailwindcss": "^2.2.4"
+    "svelte-material-ui": "^4.2.0"
   }
 }
