@@ -19,7 +19,6 @@
         userData,
         {
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
             Authorization: "Basic Og==",
           },
         }
