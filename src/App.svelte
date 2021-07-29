@@ -7,6 +7,7 @@
   import { user } from "./lib/stores";
   import { onMount } from "svelte";
 
+  //getting tokens from Localstorage and seting the axios header globaly
   onMount(() => {
     getUserFromLocalstorage();
   });
@@ -15,10 +16,10 @@
 
   function getUserFromLocalstorage() {
     if ($user && Object.keys($user).length != 0) {
+      //setting axios headers
       axios.interceptors.request.use(
         (config) => {
           config.headers.authorization = `Bearer ${$user.access_token}`;
-          console.log(config);
           return config;
         },
         (error) => {

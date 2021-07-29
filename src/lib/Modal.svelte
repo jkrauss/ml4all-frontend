@@ -1,4 +1,5 @@
 <script>
+  import { fly, fade } from "svelte/transition";
   import IconButton from "@smui/icon-button";
   import { modal } from "./stores.js";
 </script>
@@ -9,12 +10,14 @@
   >
     <div
       class="bg-black bg-opacity-75 w-screen h-full z-10 absolute top-0 left-0 bottom-0 right-0 "
+      transition:fade
       on:click={() => {
         $modal = {};
       }}
     />
     <main
       class="bg-white rounded w-6/12 z-20 flex flex-col divide-y divide-gray-600"
+      transition:fly={{ x: 500 }}
     >
       <header class="p-2 flex justify-between items-center">
         <h1 class="text-2xl">{$modal?.title}</h1>
