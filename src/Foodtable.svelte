@@ -146,7 +146,9 @@
 <!-- Getting window width -->
 <svelte:window bind:outerWidth={width} />
 
-<section class="flex flex-col gap-4 justify-center items-center">
+<section
+  class="flex flex-col gap-4 justify-center items-center md:w-10/12 w-full mx-auto"
+>
   <!-- Search input field -->
   <input
     type="text"

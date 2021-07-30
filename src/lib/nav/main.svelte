@@ -7,10 +7,11 @@
   import Menu from "@smui/menu";
   import List, { Item, Separator, Text } from "@smui/list";
   import Login from "../auth/login.svelte";
+  import Wrapper from "@smui/tooltip/Wrapper.svelte";
+  import Tooltip from "@smui/tooltip/Tooltip.svelte";
 
   let menu;
   let burger;
-  let login = "Login";
   let clicked = "nothing yet";
 
   function auth() {
@@ -36,12 +37,17 @@
         <Title>ml4all</Title>
       </Section>
       <Section align="end">
-        <IconButton class="material-icons" on:click={auth}
-          >account_circle
-          <!--
+        <Wrapper>
+          <IconButton class="material-icons" on:click={auth}
+            >{#if $user}account_circle{:else}login{/if}
+            <!--
 						form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
 					-->
-        </IconButton>
+          </IconButton>
+          <Tooltip
+            >{#if $user}Logout{:else}Login{/if}</Tooltip
+          >
+        </Wrapper>
         <IconButton
           class="material-icons"
           on:click={() => menu.setOpen(true)}
@@ -54,7 +60,9 @@
           >
             <List>
               <Item on:SMUI:action={() => (clicked = "Cut")} on:click={auth}>
-                <Text>{login}</Text>
+                <Text
+                  >{#if $user}Logout{:else}Login{/if}</Text
+                >
                 <!--
 									form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
 								-->

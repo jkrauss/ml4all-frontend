@@ -2311,6 +2311,31 @@ var app = (function () {
 			opacity: ${target_opacity - (od * u)}`
         };
     }
+    function slide(node, { delay = 0, duration = 400, easing = cubicOut } = {}) {
+        const style = getComputedStyle(node);
+        const opacity = +style.opacity;
+        const height = parseFloat(style.height);
+        const padding_top = parseFloat(style.paddingTop);
+        const padding_bottom = parseFloat(style.paddingBottom);
+        const margin_top = parseFloat(style.marginTop);
+        const margin_bottom = parseFloat(style.marginBottom);
+        const border_top_width = parseFloat(style.borderTopWidth);
+        const border_bottom_width = parseFloat(style.borderBottomWidth);
+        return {
+            delay,
+            duration,
+            easing,
+            css: t => 'overflow: hidden;' +
+                `opacity: ${Math.min(t * 20, 1) * opacity};` +
+                `height: ${t * height}px;` +
+                `padding-top: ${t * padding_top}px;` +
+                `padding-bottom: ${t * padding_bottom}px;` +
+                `margin-top: ${t * margin_top}px;` +
+                `margin-bottom: ${t * margin_bottom}px;` +
+                `border-top-width: ${t * border_top_width}px;` +
+                `border-bottom-width: ${t * border_bottom_width}px;`
+        };
+    }
 
     /*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
@@ -2610,7 +2635,7 @@ var app = (function () {
         ROOT: 'mdc-ripple-upgraded',
         UNBOUNDED: 'mdc-ripple-upgraded--unbounded',
     };
-    var strings$7 = {
+    var strings$8 = {
         VAR_FG_SCALE: '--mdc-ripple-fg-scale',
         VAR_FG_SIZE: '--mdc-ripple-fg-size',
         VAR_FG_TRANSLATE_END: '--mdc-ripple-fg-translate-end',
@@ -2618,7 +2643,7 @@ var app = (function () {
         VAR_LEFT: '--mdc-ripple-left',
         VAR_TOP: '--mdc-ripple-top',
     };
-    var numbers$6 = {
+    var numbers$7 = {
         DEACTIVATION_TIMEOUT_MS: 225,
         FG_DEACTIVATION_MS: 150,
         INITIAL_ORIGIN_SCALE: 0.6,
@@ -2743,14 +2768,14 @@ var app = (function () {
         });
         Object.defineProperty(MDCRippleFoundation, "strings", {
             get: function () {
-                return strings$7;
+                return strings$8;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(MDCRippleFoundation, "numbers", {
             get: function () {
-                return numbers$6;
+                return numbers$7;
             },
             enumerable: false,
             configurable: true
@@ -3051,7 +3076,7 @@ var app = (function () {
                 this.adapter.addClass(FG_DEACTIVATION);
                 this.fgDeactivationRemovalTimer_ = setTimeout(function () {
                     _this.adapter.removeClass(FG_DEACTIVATION);
-                }, numbers$6.FG_DEACTIVATION_MS);
+                }, numbers$7.FG_DEACTIVATION_MS);
             }
         };
         MDCRippleFoundation.prototype.rmBoundedActivationClasses_ = function () {
@@ -3164,7 +3189,7 @@ var app = (function () {
         ICON_BUTTON_ON: 'mdc-icon-button--on',
         ROOT: 'mdc-icon-button',
     };
-    var strings$6 = {
+    var strings$7 = {
         ARIA_LABEL: 'aria-label',
         ARIA_PRESSED: 'aria-pressed',
         DATA_ARIA_LABEL_OFF: 'data-aria-label-off',
@@ -3214,7 +3239,7 @@ var app = (function () {
         });
         Object.defineProperty(MDCIconButtonToggleFoundation, "strings", {
             get: function () {
-                return strings$6;
+                return strings$7;
             },
             enumerable: false,
             configurable: true
@@ -3234,17 +3259,17 @@ var app = (function () {
             configurable: true
         });
         MDCIconButtonToggleFoundation.prototype.init = function () {
-            var ariaLabelOn = this.adapter.getAttr(strings$6.DATA_ARIA_LABEL_ON);
-            var ariaLabelOff = this.adapter.getAttr(strings$6.DATA_ARIA_LABEL_OFF);
+            var ariaLabelOn = this.adapter.getAttr(strings$7.DATA_ARIA_LABEL_ON);
+            var ariaLabelOff = this.adapter.getAttr(strings$7.DATA_ARIA_LABEL_OFF);
             if (ariaLabelOn && ariaLabelOff) {
-                if (this.adapter.getAttr(strings$6.ARIA_PRESSED) !== null) {
+                if (this.adapter.getAttr(strings$7.ARIA_PRESSED) !== null) {
                     throw new Error('MDCIconButtonToggleFoundation: Button should not set ' +
                         '`aria-pressed` if it has a toggled aria label.');
                 }
                 this.hasToggledAriaLabel = true;
             }
             else {
-                this.adapter.setAttr(strings$6.ARIA_PRESSED, String(this.isOn()));
+                this.adapter.setAttr(strings$7.ARIA_PRESSED, String(this.isOn()));
             }
         };
         MDCIconButtonToggleFoundation.prototype.handleClick = function () {
@@ -3266,12 +3291,12 @@ var app = (function () {
             // Toggle aria attributes based on state.
             if (this.hasToggledAriaLabel) {
                 var ariaLabel = isOn ?
-                    this.adapter.getAttr(strings$6.DATA_ARIA_LABEL_ON) :
-                    this.adapter.getAttr(strings$6.DATA_ARIA_LABEL_OFF);
-                this.adapter.setAttr(strings$6.ARIA_LABEL, ariaLabel || '');
+                    this.adapter.getAttr(strings$7.DATA_ARIA_LABEL_ON) :
+                    this.adapter.getAttr(strings$7.DATA_ARIA_LABEL_OFF);
+                this.adapter.setAttr(strings$7.ARIA_LABEL, ariaLabel || '');
             }
             else {
-                this.adapter.setAttr(strings$6.ARIA_PRESSED, "" + isOn);
+                this.adapter.setAttr(strings$7.ARIA_PRESSED, "" + isOn);
             }
         };
         return MDCIconButtonToggleFoundation;
@@ -3474,7 +3499,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$C(ctx) {
+    function create_fragment$E(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -3598,7 +3623,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$C.name,
+    		id: create_fragment$E.name,
     		type: "component",
     		source: "",
     		ctx
@@ -3618,7 +3643,7 @@ var app = (function () {
     	props: {}
     };
 
-    function instance$t($$self, $$props, $$invalidate) {
+    function instance$u($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","component","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -3730,7 +3755,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$t, create_fragment$C, safe_not_equal, {
+    		init(this, options, instance$u, create_fragment$E, safe_not_equal, {
     			use: 0,
     			class: 1,
     			component: 2,
@@ -3741,7 +3766,7 @@ var app = (function () {
     			component: this,
     			tagName: "ClassAdder",
     			options,
-    			id: create_fragment$C.name
+    			id: create_fragment$E.name
     		});
     	}
 
@@ -4211,9 +4236,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\A.svelte generated by Svelte v3.38.2 */
-    const file$u = "node_modules\\@smui\\common\\A.svelte";
+    const file$w = "node_modules\\@smui\\common\\A.svelte";
 
-    function create_fragment$B(ctx) {
+    function create_fragment$D(ctx) {
     	let a;
     	let useActions_action;
     	let current;
@@ -4233,7 +4258,7 @@ var app = (function () {
     			a = element("a");
     			if (default_slot) default_slot.c();
     			set_attributes(a, a_data);
-    			add_location(a, file$u, 0, 0, 0);
+    			add_location(a, file$w, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4291,7 +4316,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$B.name,
+    		id: create_fragment$D.name,
     		type: "component",
     		source: "",
     		ctx
@@ -4300,7 +4325,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$s($$self, $$props, $$invalidate) {
+    function instance$t($$self, $$props, $$invalidate) {
     	const omit_props_names = ["href","use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -4366,13 +4391,13 @@ var app = (function () {
     class A extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$s, create_fragment$B, safe_not_equal, { href: 0, use: 1, getElement: 5 });
+    		init(this, options, instance$t, create_fragment$D, safe_not_equal, { href: 0, use: 1, getElement: 5 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "A",
     			options,
-    			id: create_fragment$B.name
+    			id: create_fragment$D.name
     		});
     	}
 
@@ -4402,9 +4427,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\Button.svelte generated by Svelte v3.38.2 */
-    const file$t = "node_modules\\@smui\\common\\Button.svelte";
+    const file$v = "node_modules\\@smui\\common\\Button.svelte";
 
-    function create_fragment$A(ctx) {
+    function create_fragment$C(ctx) {
     	let button;
     	let useActions_action;
     	let current;
@@ -4424,7 +4449,7 @@ var app = (function () {
     			button = element("button");
     			if (default_slot) default_slot.c();
     			set_attributes(button, button_data);
-    			add_location(button, file$t, 0, 0, 0);
+    			add_location(button, file$v, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4478,7 +4503,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$A.name,
+    		id: create_fragment$C.name,
     		type: "component",
     		source: "",
     		ctx
@@ -4487,7 +4512,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$r($$self, $$props, $$invalidate) {
+    function instance$s($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -4548,13 +4573,13 @@ var app = (function () {
     class Button extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$r, create_fragment$A, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$s, create_fragment$C, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Button",
     			options,
-    			id: create_fragment$A.name
+    			id: create_fragment$C.name
     		});
     	}
 
@@ -4626,7 +4651,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$z(ctx) {
+    function create_fragment$B(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -4667,7 +4692,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: Object.entries(/*internalStyles*/ ctx[14]).map(func$8).concat([/*style*/ ctx[3]]).join(" ")
+    			style: Object.entries(/*internalStyles*/ ctx[14]).map(func$9).concat([/*style*/ ctx[3]]).join(" ")
     		},
     		{
     			"aria-pressed": /*pressed*/ ctx[0] !== /*uninitializedValue*/ ctx[18]
@@ -4773,7 +4798,7 @@ var app = (function () {
     						})
     					},
     					dirty[0] & /*internalStyles, style*/ 16392 && {
-    						style: Object.entries(/*internalStyles*/ ctx[14]).map(func$8).concat([/*style*/ ctx[3]]).join(" ")
+    						style: Object.entries(/*internalStyles*/ ctx[14]).map(func$9).concat([/*style*/ ctx[3]]).join(" ")
     					},
     					dirty[0] & /*pressed, uninitializedValue*/ 262145 && {
     						"aria-pressed": /*pressed*/ ctx[0] !== /*uninitializedValue*/ ctx[18]
@@ -4850,7 +4875,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$z.name,
+    		id: create_fragment$B.name,
     		type: "component",
     		source: "",
     		ctx
@@ -4859,9 +4884,9 @@ var app = (function () {
     	return block;
     }
 
-    const func$8 = ([name, value]) => `${name}: ${value};`;
+    const func$9 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$8($$self, $$props, $$invalidate) {
+    function instance_1$9($$self, $$props, $$invalidate) {
     	let actionProp;
 
     	const omit_props_names = [
@@ -5156,8 +5181,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance_1$8,
-    			create_fragment$z,
+    			instance_1$9,
+    			create_fragment$B,
     			safe_not_equal,
     			{
     				use: 1,
@@ -5181,7 +5206,7 @@ var app = (function () {
     			component: this,
     			tagName: "IconButton",
     			options,
-    			id: create_fragment$z.name
+    			id: create_fragment$B.name
     		});
     	}
 
@@ -5291,9 +5316,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\I.svelte generated by Svelte v3.38.2 */
-    const file$s = "node_modules\\@smui\\common\\I.svelte";
+    const file$u = "node_modules\\@smui\\common\\I.svelte";
 
-    function create_fragment$y(ctx) {
+    function create_fragment$A(ctx) {
     	let i;
     	let useActions_action;
     	let current;
@@ -5313,7 +5338,7 @@ var app = (function () {
     			i = element("i");
     			if (default_slot) default_slot.c();
     			set_attributes(i, i_data);
-    			add_location(i, file$s, 0, 0, 0);
+    			add_location(i, file$u, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -5367,7 +5392,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$y.name,
+    		id: create_fragment$A.name,
     		type: "component",
     		source: "",
     		ctx
@@ -5376,7 +5401,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$q($$self, $$props, $$invalidate) {
+    function instance$r($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -5437,13 +5462,13 @@ var app = (function () {
     class I extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$q, create_fragment$y, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$r, create_fragment$A, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "I",
     			options,
-    			id: create_fragment$y.name
+    			id: create_fragment$A.name
     		});
     	}
 
@@ -5465,9 +5490,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\Svg.svelte generated by Svelte v3.38.2 */
-    const file$r = "node_modules\\@smui\\common\\Svg.svelte";
+    const file$t = "node_modules\\@smui\\common\\Svg.svelte";
 
-    function create_fragment$x(ctx) {
+    function create_fragment$z(ctx) {
     	let svg;
     	let useActions_action;
     	let current;
@@ -5487,7 +5512,7 @@ var app = (function () {
     			svg = svg_element("svg");
     			if (default_slot) default_slot.c();
     			set_svg_attributes(svg, svg_data);
-    			add_location(svg, file$r, 0, 0, 0);
+    			add_location(svg, file$t, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -5541,7 +5566,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$x.name,
+    		id: create_fragment$z.name,
     		type: "component",
     		source: "",
     		ctx
@@ -5550,7 +5575,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$p($$self, $$props, $$invalidate) {
+    function instance$q($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -5611,13 +5636,13 @@ var app = (function () {
     class Svg extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$p, create_fragment$x, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$q, create_fragment$z, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Svg",
     			options,
-    			id: create_fragment$x.name
+    			id: create_fragment$z.name
     		});
     	}
 
@@ -5689,7 +5714,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$w(ctx) {
+    function create_fragment$y(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -5829,7 +5854,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$w.name,
+    		id: create_fragment$y.name,
     		type: "component",
     		source: "",
     		ctx
@@ -5838,7 +5863,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$o($$self, $$props, $$invalidate) {
+    function instance$p($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","on","component","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -5921,7 +5946,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$o, create_fragment$w, safe_not_equal, {
+    		init(this, options, instance$p, create_fragment$y, safe_not_equal, {
     			use: 0,
     			class: 1,
     			on: 2,
@@ -5933,7 +5958,7 @@ var app = (function () {
     			component: this,
     			tagName: "CommonIcon",
     			options,
-    			id: create_fragment$w.name
+    			id: create_fragment$y.name
     		});
     	}
 
@@ -6046,10 +6071,10 @@ var app = (function () {
     /* src\lib\Modal.svelte generated by Svelte v3.38.2 */
 
     const { Object: Object_1$2 } = globals;
-    const file$q = "src\\lib\\Modal.svelte";
+    const file$s = "src\\lib\\Modal.svelte";
 
     // (7:0) {#if $modal && Object.keys($modal).length != 0}
-    function create_if_block$8(ctx) {
+    function create_if_block$a(ctx) {
     	let div1;
     	let div0;
     	let div0_transition;
@@ -6104,17 +6129,17 @@ var app = (function () {
     			main0 = element("main");
     			if (switch_instance) create_component(switch_instance.$$.fragment);
     			attr_dev(div0, "class", "bg-black bg-opacity-75 w-screen h-full z-10 absolute top-0 left-0 bottom-0 right-0 ");
-    			add_location(div0, file$q, 10, 4, 324);
+    			add_location(div0, file$s, 10, 4, 324);
     			attr_dev(h1, "class", "text-2xl");
-    			add_location(h1, file$q, 22, 8, 723);
+    			add_location(h1, file$s, 22, 8, 723);
     			attr_dev(header, "class", "p-2 flex justify-between items-center");
-    			add_location(header, file$q, 21, 6, 659);
+    			add_location(header, file$s, 21, 6, 659);
     			attr_dev(main0, "class", "p-2");
-    			add_location(main0, file$q, 34, 6, 1106);
+    			add_location(main0, file$s, 34, 6, 1106);
     			attr_dev(main1, "class", "bg-white rounded w-6/12 z-20 flex flex-col divide-y divide-gray-600");
-    			add_location(main1, file$q, 17, 4, 521);
+    			add_location(main1, file$s, 17, 4, 521);
     			attr_dev(div1, "class", "fixed top-0 bottom-0 left-0 right-0 overflow-hidden flex justify-center items-center");
-    			add_location(div1, file$q, 7, 2, 211);
+    			add_location(div1, file$s, 7, 2, 211);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div1, anchor);
@@ -6212,7 +6237,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$8.name,
+    		id: create_if_block$a.name,
     		type: "if",
     		source: "(7:0) {#if $modal && Object.keys($modal).length != 0}",
     		ctx
@@ -6248,11 +6273,11 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$v(ctx) {
+    function create_fragment$x(ctx) {
     	let show_if = /*$modal*/ ctx[0] && Object.keys(/*$modal*/ ctx[0]).length != 0;
     	let if_block_anchor;
     	let current;
-    	let if_block = show_if && create_if_block$8(ctx);
+    	let if_block = show_if && create_if_block$a(ctx);
 
     	const block = {
     		c: function create() {
@@ -6278,7 +6303,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$8(ctx);
+    					if_block = create_if_block$a(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
@@ -6310,7 +6335,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$v.name,
+    		id: create_fragment$x.name,
     		type: "component",
     		source: "",
     		ctx
@@ -6319,7 +6344,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$n($$self, $$props, $$invalidate) {
+    function instance$o($$self, $$props, $$invalidate) {
     	let $modal;
     	validate_store(modal, "modal");
     	component_subscribe($$self, modal, $$value => $$invalidate(0, $modal = $$value));
@@ -6346,20 +6371,20 @@ var app = (function () {
     class Modal extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$n, create_fragment$v, safe_not_equal, {});
+    		init(this, options, instance$o, create_fragment$x, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Modal",
     			options,
-    			id: create_fragment$v.name
+    			id: create_fragment$x.name
     		});
     	}
     }
 
     /* src\lib\Datatable.svelte generated by Svelte v3.38.2 */
 
-    const file$p = "src\\lib\\Datatable.svelte";
+    const file$r = "src\\lib\\Datatable.svelte";
     const get_foot_slot_changes = dirty => ({});
     const get_foot_slot_context = ctx => ({});
     const get_head_slot_changes = dirty => ({});
@@ -6367,7 +6392,7 @@ var app = (function () {
     const get_caption_slot_changes = dirty => ({});
     const get_caption_slot_context = ctx => ({});
 
-    function create_fragment$u(ctx) {
+    function create_fragment$w(ctx) {
     	let div;
     	let table;
     	let caption;
@@ -6402,16 +6427,16 @@ var app = (function () {
     			t2 = space();
     			tfoot = element("tfoot");
     			if (foot_slot) foot_slot.c();
-    			add_location(caption, file$p, 3, 2, 107);
+    			add_location(caption, file$r, 3, 4, 93);
     			attr_dev(thead, "class", "border-b border-black");
-    			add_location(thead, file$p, 4, 2, 153);
+    			add_location(thead, file$r, 4, 4, 141);
     			attr_dev(tbody, "class", "");
-    			add_location(tbody, file$p, 7, 2, 231);
-    			add_location(tfoot, file$p, 10, 2, 276);
+    			add_location(tbody, file$r, 7, 4, 226);
+    			add_location(tfoot, file$r, 10, 4, 278);
     			attr_dev(table, "class", "w-full");
-    			add_location(table, file$p, 2, 1, 81);
-    			attr_dev(div, "class", "md:w-10/12 w-full");
-    			add_location(div, file$p, 1, 0, 47);
+    			add_location(table, file$r, 2, 2, 65);
+    			attr_dev(div, "class", "");
+    			add_location(div, file$r, 1, 0, 47);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -6499,7 +6524,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$u.name,
+    		id: create_fragment$w.name,
     		type: "component",
     		source: "",
     		ctx
@@ -6508,7 +6533,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$m($$self, $$props, $$invalidate) {
+    function instance$n($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Datatable", slots, ['caption','head','default','foot']);
     	const writable_props = [];
@@ -6527,13 +6552,13 @@ var app = (function () {
     class Datatable extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$m, create_fragment$u, safe_not_equal, {});
+    		init(this, options, instance$n, create_fragment$w, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Datatable",
     			options,
-    			id: create_fragment$u.name
+    			id: create_fragment$w.name
     		});
     	}
     }
@@ -6825,10 +6850,10 @@ var app = (function () {
      * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
      * THE SOFTWARE.
      */
-    var strings$5 = {
+    var strings$6 = {
         NOTCH_ELEMENT_SELECTOR: '.mdc-notched-outline__notch',
     };
-    var numbers$5 = {
+    var numbers$6 = {
         // This should stay in sync with $mdc-notched-outline-padding * 2.
         NOTCH_ELEMENT_PADDING: 8,
     };
@@ -6867,7 +6892,7 @@ var app = (function () {
         }
         Object.defineProperty(MDCNotchedOutlineFoundation, "strings", {
             get: function () {
-                return strings$5;
+                return strings$6;
             },
             enumerable: false,
             configurable: true
@@ -6881,7 +6906,7 @@ var app = (function () {
         });
         Object.defineProperty(MDCNotchedOutlineFoundation, "numbers", {
             get: function () {
-                return numbers$5;
+                return numbers$6;
             },
             enumerable: false,
             configurable: true
@@ -6909,7 +6934,7 @@ var app = (function () {
         MDCNotchedOutlineFoundation.prototype.notch = function (notchWidth) {
             var OUTLINE_NOTCHED = MDCNotchedOutlineFoundation.cssClasses.OUTLINE_NOTCHED;
             if (notchWidth > 0) {
-                notchWidth += numbers$5.NOTCH_ELEMENT_PADDING; // Add padding from left/right.
+                notchWidth += numbers$6.NOTCH_ELEMENT_PADDING; // Add padding from left/right.
             }
             this.adapter.setNotchWidthProperty(notchWidth);
             this.adapter.addClass(OUTLINE_NOTCHED);
@@ -6947,7 +6972,7 @@ var app = (function () {
      * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
      * THE SOFTWARE.
      */
-    var strings$4 = {
+    var strings$5 = {
         ARIA_CONTROLS: 'aria-controls',
         ARIA_DESCRIBEDBY: 'aria-describedby',
         INPUT_SELECTOR: '.mdc-text-field__input',
@@ -6972,7 +6997,7 @@ var app = (function () {
         WITH_LEADING_ICON: 'mdc-text-field--with-leading-icon',
         WITH_TRAILING_ICON: 'mdc-text-field--with-trailing-icon',
     };
-    var numbers$4 = {
+    var numbers$5 = {
         LABEL_SCALE: 0.75,
     };
     /**
@@ -7050,14 +7075,14 @@ var app = (function () {
         });
         Object.defineProperty(MDCTextFieldFoundation, "strings", {
             get: function () {
-                return strings$4;
+                return strings$5;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(MDCTextFieldFoundation, "numbers", {
             get: function () {
-                return numbers$4;
+                return numbers$5;
             },
             enumerable: false,
             configurable: true
@@ -7199,7 +7224,7 @@ var app = (function () {
                 return;
             }
             if (openNotch) {
-                var labelWidth = this.adapter.getLabelWidth() * numbers$4.LABEL_SCALE;
+                var labelWidth = this.adapter.getLabelWidth() * numbers$5.LABEL_SCALE;
                 this.adapter.notchOutline(labelWidth);
             }
             else {
@@ -7442,10 +7467,10 @@ var app = (function () {
                 var helperTextVisible = this.helperText_.isVisible();
                 var helperTextId = this.helperText_.getId();
                 if (helperTextVisible && helperTextId) {
-                    this.adapter.setInputAttr(strings$4.ARIA_DESCRIBEDBY, helperTextId);
+                    this.adapter.setInputAttr(strings$5.ARIA_DESCRIBEDBY, helperTextId);
                 }
                 else {
-                    this.adapter.removeInputAttr(strings$4.ARIA_DESCRIBEDBY);
+                    this.adapter.removeInputAttr(strings$5.ARIA_DESCRIBEDBY);
                 }
             }
         };
@@ -7520,7 +7545,7 @@ var app = (function () {
 
     /* node_modules\@smui\common\ContextFragment.svelte generated by Svelte v3.38.2 */
 
-    function create_fragment$t(ctx) {
+    function create_fragment$v(ctx) {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[4].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[3], null);
@@ -7562,7 +7587,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$t.name,
+    		id: create_fragment$v.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7571,7 +7596,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$l($$self, $$props, $$invalidate) {
+    function instance$m($$self, $$props, $$invalidate) {
     	let $storeValue;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("ContextFragment", slots, ['default']);
@@ -7629,13 +7654,13 @@ var app = (function () {
     class ContextFragment extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$l, create_fragment$t, safe_not_equal, { key: 1, value: 2 });
+    		init(this, options, instance$m, create_fragment$v, safe_not_equal, { key: 1, value: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "ContextFragment",
     			options,
-    			id: create_fragment$t.name
+    			id: create_fragment$v.name
     		});
 
     		const { ctx } = this.$$;
@@ -7669,10 +7694,10 @@ var app = (function () {
 
     /* node_modules\@smui\floating-label\FloatingLabel.svelte generated by Svelte v3.38.2 */
 
-    const file$o = "node_modules\\@smui\\floating-label\\FloatingLabel.svelte";
+    const file$q = "node_modules\\@smui\\floating-label\\FloatingLabel.svelte";
 
     // (19:0) {:else}
-    function create_else_block$3(ctx) {
+    function create_else_block$5(ctx) {
     	let label;
     	let label_class_value;
     	let label_style_value;
@@ -7695,7 +7720,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: label_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func_1$1).concat([/*style*/ ctx[4]]).join(" ")
+    			style: label_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func_1$2).concat([/*style*/ ctx[4]]).join(" ")
     		},
     		{
     			for: label_for_value = /*forId*/ ctx[5] || (/*inputProps*/ ctx[11]
@@ -7716,7 +7741,7 @@ var app = (function () {
     			label = element("label");
     			if (default_slot) default_slot.c();
     			set_attributes(label, label_data);
-    			add_location(label, file$o, 19, 2, 494);
+    			add_location(label, file$q, 19, 2, 494);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label, anchor);
@@ -7752,7 +7777,7 @@ var app = (function () {
     					"mdc-floating-label--required": /*required*/ ctx[1],
     					.../*internalClasses*/ ctx[8]
     				}))) && { class: label_class_value },
-    				(!current || dirty & /*internalStyles, style*/ 528 && label_style_value !== (label_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func_1$1).concat([/*style*/ ctx[4]]).join(" "))) && { style: label_style_value },
+    				(!current || dirty & /*internalStyles, style*/ 528 && label_style_value !== (label_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func_1$2).concat([/*style*/ ctx[4]]).join(" "))) && { style: label_style_value },
     				(!current || dirty & /*forId*/ 32 && label_for_value !== (label_for_value = /*forId*/ ctx[5] || (/*inputProps*/ ctx[11]
     				? /*inputProps*/ ctx[11].id
     				: null))) && { for: label_for_value },
@@ -7781,7 +7806,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$3.name,
+    		id: create_else_block$5.name,
     		type: "else",
     		source: "(19:0) {:else}",
     		ctx
@@ -7791,7 +7816,7 @@ var app = (function () {
     }
 
     // (1:0) {#if wrapped}
-    function create_if_block$7(ctx) {
+    function create_if_block$9(ctx) {
     	let span;
     	let span_class_value;
     	let span_style_value;
@@ -7813,7 +7838,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: span_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func$7).concat([/*style*/ ctx[4]]).join(" ")
+    			style: span_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func$8).concat([/*style*/ ctx[4]]).join(" ")
     		},
     		/*$$restProps*/ ctx[12]
     	];
@@ -7829,7 +7854,7 @@ var app = (function () {
     			span = element("span");
     			if (default_slot) default_slot.c();
     			set_attributes(span, span_data);
-    			add_location(span, file$o, 1, 2, 16);
+    			add_location(span, file$q, 1, 2, 16);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -7865,7 +7890,7 @@ var app = (function () {
     					"mdc-floating-label--required": /*required*/ ctx[1],
     					.../*internalClasses*/ ctx[8]
     				}))) && { class: span_class_value },
-    				(!current || dirty & /*internalStyles, style*/ 528 && span_style_value !== (span_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func$7).concat([/*style*/ ctx[4]]).join(" "))) && { style: span_style_value },
+    				(!current || dirty & /*internalStyles, style*/ 528 && span_style_value !== (span_style_value = Object.entries(/*internalStyles*/ ctx[9]).map(func$8).concat([/*style*/ ctx[4]]).join(" "))) && { style: span_style_value },
     				dirty & /*$$restProps*/ 4096 && /*$$restProps*/ ctx[12]
     			]));
 
@@ -7891,7 +7916,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$7.name,
+    		id: create_if_block$9.name,
     		type: "if",
     		source: "(1:0) {#if wrapped}",
     		ctx
@@ -7900,12 +7925,12 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$s(ctx) {
+    function create_fragment$u(ctx) {
     	let current_block_type_index;
     	let if_block;
     	let if_block_anchor;
     	let current;
-    	const if_block_creators = [create_if_block$7, create_else_block$3];
+    	const if_block_creators = [create_if_block$9, create_else_block$5];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -7973,7 +7998,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$s.name,
+    		id: create_fragment$u.name,
     		type: "component",
     		source: "",
     		ctx
@@ -7982,10 +8007,10 @@ var app = (function () {
     	return block;
     }
 
-    const func$7 = ([name, value]) => `${name}: ${value};`;
-    const func_1$1 = ([name, value]) => `${name}: ${value};`;
+    const func$8 = ([name, value]) => `${name}: ${value};`;
+    const func_1$2 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$7($$self, $$props, $$invalidate) {
+    function instance_1$8($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","style","for","floatAbove","required","wrapped","shake","float","setRequired","getWidth","getElement"
     	];
@@ -8227,7 +8252,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance_1$7, create_fragment$s, safe_not_equal, {
+    		init(this, options, instance_1$8, create_fragment$u, safe_not_equal, {
     			use: 2,
     			class: 3,
     			style: 4,
@@ -8246,7 +8271,7 @@ var app = (function () {
     			component: this,
     			tagName: "FloatingLabel",
     			options,
-    			id: create_fragment$s.name
+    			id: create_fragment$u.name
     		});
     	}
 
@@ -8349,9 +8374,9 @@ var app = (function () {
 
     /* node_modules\@smui\line-ripple\LineRipple.svelte generated by Svelte v3.38.2 */
 
-    const file$n = "node_modules\\@smui\\line-ripple\\LineRipple.svelte";
+    const file$p = "node_modules\\@smui\\line-ripple\\LineRipple.svelte";
 
-    function create_fragment$r(ctx) {
+    function create_fragment$t(ctx) {
     	let div;
     	let div_class_value;
     	let div_style_value;
@@ -8369,7 +8394,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: div_style_value = Object.entries(/*internalStyles*/ ctx[6]).map(func$6).concat([/*style*/ ctx[2]]).join(" ")
+    			style: div_style_value = Object.entries(/*internalStyles*/ ctx[6]).map(func$7).concat([/*style*/ ctx[2]]).join(" ")
     		},
     		/*$$restProps*/ ctx[8]
     	];
@@ -8384,7 +8409,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			set_attributes(div, div_data);
-    			add_location(div, file$n, 0, 0, 0);
+    			add_location(div, file$p, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8410,7 +8435,7 @@ var app = (function () {
     					"mdc-line-ripple--active": /*active*/ ctx[3],
     					.../*internalClasses*/ ctx[5]
     				})) && { class: div_class_value },
-    				dirty & /*internalStyles, style*/ 68 && div_style_value !== (div_style_value = Object.entries(/*internalStyles*/ ctx[6]).map(func$6).concat([/*style*/ ctx[2]]).join(" ")) && { style: div_style_value },
+    				dirty & /*internalStyles, style*/ 68 && div_style_value !== (div_style_value = Object.entries(/*internalStyles*/ ctx[6]).map(func$7).concat([/*style*/ ctx[2]]).join(" ")) && { style: div_style_value },
     				dirty & /*$$restProps*/ 256 && /*$$restProps*/ ctx[8]
     			]));
 
@@ -8428,7 +8453,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$r.name,
+    		id: create_fragment$t.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8437,9 +8462,9 @@ var app = (function () {
     	return block;
     }
 
-    const func$6 = ([name, value]) => `${name}: ${value};`;
+    const func$7 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$6($$self, $$props, $$invalidate) {
+    function instance_1$7($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","style","active","activate","deactivate","setRippleCenter","getElement"
     	];
@@ -8598,7 +8623,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance_1$6, create_fragment$r, safe_not_equal, {
+    		init(this, options, instance_1$7, create_fragment$t, safe_not_equal, {
     			use: 0,
     			class: 1,
     			style: 2,
@@ -8613,7 +8638,7 @@ var app = (function () {
     			component: this,
     			tagName: "LineRipple",
     			options,
-    			id: create_fragment$r.name
+    			id: create_fragment$t.name
     		});
     	}
 
@@ -8684,10 +8709,10 @@ var app = (function () {
 
     /* node_modules\@smui\notched-outline\NotchedOutline.svelte generated by Svelte v3.38.2 */
 
-    const file$m = "node_modules\\@smui\\notched-outline\\NotchedOutline.svelte";
+    const file$o = "node_modules\\@smui\\notched-outline\\NotchedOutline.svelte";
 
     // (17:2) {#if !noLabel}
-    function create_if_block$6(ctx) {
+    function create_if_block$8(ctx) {
     	let div;
     	let div_style_value;
     	let current;
@@ -8699,8 +8724,8 @@ var app = (function () {
     			div = element("div");
     			if (default_slot) default_slot.c();
     			attr_dev(div, "class", "mdc-notched-outline__notch");
-    			attr_dev(div, "style", div_style_value = Object.entries(/*notchStyles*/ ctx[7]).map(func$5).join(" "));
-    			add_location(div, file$m, 17, 4, 500);
+    			attr_dev(div, "style", div_style_value = Object.entries(/*notchStyles*/ ctx[7]).map(func$6).join(" "));
+    			add_location(div, file$o, 17, 4, 500);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -8718,7 +8743,7 @@ var app = (function () {
     				}
     			}
 
-    			if (!current || dirty & /*notchStyles*/ 128 && div_style_value !== (div_style_value = Object.entries(/*notchStyles*/ ctx[7]).map(func$5).join(" "))) {
+    			if (!current || dirty & /*notchStyles*/ 128 && div_style_value !== (div_style_value = Object.entries(/*notchStyles*/ ctx[7]).map(func$6).join(" "))) {
     				attr_dev(div, "style", div_style_value);
     			}
     		},
@@ -8739,7 +8764,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$6.name,
+    		id: create_if_block$8.name,
     		type: "if",
     		source: "(17:2) {#if !noLabel}",
     		ctx
@@ -8748,7 +8773,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$q(ctx) {
+    function create_fragment$s(ctx) {
     	let div2;
     	let div0;
     	let t0;
@@ -8759,7 +8784,7 @@ var app = (function () {
     	let current;
     	let mounted;
     	let dispose;
-    	let if_block = !/*noLabel*/ ctx[3] && create_if_block$6(ctx);
+    	let if_block = !/*noLabel*/ ctx[3] && create_if_block$8(ctx);
 
     	let div2_levels = [
     		{
@@ -8789,11 +8814,11 @@ var app = (function () {
     			t1 = space();
     			div1 = element("div");
     			attr_dev(div0, "class", "mdc-notched-outline__leading");
-    			add_location(div0, file$m, 15, 2, 434);
+    			add_location(div0, file$o, 15, 2, 434);
     			attr_dev(div1, "class", "mdc-notched-outline__trailing");
-    			add_location(div1, file$m, 26, 2, 703);
+    			add_location(div1, file$o, 26, 2, 703);
     			set_attributes(div2, div2_data);
-    			add_location(div2, file$m, 0, 0, 0);
+    			add_location(div2, file$o, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -8828,7 +8853,7 @@ var app = (function () {
     						transition_in(if_block, 1);
     					}
     				} else {
-    					if_block = create_if_block$6(ctx);
+    					if_block = create_if_block$8(ctx);
     					if_block.c();
     					transition_in(if_block, 1);
     					if_block.m(div2, t1);
@@ -8876,7 +8901,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$q.name,
+    		id: create_fragment$s.name,
     		type: "component",
     		source: "",
     		ctx
@@ -8885,9 +8910,9 @@ var app = (function () {
     	return block;
     }
 
-    const func$5 = ([name, value]) => `${name}: ${value};`;
+    const func$6 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$5($$self, $$props, $$invalidate) {
+    function instance_1$6($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","notched","noLabel","notch","closeNotch","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -9063,7 +9088,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance_1$5, create_fragment$q, safe_not_equal, {
+    		init(this, options, instance_1$6, create_fragment$s, safe_not_equal, {
     			use: 0,
     			class: 1,
     			notched: 2,
@@ -9077,7 +9102,7 @@ var app = (function () {
     			component: this,
     			tagName: "NotchedOutline",
     			options,
-    			id: create_fragment$q.name
+    			id: create_fragment$s.name
     		});
     	}
 
@@ -9139,9 +9164,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\Div.svelte generated by Svelte v3.38.2 */
-    const file$l = "node_modules\\@smui\\common\\Div.svelte";
+    const file$n = "node_modules\\@smui\\common\\Div.svelte";
 
-    function create_fragment$p(ctx) {
+    function create_fragment$r(ctx) {
     	let div;
     	let useActions_action;
     	let current;
@@ -9161,7 +9186,7 @@ var app = (function () {
     			div = element("div");
     			if (default_slot) default_slot.c();
     			set_attributes(div, div_data);
-    			add_location(div, file$l, 0, 0, 0);
+    			add_location(div, file$n, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9215,7 +9240,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$p.name,
+    		id: create_fragment$r.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9224,7 +9249,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$k($$self, $$props, $$invalidate) {
+    function instance$l($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -9285,13 +9310,13 @@ var app = (function () {
     class Div extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$k, create_fragment$p, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$l, create_fragment$r, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Div",
     			options,
-    			id: create_fragment$p.name
+    			id: create_fragment$r.name
     		});
     	}
 
@@ -9318,9 +9343,9 @@ var app = (function () {
     });
 
     /* node_modules\@smui\common\Span.svelte generated by Svelte v3.38.2 */
-    const file$k = "node_modules\\@smui\\common\\Span.svelte";
+    const file$m = "node_modules\\@smui\\common\\Span.svelte";
 
-    function create_fragment$o(ctx) {
+    function create_fragment$q(ctx) {
     	let span;
     	let useActions_action;
     	let current;
@@ -9340,7 +9365,7 @@ var app = (function () {
     			span = element("span");
     			if (default_slot) default_slot.c();
     			set_attributes(span, span_data);
-    			add_location(span, file$k, 0, 0, 0);
+    			add_location(span, file$m, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9394,7 +9419,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$o.name,
+    		id: create_fragment$q.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9403,7 +9428,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$j($$self, $$props, $$invalidate) {
+    function instance$k($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -9464,13 +9489,13 @@ var app = (function () {
     class Span extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$j, create_fragment$o, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$k, create_fragment$q, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Span",
     			options,
-    			id: create_fragment$o.name
+    			id: create_fragment$q.name
     		});
     	}
 
@@ -9503,9 +9528,9 @@ var app = (function () {
 
     /* node_modules\@smui\textfield\Input.svelte generated by Svelte v3.38.2 */
 
-    const file$j = "node_modules\\@smui\\textfield\\Input.svelte";
+    const file$l = "node_modules\\@smui\\textfield\\Input.svelte";
 
-    function create_fragment$n(ctx) {
+    function create_fragment$p(ctx) {
     	let input;
     	let input_class_value;
     	let useActions_action;
@@ -9536,7 +9561,7 @@ var app = (function () {
     		c: function create() {
     			input = element("input");
     			set_attributes(input, input_data);
-    			add_location(input, file$j, 0, 0, 0);
+    			add_location(input, file$l, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -9584,7 +9609,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$n.name,
+    		id: create_fragment$p.name,
     		type: "component",
     		source: "",
     		ctx
@@ -9603,7 +9628,7 @@ var app = (function () {
     	return +value;
     }
 
-    function instance$i($$self, $$props, $$invalidate) {
+    function instance$j($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","type","placeholder","value","files","dirty","invalid","updateInvalid","getAttr","addAttr","removeAttr","focus","getElement"
     	];
@@ -9794,7 +9819,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$i, create_fragment$n, safe_not_equal, {
+    		init(this, options, instance$j, create_fragment$p, safe_not_equal, {
     			use: 0,
     			class: 1,
     			type: 2,
@@ -9815,7 +9840,7 @@ var app = (function () {
     			component: this,
     			tagName: "Input",
     			options,
-    			id: create_fragment$n.name
+    			id: create_fragment$p.name
     		});
     	}
 
@@ -9934,9 +9959,9 @@ var app = (function () {
 
     /* node_modules\@smui\textfield\Textarea.svelte generated by Svelte v3.38.2 */
 
-    const file$i = "node_modules\\@smui\\textfield\\Textarea.svelte";
+    const file$k = "node_modules\\@smui\\textfield\\Textarea.svelte";
 
-    function create_fragment$m(ctx) {
+    function create_fragment$o(ctx) {
     	let textarea;
     	let textarea_class_value;
     	let textarea_style_value;
@@ -9968,7 +9993,7 @@ var app = (function () {
     		c: function create() {
     			textarea = element("textarea");
     			set_attributes(textarea, textarea_data);
-    			add_location(textarea, file$i, 0, 0, 0);
+    			add_location(textarea, file$k, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -10018,7 +10043,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$m.name,
+    		id: create_fragment$o.name,
     		type: "component",
     		source: "",
     		ctx
@@ -10027,7 +10052,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$h($$self, $$props, $$invalidate) {
+    function instance$i($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","style","value","dirty","invalid","updateInvalid","resizable","getAttr","addAttr","removeAttr","focus","getElement"
     	];
@@ -10182,7 +10207,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$h, create_fragment$m, safe_not_equal, {
+    		init(this, options, instance$i, create_fragment$o, safe_not_equal, {
     			use: 1,
     			class: 2,
     			style: 3,
@@ -10202,7 +10227,7 @@ var app = (function () {
     			component: this,
     			tagName: "Textarea",
     			options,
-    			id: create_fragment$m.name
+    			id: create_fragment$o.name
     		});
     	}
 
@@ -10312,7 +10337,7 @@ var app = (function () {
     }
 
     /* node_modules\@smui\textfield\Textfield.svelte generated by Svelte v3.38.2 */
-    const file$h = "node_modules\\@smui\\textfield\\Textfield.svelte";
+    const file$j = "node_modules\\@smui\\textfield\\Textfield.svelte";
     const get_helper_slot_changes = dirty => ({});
     const get_helper_slot_context = ctx => ({});
     const get_ripple_slot_changes = dirty => ({});
@@ -10339,7 +10364,7 @@ var app = (function () {
     const get_label_slot_context = ctx => ({});
 
     // (164:0) {:else}
-    function create_else_block_1$1(ctx) {
+    function create_else_block_1$2(ctx) {
     	let div;
     	let t0;
     	let contextfragment0;
@@ -10401,7 +10426,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: div_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func_1).concat([/*style*/ ctx[10]]).join(" ")
+    			style: div_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func_1$1).concat([/*style*/ ctx[10]]).join(" ")
     		},
     		exclude(/*$$restProps*/ ctx[42], ["input$", "label$", "ripple$", "outline$", "helperLine$"])
     	];
@@ -10425,7 +10450,7 @@ var app = (function () {
     			t3 = space();
     			if (ripple_slot) ripple_slot.c();
     			set_attributes(div, div_data);
-    			add_location(div, file$h, 164, 2, 5265);
+    			add_location(div, file$j, 164, 2, 5265);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -10523,7 +10548,7 @@ var app = (function () {
     					"mdc-text-field--invalid": /*invalid*/ ctx[2] !== /*uninitializedValue*/ ctx[36] && /*invalid*/ ctx[2],
     					.../*internalClasses*/ ctx[26]
     				}))) && { class: div_class_value },
-    				(!current || dirty[0] & /*internalStyles, style*/ 134218752 && div_style_value !== (div_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func_1).concat([/*style*/ ctx[10]]).join(" "))) && { style: div_style_value },
+    				(!current || dirty[0] & /*internalStyles, style*/ 134218752 && div_style_value !== (div_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func_1$1).concat([/*style*/ ctx[10]]).join(" "))) && { style: div_style_value },
     				dirty[1] & /*$$restProps*/ 2048 && exclude(/*$$restProps*/ ctx[42], ["input$", "label$", "ripple$", "outline$", "helperLine$"])
     			]));
 
@@ -10569,7 +10594,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block_1$1.name,
+    		id: create_else_block_1$2.name,
     		type: "else",
     		source: "(164:0) {:else}",
     		ctx
@@ -10579,7 +10604,7 @@ var app = (function () {
     }
 
     // (1:0) {#if valued}
-    function create_if_block_1$1(ctx) {
+    function create_if_block_1$3(ctx) {
     	let label_1;
     	let t0;
     	let t1;
@@ -10614,7 +10639,7 @@ var app = (function () {
 
     	const default_slot_template = /*#slots*/ ctx[50].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[89], null);
-    	const if_block_creators = [create_if_block_3$1, create_else_block$2];
+    	const if_block_creators = [create_if_block_3$1, create_else_block$4];
     	const if_blocks = [];
 
     	function select_block_type_1(ctx, dirty) {
@@ -10635,7 +10660,7 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	let if_block3 = !/*textarea*/ ctx[14] && /*variant*/ ctx[15] !== "outlined" && /*ripple*/ ctx[11] && create_if_block_2$1(ctx);
+    	let if_block3 = !/*textarea*/ ctx[14] && /*variant*/ ctx[15] !== "outlined" && /*ripple*/ ctx[11] && create_if_block_2$2(ctx);
 
     	let label_1_levels = [
     		{
@@ -10661,7 +10686,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: label_1_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func$4).concat([/*style*/ ctx[10]]).join(" ")
+    			style: label_1_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func$5).concat([/*style*/ ctx[10]]).join(" ")
     		},
     		{
     			for: label_1_for_value = /* suppress a11y warning, since this is wrapped */ null
@@ -10692,7 +10717,7 @@ var app = (function () {
     			t5 = space();
     			if (if_block3) if_block3.c();
     			set_attributes(label_1, label_1_data);
-    			add_location(label_1, file$h, 1, 2, 15);
+    			add_location(label_1, file$j, 1, 2, 15);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, label_1, anchor);
@@ -10844,7 +10869,7 @@ var app = (function () {
     						transition_in(if_block3, 1);
     					}
     				} else {
-    					if_block3 = create_if_block_2$1(ctx);
+    					if_block3 = create_if_block_2$2(ctx);
     					if_block3.c();
     					transition_in(if_block3, 1);
     					if_block3.m(label_1, null);
@@ -10880,7 +10905,7 @@ var app = (function () {
     					"mdc-text-field--invalid": /*invalid*/ ctx[2] !== /*uninitializedValue*/ ctx[36] && /*invalid*/ ctx[2],
     					.../*internalClasses*/ ctx[26]
     				}))) && { class: label_1_class_value },
-    				(!current || dirty[0] & /*internalStyles, style*/ 134218752 && label_1_style_value !== (label_1_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func$4).concat([/*style*/ ctx[10]]).join(" "))) && { style: label_1_style_value },
+    				(!current || dirty[0] & /*internalStyles, style*/ 134218752 && label_1_style_value !== (label_1_style_value = Object.entries(/*internalStyles*/ ctx[27]).map(func$5).concat([/*style*/ ctx[10]]).join(" "))) && { style: label_1_style_value },
     				{ for: label_1_for_value },
     				dirty[1] & /*$$restProps*/ 2048 && exclude(/*$$restProps*/ ctx[42], ["input$", "label$", "ripple$", "outline$", "helperLine$"])
     			]));
@@ -10936,7 +10961,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1$1.name,
+    		id: create_if_block_1$3.name,
     		type: "if",
     		source: "(1:0) {#if valued}",
     		ctx
@@ -11136,7 +11161,7 @@ var app = (function () {
     		c: function create() {
     			span = element("span");
     			attr_dev(span, "class", "mdc-text-field__ripple");
-    			add_location(span, file$h, 64, 8, 2304);
+    			add_location(span, file$j, 64, 8, 2304);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -11629,7 +11654,7 @@ var app = (function () {
     }
 
     // (125:4) {:else}
-    function create_else_block$2(ctx) {
+    function create_else_block$4(ctx) {
     	let t0;
     	let t1;
     	let input_1;
@@ -11873,7 +11898,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$2.name,
+    		id: create_else_block$4.name,
     		type: "else",
     		source: "(125:4) {:else}",
     		ctx
@@ -11955,7 +11980,7 @@ var app = (function () {
     				"mdc-text-field__resizer": !("input$resizable" in /*$$restProps*/ ctx[42]) || /*$$restProps*/ ctx[42].input$resizable
     			}));
 
-    			add_location(span, file$h, 100, 6, 3548);
+    			add_location(span, file$j, 100, 6, 3548);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -12262,7 +12287,7 @@ var app = (function () {
     }
 
     // (157:4) {#if !textarea && variant !== 'outlined' && ripple}
-    function create_if_block_2$1(ctx) {
+    function create_if_block_2$2(ctx) {
     	let lineripple;
     	let current;
     	const lineripple_spread_levels = [prefixFilter(/*$$restProps*/ ctx[42], "ripple$")];
@@ -12307,7 +12332,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2$1.name,
+    		id: create_if_block_2$2.name,
     		type: "if",
     		source: "(157:4) {#if !textarea && variant !== 'outlined' && ripple}",
     		ctx
@@ -12317,7 +12342,7 @@ var app = (function () {
     }
 
     // (219:0) {#if $$slots.helper}
-    function create_if_block$5(ctx) {
+    function create_if_block$7(ctx) {
     	let helperline;
     	let current;
     	const helperline_spread_levels = [prefixFilter(/*$$restProps*/ ctx[42], "helperLine$")];
@@ -12373,7 +12398,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$5.name,
+    		id: create_if_block$7.name,
     		type: "if",
     		source: "(219:0) {#if $$slots.helper}",
     		ctx
@@ -12431,13 +12456,13 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$l(ctx) {
+    function create_fragment$n(ctx) {
     	let current_block_type_index;
     	let if_block0;
     	let t;
     	let if_block1_anchor;
     	let current;
-    	const if_block_creators = [create_if_block_1$1, create_else_block_1$1];
+    	const if_block_creators = [create_if_block_1$3, create_else_block_1$2];
     	const if_blocks = [];
 
     	function select_block_type(ctx, dirty) {
@@ -12447,7 +12472,7 @@ var app = (function () {
 
     	current_block_type_index = select_block_type(ctx);
     	if_block0 = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
-    	let if_block1 = /*$$slots*/ ctx[41].helper && create_if_block$5(ctx);
+    	let if_block1 = /*$$slots*/ ctx[41].helper && create_if_block$7(ctx);
 
     	const block = {
     		c: function create() {
@@ -12501,7 +12526,7 @@ var app = (function () {
     						transition_in(if_block1, 1);
     					}
     				} else {
-    					if_block1 = create_if_block$5(ctx);
+    					if_block1 = create_if_block$7(ctx);
     					if_block1.c();
     					transition_in(if_block1, 1);
     					if_block1.m(if_block1_anchor.parentNode, if_block1_anchor);
@@ -12537,7 +12562,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$l.name,
+    		id: create_fragment$n.name,
     		type: "component",
     		source: "",
     		ctx
@@ -12546,10 +12571,10 @@ var app = (function () {
     	return block;
     }
 
-    const func$4 = ([name, value]) => `${name}: ${value};`;
-    const func_1 = ([name, value]) => `${name}: ${value};`;
+    const func$5 = ([name, value]) => `${name}: ${value};`;
+    const func_1$1 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$4($$self, $$props, $$invalidate) {
+    function instance_1$5($$self, $$props, $$invalidate) {
     	let valued;
     	let inputElement;
 
@@ -13207,8 +13232,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance_1$4,
-    			create_fragment$l,
+    			instance_1$5,
+    			create_fragment$n,
     			safe_not_equal,
     			{
     				use: 8,
@@ -13248,7 +13273,7 @@ var app = (function () {
     			component: this,
     			tagName: "Textfield",
     			options,
-    			id: create_fragment$l.name
+    			id: create_fragment$n.name
     		});
     	}
 
@@ -13488,7 +13513,7 @@ var app = (function () {
     /* src\Foodtable.svelte generated by Svelte v3.38.2 */
 
     const { Object: Object_1$1, window: window_1$1 } = globals;
-    const file$g = "src\\Foodtable.svelte";
+    const file$i = "src\\Foodtable.svelte";
 
     function get_each_context_1(ctx, list, i) {
     	const child_ctx = ctx.slice();
@@ -13512,7 +13537,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (206:6) {#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
+    // (208:6) {#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
     function create_if_block_6(ctx) {
     	let tr;
     	let t;
@@ -13548,7 +13573,7 @@ var app = (function () {
 			: /*styling*/ ctx[4].odd?.text};
 					`);
 
-    			add_location(tr, file$g, 207, 8, 7617);
+    			add_location(tr, file$i, 209, 8, 7648);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -13627,14 +13652,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(206:6) {#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}",
+    		source: "(208:6) {#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (216:12) {#if !blacklist.includes(key)}
+    // (218:12) {#if !blacklist.includes(key)}
     function create_if_block_7(ctx) {
     	let td;
     	let show_if;
@@ -13646,7 +13671,7 @@ var app = (function () {
     		return /*func_1*/ ctx[16](/*key*/ ctx[29], ...args);
     	}
 
-    	const if_block_creators = [create_if_block_8, create_else_block_1];
+    	const if_block_creators = [create_if_block_8, create_else_block_1$1];
     	const if_blocks = [];
 
     	function select_block_type_1(ctx, dirty) {
@@ -13663,7 +13688,7 @@ var app = (function () {
     			td = element("td");
     			if_block.c();
     			attr_dev(td, "class", "svelte-gcxbyn");
-    			add_location(td, file$g, 217, 14, 8029);
+    			add_location(td, file$i, 219, 14, 8060);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
@@ -13717,15 +13742,15 @@ var app = (function () {
     		block,
     		id: create_if_block_7.name,
     		type: "if",
-    		source: "(216:12) {#if !blacklist.includes(key)}",
+    		source: "(218:12) {#if !blacklist.includes(key)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (235:16) {:else}
-    function create_else_block_1(ctx) {
+    // (237:16) {:else}
+    function create_else_block_1$1(ctx) {
     	let t_value = /*dataRow*/ ctx[32][/*key*/ ctx[29]] + "";
     	let t;
 
@@ -13748,16 +13773,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block_1.name,
+    		id: create_else_block_1$1.name,
     		type: "else",
-    		source: "(235:16) {:else}",
+    		source: "(237:16) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (220:16) {#if dataTypes.find((item) => item.key === key)}
+    // (222:16) {#if dataTypes.find((item) => item.key === key)}
     function create_if_block_8(ctx) {
     	let show_if = /*dataTypes*/ ctx[10].find(func_2).type == "number";
     	let if_block_anchor;
@@ -13825,14 +13850,14 @@ var app = (function () {
     		block,
     		id: create_if_block_8.name,
     		type: "if",
-    		source: "(220:16) {#if dataTypes.find((item) => item.key === key)}",
+    		source: "(222:16) {#if dataTypes.find((item) => item.key === key)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (221:18) {#if dataTypes.find((item) => item.key === key).type == "number"}
+    // (223:18) {#if dataTypes.find((item) => item.key === key).type == "number"}
     function create_if_block_9(ctx) {
     	let textfield;
     	let updating_value;
@@ -13893,14 +13918,14 @@ var app = (function () {
     		block,
     		id: create_if_block_9.name,
     		type: "if",
-    		source: "(221:18) {#if dataTypes.find((item) => item.key === key).type == \\\"number\\\"}",
+    		source: "(223:18) {#if dataTypes.find((item) => item.key === key).type == \\\"number\\\"}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (214:10) {#each Object.keys(dataRow) as key}
+    // (216:10) {#each Object.keys(dataRow) as key}
     function create_each_block_2(ctx) {
     	let show_if = !/*blacklist*/ ctx[0].includes(/*key*/ ctx[29]);
     	let if_block_anchor;
@@ -13962,14 +13987,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(214:10) {#each Object.keys(dataRow) as key}",
+    		source: "(216:10) {#each Object.keys(dataRow) as key}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (204:4) {#each displayData as dataRow, i}
+    // (206:4) {#each displayData as dataRow, i}
     function create_each_block_1(ctx) {
     	let if_block_anchor;
     	let current;
@@ -14028,14 +14053,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(204:4) {#each displayData as dataRow, i}",
+    		source: "(206:4) {#each displayData as dataRow, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (159:2) <Datatable>
+    // (161:2) <Datatable>
     function create_default_slot$6(ctx) {
     	let each_1_anchor;
     	let current;
@@ -14124,14 +14149,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$6.name,
     		type: "slot",
-    		source: "(159:2) <Datatable>",
+    		source: "(161:2) <Datatable>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (165:8) {#if !blacklist.includes(key)}
+    // (167:8) {#if !blacklist.includes(key)}
     function create_if_block_4(ctx) {
     	let th;
     	let div1;
@@ -14153,7 +14178,7 @@ var app = (function () {
     	function select_block_type(ctx, dirty) {
     		if (show_if == null || dirty[0] & /*keys*/ 64) show_if = !!/*labels*/ ctx[9].find(func);
     		if (show_if) return create_if_block_5;
-    		return create_else_block$1;
+    		return create_else_block$3;
     	}
 
     	let current_block_type = select_block_type(ctx, [-1]);
@@ -14175,21 +14200,21 @@ var app = (function () {
     			attr_dev(span0, "class", `material-icons absolute right-0 -top-1 `);
     			toggle_class(span0, "text-gray-200", /*sortBy*/ ctx[2].col == /*key*/ ctx[29] && !/*sortBy*/ ctx[2].ascending);
     			toggle_class(span0, "text-gray-500", /*sortBy*/ ctx[2].col != /*key*/ ctx[29] || /*sortBy*/ ctx[2].ascending);
-    			add_location(span0, file$g, 182, 16, 6515);
+    			add_location(span0, file$i, 184, 16, 6546);
     			attr_dev(span1, "class", "material-icons absolute right-0 -bottom-1");
     			toggle_class(span1, "text-gray-200", /*sortBy*/ ctx[2].col == /*key*/ ctx[29] && /*sortBy*/ ctx[2].ascending);
     			toggle_class(span1, "text-gray-500", /*sortBy*/ ctx[2].col != /*key*/ ctx[29] || !/*sortBy*/ ctx[2].ascending);
-    			add_location(span1, file$g, 189, 16, 6843);
+    			add_location(span1, file$i, 191, 16, 6874);
     			attr_dev(div0, "class", "absolute right-0 top-0 bottom-0");
-    			add_location(div0, file$g, 181, 14, 6452);
+    			add_location(div0, file$i, 183, 14, 6483);
     			attr_dev(div1, "class", "relative");
-    			add_location(div1, file$g, 173, 12, 6047);
+    			add_location(div1, file$i, 175, 12, 6078);
     			attr_dev(th, "class", " svelte-gcxbyn");
 
     			attr_dev(th, "style", th_style_value = `background: ${/*styling*/ ctx[4].head.bg};
 						color:${/*styling*/ ctx[4].head.text};`);
 
-    			add_location(th, file$g, 166, 10, 5763);
+    			add_location(th, file$i, 168, 10, 5794);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, th, anchor);
@@ -14265,15 +14290,15 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(165:8) {#if !blacklist.includes(key)}",
+    		source: "(167:8) {#if !blacklist.includes(key)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (178:14) {:else}
-    function create_else_block$1(ctx) {
+    // (180:14) {:else}
+    function create_else_block$3(ctx) {
     	let t_value = /*key*/ ctx[29] + "";
     	let t;
 
@@ -14294,16 +14319,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block$1.name,
+    		id: create_else_block$3.name,
     		type: "else",
-    		source: "(178:14) {:else}",
+    		source: "(180:14) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (176:14) {#if labels.find((item) => item.key === key)}
+    // (178:14) {#if labels.find((item) => item.key === key)}
     function create_if_block_5(ctx) {
     	let t_value = /*labels*/ ctx[9].find(func_3).text + "";
     	let t;
@@ -14332,14 +14357,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(176:14) {#if labels.find((item) => item.key === key)}",
+    		source: "(178:14) {#if labels.find((item) => item.key === key)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (163:6) {#each keys as key}
+    // (165:6) {#each keys as key}
     function create_each_block(ctx) {
     	let show_if = !/*blacklist*/ ctx[0].includes(/*key*/ ctx[29]);
     	let if_block_anchor;
@@ -14380,14 +14405,14 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(163:6) {#each keys as key}",
+    		source: "(165:6) {#each keys as key}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (161:4) 
+    // (163:4) 
     function create_head_slot(ctx) {
     	let tr;
     	let each_value = /*keys*/ ctx[6];
@@ -14407,7 +14432,7 @@ var app = (function () {
     			}
 
     			attr_dev(tr, "slot", "head");
-    			add_location(tr, file$g, 160, 4, 5523);
+    			add_location(tr, file$i, 162, 4, 5554);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -14451,14 +14476,14 @@ var app = (function () {
     		block,
     		id: create_head_slot.name,
     		type: "slot",
-    		source: "(161:4) ",
+    		source: "(163:4) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (251:6) {#if currentPage > 1}
+    // (253:6) {#if currentPage > 1}
     function create_if_block_3(ctx) {
     	let div;
     	let span;
@@ -14471,10 +14496,10 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "arrow_back_ios_new";
     			attr_dev(span, "class", "material-icons text-sm");
-    			add_location(span, file$g, 258, 10, 9472);
+    			add_location(span, file$i, 260, 10, 9503);
     			set_style(div, "background", "#1d913a");
     			attr_dev(div, "class", "px-4 py-2 h-full m-0 text-white");
-    			add_location(div, file$g, 251, 8, 9283);
+    			add_location(div, file$i, 253, 8, 9314);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -14497,15 +14522,15 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(251:6) {#if currentPage > 1}",
+    		source: "(253:6) {#if currentPage > 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (263:6) {#if currentPage - 1 > 0}
-    function create_if_block_2(ctx) {
+    // (265:6) {#if currentPage - 1 > 0}
+    function create_if_block_2$1(ctx) {
     	let div;
     	let t_value = /*currentPage*/ ctx[7] - 1 + "";
     	let t;
@@ -14518,7 +14543,7 @@ var app = (function () {
     			t = text(t_value);
     			set_style(div, "background", "#1d913a");
     			attr_dev(div, "class", "px-4 py-2 m-0 h-full text-white");
-    			add_location(div, file$g, 263, 8, 9674);
+    			add_location(div, file$i, 265, 8, 9705);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -14541,17 +14566,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_2.name,
+    		id: create_if_block_2$1.name,
     		type: "if",
-    		source: "(263:6) {#if currentPage - 1 > 0}",
+    		source: "(265:6) {#if currentPage - 1 > 0}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (279:6) {#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}
-    function create_if_block_1(ctx) {
+    // (281:6) {#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}
+    function create_if_block_1$2(ctx) {
     	let div;
     	let t_value = /*currentPage*/ ctx[7] + 1 + "";
     	let t;
@@ -14564,7 +14589,7 @@ var app = (function () {
     			t = text(t_value);
     			set_style(div, "background", "#1d913a");
     			attr_dev(div, "class", "px-4 py-2 m-0 h-full text-white");
-    			add_location(div, file$g, 279, 8, 10200);
+    			add_location(div, file$i, 281, 8, 10231);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -14587,17 +14612,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block_1.name,
+    		id: create_if_block_1$2.name,
     		type: "if",
-    		source: "(279:6) {#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}",
+    		source: "(281:6) {#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (291:6) {#if displayData.length > pageLength * currentPage}
-    function create_if_block$4(ctx) {
+    // (293:6) {#if displayData.length > pageLength * currentPage}
+    function create_if_block$6(ctx) {
     	let div;
     	let span;
     	let mounted;
@@ -14609,10 +14634,10 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "arrow_forward_ios";
     			attr_dev(span, "class", "material-icons m-0 p-0 text-sm");
-    			add_location(span, file$g, 298, 10, 10737);
+    			add_location(span, file$i, 300, 10, 10768);
     			set_style(div, "background", "#1d913a");
     			attr_dev(div, "class", "px-4 py-2 m-0 h-full text-white");
-    			add_location(div, file$g, 291, 8, 10548);
+    			add_location(div, file$i, 293, 8, 10579);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -14633,16 +14658,16 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$4.name,
+    		id: create_if_block$6.name,
     		type: "if",
-    		source: "(291:6) {#if displayData.length > pageLength * currentPage}",
+    		source: "(293:6) {#if displayData.length > pageLength * currentPage}",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$k(ctx) {
+    function create_fragment$m(ctx) {
     	let section;
     	let input;
     	let searchF_action;
@@ -14675,9 +14700,9 @@ var app = (function () {
     		});
 
     	let if_block0 = /*currentPage*/ ctx[7] > 1 && create_if_block_3(ctx);
-    	let if_block1 = /*currentPage*/ ctx[7] - 1 > 0 && create_if_block_2(ctx);
-    	let if_block2 = show_if && create_if_block_1(ctx);
-    	let if_block3 = /*displayData*/ ctx[1].length > /*pageLength*/ ctx[11] * /*currentPage*/ ctx[7] && create_if_block$4(ctx);
+    	let if_block1 = /*currentPage*/ ctx[7] - 1 > 0 && create_if_block_2$1(ctx);
+    	let if_block2 = show_if && create_if_block_1$2(ctx);
+    	let if_block3 = /*displayData*/ ctx[1].length > /*pageLength*/ ctx[11] * /*currentPage*/ ctx[7] && create_if_block$6(ctx);
 
     	const block = {
     		c: function create() {
@@ -14701,16 +14726,16 @@ var app = (function () {
     			attr_dev(input, "type", "text");
     			attr_dev(input, "placeholder", "Suche...");
     			attr_dev(input, "class", "p-2 rounded-md w-full svelte-gcxbyn");
-    			add_location(input, file$g, 150, 2, 5192);
+    			add_location(input, file$i, 152, 2, 5223);
     			attr_dev(div0, "class", "px-4 py-2 m-0 h-full text-white");
     			set_style(div0, "background", "#1d913a");
-    			add_location(div0, file$g, 274, 6, 9967);
+    			add_location(div0, file$i, 276, 6, 9998);
     			attr_dev(div1, "class", "ml-auto rounded-lg overflow-hidden flex ");
-    			add_location(div1, file$g, 248, 4, 9101);
+    			add_location(div1, file$i, 250, 4, 9132);
     			attr_dev(div2, "class", "w-full flex");
-    			add_location(div2, file$g, 246, 2, 9023);
-    			attr_dev(section, "class", "flex flex-col gap-4 justify-center items-center");
-    			add_location(section, file$g, 148, 0, 5092);
+    			add_location(div2, file$i, 248, 2, 9054);
+    			attr_dev(section, "class", "flex flex-col gap-4 justify-center items-center md:w-10/12 w-full mx-auto");
+    			add_location(section, file$i, 148, 0, 5092);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -14777,7 +14802,7 @@ var app = (function () {
     				if (if_block1) {
     					if_block1.p(ctx, dirty);
     				} else {
-    					if_block1 = create_if_block_2(ctx);
+    					if_block1 = create_if_block_2$1(ctx);
     					if_block1.c();
     					if_block1.m(div1, t3);
     				}
@@ -14793,7 +14818,7 @@ var app = (function () {
     				if (if_block2) {
     					if_block2.p(ctx, dirty);
     				} else {
-    					if_block2 = create_if_block_1(ctx);
+    					if_block2 = create_if_block_1$2(ctx);
     					if_block2.c();
     					if_block2.m(div1, t6);
     				}
@@ -14806,7 +14831,7 @@ var app = (function () {
     				if (if_block3) {
     					if_block3.p(ctx, dirty);
     				} else {
-    					if_block3 = create_if_block$4(ctx);
+    					if_block3 = create_if_block$6(ctx);
     					if_block3.c();
     					if_block3.m(div1, null);
     				}
@@ -14838,7 +14863,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$k.name,
+    		id: create_fragment$m.name,
     		type: "component",
     		source: "",
     		ctx
@@ -14863,7 +14888,7 @@ var app = (function () {
     	return keys;
     }
 
-    function instance$g($$self, $$props, $$invalidate) {
+    function instance$h($$self, $$props, $$invalidate) {
     	let sort;
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Foodtable", slots, []);
@@ -15151,20 +15176,20 @@ var app = (function () {
     class Foodtable extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$g, create_fragment$k, safe_not_equal, {}, [-1, -1]);
+    		init(this, options, instance$h, create_fragment$m, safe_not_equal, {}, [-1, -1]);
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Foodtable",
     			options,
-    			id: create_fragment$k.name
+    			id: create_fragment$m.name
     		});
     	}
     }
 
     /* src\Tailwind.svelte generated by Svelte v3.38.2 */
 
-    function create_fragment$j(ctx) {
+    function create_fragment$l(ctx) {
     	const block = {
     		c: noop,
     		l: function claim(nodes) {
@@ -15179,7 +15204,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$j.name,
+    		id: create_fragment$l.name,
     		type: "component",
     		source: "",
     		ctx
@@ -15188,7 +15213,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$f($$self, $$props) {
+    function instance$g($$self, $$props) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Tailwind", slots, []);
     	const writable_props = [];
@@ -15203,13 +15228,13 @@ var app = (function () {
     class Tailwind extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$f, create_fragment$j, safe_not_equal, {});
+    		init(this, options, instance$g, create_fragment$l, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Tailwind",
     			options,
-    			id: create_fragment$j.name
+    			id: create_fragment$l.name
     		});
     	}
     }
@@ -15243,11 +15268,11 @@ var app = (function () {
         SHORT_COLLAPSED_CLASS: 'mdc-top-app-bar--short-collapsed',
         SHORT_HAS_ACTION_ITEM_CLASS: 'mdc-top-app-bar--short-has-action-item',
     };
-    var numbers$3 = {
+    var numbers$4 = {
         DEBOUNCE_THROTTLE_RESIZE_TIME_MS: 100,
         MAX_TOP_APP_BAR_HEIGHT: 128,
     };
-    var strings$3 = {
+    var strings$4 = {
         ACTION_ITEM_SELECTOR: '.mdc-top-app-bar__action-item',
         NAVIGATION_EVENT: 'MDCTopAppBar:nav',
         NAVIGATION_ICON_SELECTOR: '.mdc-top-app-bar__navigation-icon',
@@ -15285,7 +15310,7 @@ var app = (function () {
         }
         Object.defineProperty(MDCTopAppBarBaseFoundation, "strings", {
             get: function () {
-                return strings$3;
+                return strings$4;
             },
             enumerable: false,
             configurable: true
@@ -15299,7 +15324,7 @@ var app = (function () {
         });
         Object.defineProperty(MDCTopAppBarBaseFoundation, "numbers", {
             get: function () {
-                return numbers$3;
+                return numbers$4;
             },
             enumerable: false,
             configurable: true
@@ -15427,7 +15452,7 @@ var app = (function () {
                 this.resizeThrottleId_ = setTimeout(function () {
                     _this.resizeThrottleId_ = INITIAL_VALUE;
                     _this.throttledResizeHandler_();
-                }, numbers$3.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
+                }, numbers$4.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
             }
             this.isCurrentlyBeingResized_ = true;
             if (this.resizeDebounceId_) {
@@ -15437,7 +15462,7 @@ var app = (function () {
                 _this.handleTargetScroll();
                 _this.isCurrentlyBeingResized_ = false;
                 _this.resizeDebounceId_ = INITIAL_VALUE;
-            }, numbers$3.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
+            }, numbers$4.DEBOUNCE_THROTTLE_RESIZE_TIME_MS);
         };
         /**
          * Function to determine if the DOM needs to update.
@@ -15473,7 +15498,7 @@ var app = (function () {
                 // so the top app bar doesn't show if the window resizes and the new height > the old height.
                 var offset = this.currentAppBarOffsetTop_;
                 if (Math.abs(offset) >= this.topAppBarHeight_) {
-                    offset = -numbers$3.MAX_TOP_APP_BAR_HEIGHT;
+                    offset = -numbers$4.MAX_TOP_APP_BAR_HEIGHT;
                 }
                 this.adapter.setStyle('top', offset + 'px');
             }
@@ -15654,9 +15679,9 @@ var app = (function () {
 
     const { window: window_1 } = globals;
 
-    const file$f = "node_modules\\@smui\\top-app-bar\\TopAppBar.svelte";
+    const file$h = "node_modules\\@smui\\top-app-bar\\TopAppBar.svelte";
 
-    function create_fragment$i(ctx) {
+    function create_fragment$k(ctx) {
     	let header;
     	let header_class_value;
     	let header_style_value;
@@ -15683,7 +15708,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: header_style_value = Object.entries(/*internalStyles*/ ctx[12]).map(func$3).concat([/*style*/ ctx[3]]).join(" ")
+    			style: header_style_value = Object.entries(/*internalStyles*/ ctx[12]).map(func$4).concat([/*style*/ ctx[3]]).join(" ")
     		},
     		/*$$restProps*/ ctx[15]
     	];
@@ -15699,7 +15724,7 @@ var app = (function () {
     			header = element("header");
     			if (default_slot) default_slot.c();
     			set_attributes(header, header_data);
-    			add_location(header, file$f, 9, 0, 208);
+    			add_location(header, file$h, 9, 0, 208);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -15746,7 +15771,7 @@ var app = (function () {
     					"mdc-top-app-bar--dense": /*dense*/ ctx[7],
     					.../*internalClasses*/ ctx[11]
     				}))) && { class: header_class_value },
-    				(!current || dirty[0] & /*internalStyles, style*/ 4104 && header_style_value !== (header_style_value = Object.entries(/*internalStyles*/ ctx[12]).map(func$3).concat([/*style*/ ctx[3]]).join(" "))) && { style: header_style_value },
+    				(!current || dirty[0] & /*internalStyles, style*/ 4104 && header_style_value !== (header_style_value = Object.entries(/*internalStyles*/ ctx[12]).map(func$4).concat([/*style*/ ctx[3]]).join(" "))) && { style: header_style_value },
     				dirty[0] & /*$$restProps*/ 32768 && /*$$restProps*/ ctx[15]
     			]));
 
@@ -15772,7 +15797,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$i.name,
+    		id: create_fragment$k.name,
     		type: "component",
     		source: "",
     		ctx
@@ -15781,9 +15806,9 @@ var app = (function () {
     	return block;
     }
 
-    const func$3 = ([name, value]) => `${name}: ${value};`;
+    const func$4 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$3($$self, $$props, $$invalidate) {
+    function instance_1$4($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","style","variant","color","collapsed","prominent","dense","scrollTarget","getPropStore","getElement"
     	];
@@ -16073,8 +16098,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance_1$3,
-    			create_fragment$i,
+    			instance_1$4,
+    			create_fragment$k,
     			safe_not_equal,
     			{
     				use: 1,
@@ -16096,7 +16121,7 @@ var app = (function () {
     			component: this,
     			tagName: "TopAppBar",
     			options,
-    			id: create_fragment$i.name
+    			id: create_fragment$k.name
     		});
     	}
 
@@ -16196,9 +16221,9 @@ var app = (function () {
 
     /* node_modules\@smui\top-app-bar\Section.svelte generated by Svelte v3.38.2 */
 
-    const file$e = "node_modules\\@smui\\top-app-bar\\Section.svelte";
+    const file$g = "node_modules\\@smui\\top-app-bar\\Section.svelte";
 
-    function create_fragment$h(ctx) {
+    function create_fragment$j(ctx) {
     	let section;
     	let section_class_value;
     	let useActions_action;
@@ -16232,7 +16257,7 @@ var app = (function () {
     			section = element("section");
     			if (default_slot) default_slot.c();
     			set_attributes(section, section_data);
-    			add_location(section, file$e, 0, 0, 0);
+    			add_location(section, file$g, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16296,7 +16321,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$h.name,
+    		id: create_fragment$j.name,
     		type: "component",
     		source: "",
     		ctx
@@ -16305,7 +16330,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$e($$self, $$props, $$invalidate) {
+    function instance$f($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","align","toolbar","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -16392,7 +16417,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$e, create_fragment$h, safe_not_equal, {
+    		init(this, options, instance$f, create_fragment$j, safe_not_equal, {
     			use: 0,
     			class: 1,
     			align: 2,
@@ -16404,7 +16429,7 @@ var app = (function () {
     			component: this,
     			tagName: "Section",
     			options,
-    			id: create_fragment$h.name
+    			id: create_fragment$j.name
     		});
     	}
 
@@ -16455,9 +16480,9 @@ var app = (function () {
     });
 
     /* node_modules\@smui\common\Img.svelte generated by Svelte v3.38.2 */
-    const file$d = "node_modules\\@smui\\common\\Img.svelte";
+    const file$f = "node_modules\\@smui\\common\\Img.svelte";
 
-    function create_fragment$g(ctx) {
+    function create_fragment$i(ctx) {
     	let img;
     	let useActions_action;
     	let t;
@@ -16480,7 +16505,7 @@ var app = (function () {
     			t = space();
     			if (default_slot) default_slot.c();
     			set_attributes(img, img_data);
-    			add_location(img, file$d, 0, 0, 0);
+    			add_location(img, file$f, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -16540,7 +16565,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$g.name,
+    		id: create_fragment$i.name,
     		type: "component",
     		source: "",
     		ctx
@@ -16549,7 +16574,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$d($$self, $$props, $$invalidate) {
+    function instance$e($$self, $$props, $$invalidate) {
     	const omit_props_names = ["alt","use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -16615,13 +16640,13 @@ var app = (function () {
     class Img extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$d, create_fragment$g, safe_not_equal, { alt: 0, use: 1, getElement: 5 });
+    		init(this, options, instance$e, create_fragment$i, safe_not_equal, { alt: 0, use: 1, getElement: 5 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Img",
     			options,
-    			id: create_fragment$g.name
+    			id: create_fragment$i.name
     		});
     	}
 
@@ -16651,17 +16676,17 @@ var app = (function () {
     }
 
     /* node_modules\@smui\button\Button.svelte generated by Svelte v3.38.2 */
-    const file$c = "node_modules\\@smui\\button\\Button.svelte";
+    const file$e = "node_modules\\@smui\\button\\Button.svelte";
 
     // (50:10) {#if touch}
-    function create_if_block$3(ctx) {
+    function create_if_block$5(ctx) {
     	let div;
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			attr_dev(div, "class", "mdc-button__touch");
-    			add_location(div, file$c, 49, 21, 1522);
+    			add_location(div, file$e, 49, 21, 1522);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -16673,7 +16698,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$3.name,
+    		id: create_if_block$5.name,
     		type: "if",
     		source: "(50:10) {#if touch}",
     		ctx
@@ -16690,7 +16715,7 @@ var app = (function () {
     	let current;
     	const default_slot_template = /*#slots*/ ctx[26].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[28], null);
-    	let if_block = /*touch*/ ctx[6] && create_if_block$3(ctx);
+    	let if_block = /*touch*/ ctx[6] && create_if_block$5(ctx);
 
     	const block = {
     		c: function create() {
@@ -16700,7 +16725,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			if_block_anchor = empty();
     			attr_dev(div, "class", "mdc-button__ripple");
-    			add_location(div, file$c, 48, 3, 1466);
+    			add_location(div, file$e, 48, 3, 1466);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -16723,7 +16748,7 @@ var app = (function () {
 
     			if (/*touch*/ ctx[6]) {
     				if (if_block) ; else {
-    					if_block = create_if_block$3(ctx);
+    					if_block = create_if_block$5(ctx);
     					if_block.c();
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
@@ -16761,7 +16786,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$f(ctx) {
+    function create_fragment$h(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -16807,7 +16832,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: Object.entries(/*internalStyles*/ ctx[12]).map(func$2).concat([/*style*/ ctx[2]]).join(" ")
+    			style: Object.entries(/*internalStyles*/ ctx[12]).map(func$3).concat([/*style*/ ctx[2]]).join(" ")
     		},
     		/*actionProp*/ ctx[13],
     		/*defaultProp*/ ctx[14],
@@ -16899,7 +16924,7 @@ var app = (function () {
     						})
     					},
     					dirty & /*Object, internalStyles, style*/ 4100 && {
-    						style: Object.entries(/*internalStyles*/ ctx[12]).map(func$2).concat([/*style*/ ctx[2]]).join(" ")
+    						style: Object.entries(/*internalStyles*/ ctx[12]).map(func$3).concat([/*style*/ ctx[2]]).join(" ")
     					},
     					dirty & /*actionProp*/ 8192 && get_spread_object(/*actionProp*/ ctx[13]),
     					dirty & /*defaultProp*/ 16384 && get_spread_object(/*defaultProp*/ ctx[14]),
@@ -16957,7 +16982,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$f.name,
+    		id: create_fragment$h.name,
     		type: "component",
     		source: "",
     		ctx
@@ -16966,9 +16991,9 @@ var app = (function () {
     	return block;
     }
 
-    const func$2 = ([name, value]) => `${name}: ${value};`;
+    const func$3 = ([name, value]) => `${name}: ${value};`;
 
-    function instance$c($$self, $$props, $$invalidate) {
+    function instance$d($$self, $$props, $$invalidate) {
     	let actionProp;
     	let defaultProp;
     	let secondaryProp;
@@ -17177,7 +17202,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$c, create_fragment$f, safe_not_equal, {
+    		init(this, options, instance$d, create_fragment$h, safe_not_equal, {
     			use: 0,
     			class: 1,
     			style: 2,
@@ -17197,7 +17222,7 @@ var app = (function () {
     			component: this,
     			tagName: "Button_1",
     			options,
-    			id: create_fragment$f.name
+    			id: create_fragment$h.name
     		});
     	}
 
@@ -17338,7 +17363,7 @@ var app = (function () {
         ROOT: 'mdc-menu-surface',
     };
     // tslint:disable:object-literal-sort-keys
-    var strings$2 = {
+    var strings$3 = {
         CLOSED_EVENT: 'MDCMenuSurface:closed',
         CLOSING_EVENT: 'MDCMenuSurface:closing',
         OPENED_EVENT: 'MDCMenuSurface:opened',
@@ -17352,7 +17377,7 @@ var app = (function () {
         ].join(', '),
     };
     // tslint:enable:object-literal-sort-keys
-    var numbers$2 = {
+    var numbers$3 = {
         /** Total duration of menu-surface open animation. */
         TRANSITION_OPEN_DURATION: 120,
         /** Total duration of menu-surface close animation. */
@@ -17440,7 +17465,7 @@ var app = (function () {
         _b["" + cssClasses$1.LIST_ITEM_PRIMARY_TEXT_CLASS] = 'mdc-deprecated-list-item__primary-text',
         _b["" + cssClasses$1.ROOT] = 'mdc-deprecated-list',
         _b);
-    var strings$1 = {
+    var strings$2 = {
         ACTION_EVENT: 'MDCList:action',
         ARIA_CHECKED: 'aria-checked',
         ARIA_CHECKED_CHECKBOX_SELECTOR: '[role="checkbox"][aria-checked="true"]',
@@ -17461,7 +17486,7 @@ var app = (function () {
         RADIO_SELECTOR: 'input[type="radio"]',
         SELECTED_ITEM_SELECTOR: '[aria-selected="true"], [aria-current="true"]',
     };
-    var numbers$1 = {
+    var numbers$2 = {
         UNSET_INDEX: -1,
         TYPEAHEAD_BUFFER_CLEAR_TIMEOUT_MS: 300
     };
@@ -17600,7 +17625,7 @@ var app = (function () {
         clearTimeout(state.bufferClearTimeout);
         state.bufferClearTimeout = setTimeout(function () {
             clearBuffer(state);
-        }, numbers$1.TYPEAHEAD_BUFFER_CLEAR_TIMEOUT_MS);
+        }, numbers$2.TYPEAHEAD_BUFFER_CLEAR_TIMEOUT_MS);
         state.typeaheadBuffer = state.typeaheadBuffer + nextChar;
         var index;
         if (state.typeaheadBuffer.length === 1) {
@@ -17819,8 +17844,8 @@ var app = (function () {
             _this.wrapFocus_ = false;
             _this.isVertical_ = true;
             _this.isSingleSelectionList_ = false;
-            _this.selectedIndex_ = numbers$1.UNSET_INDEX;
-            _this.focusedItemIndex = numbers$1.UNSET_INDEX;
+            _this.selectedIndex_ = numbers$2.UNSET_INDEX;
+            _this.focusedItemIndex = numbers$2.UNSET_INDEX;
             _this.useActivatedClass_ = false;
             _this.useSelectedAttr_ = false;
             _this.ariaCurrentAttrValue_ = null;
@@ -17834,7 +17859,7 @@ var app = (function () {
         }
         Object.defineProperty(MDCListFoundation, "strings", {
             get: function () {
-                return strings$1;
+                return strings$2;
             },
             enumerable: false,
             configurable: true
@@ -17848,7 +17873,7 @@ var app = (function () {
         });
         Object.defineProperty(MDCListFoundation, "numbers", {
             get: function () {
-                return numbers$1;
+                return numbers$2;
             },
             enumerable: false,
             configurable: true
@@ -18081,7 +18106,7 @@ var app = (function () {
             }
             else if (isLetterA && event.ctrlKey && this.isCheckboxList_) {
                 event.preventDefault();
-                this.toggleAll(this.selectedIndex_ === numbers$1.UNSET_INDEX ? [] : this.selectedIndex_);
+                this.toggleAll(this.selectedIndex_ === numbers$2.UNSET_INDEX ? [] : this.selectedIndex_);
             }
             else if (isEnter || isSpace) {
                 if (isRootListItem) {
@@ -18121,7 +18146,7 @@ var app = (function () {
          * Click handler for the list.
          */
         MDCListFoundation.prototype.handleClick = function (index, toggleCheckbox) {
-            if (index === numbers$1.UNSET_INDEX) {
+            if (index === numbers$2.UNSET_INDEX) {
                 return;
             }
             if (this.adapter.listItemAtIndexHasClass(index, cssClasses$1.LIST_ITEM_DISABLED_CLASS)) {
@@ -18191,11 +18216,11 @@ var app = (function () {
             }
             if (isEnabled) {
                 this.adapter.removeClassForElementIndex(itemIndex, cssClasses$1.LIST_ITEM_DISABLED_CLASS);
-                this.adapter.setAttributeForElementIndex(itemIndex, strings$1.ARIA_DISABLED, 'false');
+                this.adapter.setAttributeForElementIndex(itemIndex, strings$2.ARIA_DISABLED, 'false');
             }
             else {
                 this.adapter.addClassForElementIndex(itemIndex, cssClasses$1.LIST_ITEM_DISABLED_CLASS);
-                this.adapter.setAttributeForElementIndex(itemIndex, strings$1.ARIA_DISABLED, 'true');
+                this.adapter.setAttributeForElementIndex(itemIndex, strings$2.ARIA_DISABLED, 'true');
             }
         };
         MDCListFoundation.prototype.setSingleSelectionAtIndex_ = function (index) {
@@ -18206,12 +18231,12 @@ var app = (function () {
             if (this.useActivatedClass_) {
                 selectedClassName = cssClasses$1.LIST_ITEM_ACTIVATED_CLASS;
             }
-            if (this.selectedIndex_ !== numbers$1.UNSET_INDEX) {
+            if (this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
                 this.adapter.removeClassForElementIndex(this.selectedIndex_, selectedClassName);
             }
             this.setAriaForSingleSelectionAtIndex_(index);
             this.setTabindexAtIndex(index);
-            if (index !== numbers$1.UNSET_INDEX) {
+            if (index !== numbers$2.UNSET_INDEX) {
                 this.adapter.addClassForElementIndex(index, selectedClassName);
             }
             this.selectedIndex_ = index;
@@ -18222,16 +18247,16 @@ var app = (function () {
         MDCListFoundation.prototype.setAriaForSingleSelectionAtIndex_ = function (index) {
             // Detect the presence of aria-current and get the value only during list
             // initialization when it is in unset state.
-            if (this.selectedIndex_ === numbers$1.UNSET_INDEX) {
+            if (this.selectedIndex_ === numbers$2.UNSET_INDEX) {
                 this.ariaCurrentAttrValue_ =
-                    this.adapter.getAttributeForElementIndex(index, strings$1.ARIA_CURRENT);
+                    this.adapter.getAttributeForElementIndex(index, strings$2.ARIA_CURRENT);
             }
             var isAriaCurrent = this.ariaCurrentAttrValue_ !== null;
-            var ariaAttribute = isAriaCurrent ? strings$1.ARIA_CURRENT : strings$1.ARIA_SELECTED;
-            if (this.selectedIndex_ !== numbers$1.UNSET_INDEX) {
+            var ariaAttribute = isAriaCurrent ? strings$2.ARIA_CURRENT : strings$2.ARIA_SELECTED;
+            if (this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
                 this.adapter.setAttributeForElementIndex(this.selectedIndex_, ariaAttribute, 'false');
             }
-            if (index !== numbers$1.UNSET_INDEX) {
+            if (index !== numbers$2.UNSET_INDEX) {
                 var ariaAttributeValue = isAriaCurrent ? this.ariaCurrentAttrValue_ : 'true';
                 this.adapter.setAttributeForElementIndex(index, ariaAttribute, ariaAttributeValue);
             }
@@ -18240,7 +18265,7 @@ var app = (function () {
          * Returns the attribute to use for indicating selection status.
          */
         MDCListFoundation.prototype.getSelectionAttribute = function () {
-            return this.useSelectedAttr_ ? strings$1.ARIA_SELECTED : strings$1.ARIA_CHECKED;
+            return this.useSelectedAttr_ ? strings$2.ARIA_SELECTED : strings$2.ARIA_CHECKED;
         };
         /**
          * Toggles radio at give index. Radio doesn't change the checked state if it
@@ -18249,7 +18274,7 @@ var app = (function () {
         MDCListFoundation.prototype.setRadioAtIndex_ = function (index) {
             var selectionAttribute = this.getSelectionAttribute();
             this.adapter.setCheckedCheckboxOrRadioAtIndex(index, true);
-            if (this.selectedIndex_ !== numbers$1.UNSET_INDEX) {
+            if (this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
                 this.adapter.setAttributeForElementIndex(this.selectedIndex_, selectionAttribute, 'false');
             }
             this.adapter.setAttributeForElementIndex(index, selectionAttribute, 'true');
@@ -18268,7 +18293,7 @@ var app = (function () {
             this.selectedIndex_ = index;
         };
         MDCListFoundation.prototype.setTabindexAtIndex = function (index) {
-            if (this.focusedItemIndex === numbers$1.UNSET_INDEX && index !== 0) {
+            if (this.focusedItemIndex === numbers$2.UNSET_INDEX && index !== 0) {
                 // If some list item was selected set first list item's tabindex to -1.
                 // Generally, tabindex is set to 0 on first list item of list that has no
                 // preselected items.
@@ -18284,7 +18309,7 @@ var app = (function () {
                 this.selectedIndex_ !== index) {
                 this.adapter.setAttributeForElementIndex(this.selectedIndex_, 'tabindex', '-1');
             }
-            if (index !== numbers$1.UNSET_INDEX) {
+            if (index !== numbers$2.UNSET_INDEX) {
                 this.adapter.setAttributeForElementIndex(index, 'tabindex', '0');
             }
         };
@@ -18304,7 +18329,7 @@ var app = (function () {
             var targetIndex = this.focusedItemIndex >= 0 ? this.focusedItemIndex : 0;
             if (this.isSelectableList_()) {
                 if (typeof this.selectedIndex_ === 'number' &&
-                    this.selectedIndex_ !== numbers$1.UNSET_INDEX) {
+                    this.selectedIndex_ !== numbers$2.UNSET_INDEX) {
                     targetIndex = this.selectedIndex_;
                 }
                 else if (isNumberArray(this.selectedIndex_) &&
@@ -18332,7 +18357,7 @@ var app = (function () {
                     throw new Error("MDCListFoundation: Expected array of index for checkbox based list but got number: " + index);
                 }
                 return this.isIndexInRange_(index) ||
-                    this.isSingleSelectionList_ && index === numbers$1.UNSET_INDEX;
+                    this.isSingleSelectionList_ && index === numbers$2.UNSET_INDEX;
             }
             else {
                 return false;
@@ -18366,7 +18391,7 @@ var app = (function () {
             this.adapter.setAttributeForElementIndex(index, selectionAttribute, isChecked ? 'true' : 'false');
             // If none of the checkbox items are selected and selectedIndex is not
             // initialized then provide a default value.
-            var selectedIndexes = this.selectedIndex_ === numbers$1.UNSET_INDEX ?
+            var selectedIndexes = this.selectedIndex_ === numbers$2.UNSET_INDEX ?
                 [] :
                 this.selectedIndex_.slice();
             if (isChecked) {
@@ -18509,14 +18534,14 @@ var app = (function () {
         });
         Object.defineProperty(MDCMenuSurfaceFoundation, "strings", {
             get: function () {
-                return strings$2;
+                return strings$3;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(MDCMenuSurfaceFoundation, "numbers", {
             get: function () {
-                return numbers$2;
+                return numbers$3;
             },
             enumerable: false,
             configurable: true
@@ -18654,7 +18679,7 @@ var app = (function () {
                         _this.openAnimationEndTimerId = 0;
                         _this.adapter.removeClass(MDCMenuSurfaceFoundation.cssClasses.ANIMATING_OPEN);
                         _this.adapter.notifyOpen();
-                    }, numbers$2.TRANSITION_OPEN_DURATION);
+                    }, numbers$3.TRANSITION_OPEN_DURATION);
                 });
                 this.isSurfaceOpen = true;
             }
@@ -18687,7 +18712,7 @@ var app = (function () {
                     _this.closeAnimationEndTimerId = 0;
                     _this.adapter.removeClass(MDCMenuSurfaceFoundation.cssClasses.ANIMATING_CLOSED);
                     _this.adapter.notifyClose();
-                }, numbers$2.TRANSITION_CLOSE_DURATION);
+                }, numbers$3.TRANSITION_CLOSE_DURATION);
             });
             this.isSurfaceOpen = false;
             if (!skipRestoreFocus) {
@@ -18726,7 +18751,7 @@ var app = (function () {
                 _a[verticalAlignment] = verticalOffset,
                 _a);
             // Center align when anchor width is comparable or greater than menu surface, otherwise keep corner.
-            if (anchorSize.width / surfaceSize.width > numbers$2.ANCHOR_TO_MENU_SURFACE_WIDTH_RATIO) {
+            if (anchorSize.width / surfaceSize.width > numbers$3.ANCHOR_TO_MENU_SURFACE_WIDTH_RATIO) {
                 horizontalAlignment = 'center';
             }
             // If the menu-surface has been hoisted to the body, it's no longer relative to the anchor element
@@ -19078,14 +19103,14 @@ var app = (function () {
         MENU_SELECTION_GROUP: 'mdc-menu__selection-group',
         ROOT: 'mdc-menu',
     };
-    var strings = {
+    var strings$1 = {
         ARIA_CHECKED_ATTR: 'aria-checked',
         ARIA_DISABLED_ATTR: 'aria-disabled',
         CHECKBOX_SELECTOR: 'input[type="checkbox"]',
         LIST_SELECTOR: '.mdc-list,.mdc-deprecated-list',
         SELECTED_EVENT: 'MDCMenu:selected',
     };
-    var numbers = {
+    var numbers$1 = {
         FOCUS_ROOT_INDEX: -1,
     };
     var DefaultFocusState;
@@ -19135,14 +19160,14 @@ var app = (function () {
         });
         Object.defineProperty(MDCMenuFoundation, "strings", {
             get: function () {
-                return strings;
+                return strings$1;
             },
             enumerable: false,
             configurable: true
         });
         Object.defineProperty(MDCMenuFoundation, "numbers", {
             get: function () {
-                return numbers;
+                return numbers$1;
             },
             enumerable: false,
             configurable: true
@@ -19239,11 +19264,11 @@ var app = (function () {
             }
             var prevSelectedIndex = this.adapter.getSelectedSiblingOfItemAtIndex(index);
             if (prevSelectedIndex >= 0) {
-                this.adapter.removeAttributeFromElementAtIndex(prevSelectedIndex, strings.ARIA_CHECKED_ATTR);
+                this.adapter.removeAttributeFromElementAtIndex(prevSelectedIndex, strings$1.ARIA_CHECKED_ATTR);
                 this.adapter.removeClassFromElementAtIndex(prevSelectedIndex, cssClasses.MENU_SELECTED_LIST_ITEM);
             }
             this.adapter.addClassToElementAtIndex(index, cssClasses.MENU_SELECTED_LIST_ITEM);
-            this.adapter.addAttributeToElementAtIndex(index, strings.ARIA_CHECKED_ATTR, 'true');
+            this.adapter.addAttributeToElementAtIndex(index, strings$1.ARIA_CHECKED_ATTR, 'true');
         };
         /**
          * Sets the enabled state to isEnabled for the menu item at the given index.
@@ -19254,11 +19279,11 @@ var app = (function () {
             this.validatedIndex_(index);
             if (isEnabled) {
                 this.adapter.removeClassFromElementAtIndex(index, cssClasses$1.LIST_ITEM_DISABLED_CLASS);
-                this.adapter.addAttributeToElementAtIndex(index, strings.ARIA_DISABLED_ATTR, 'false');
+                this.adapter.addAttributeToElementAtIndex(index, strings$1.ARIA_DISABLED_ATTR, 'false');
             }
             else {
                 this.adapter.addClassToElementAtIndex(index, cssClasses$1.LIST_ITEM_DISABLED_CLASS);
-                this.adapter.addAttributeToElementAtIndex(index, strings.ARIA_DISABLED_ATTR, 'true');
+                this.adapter.addAttributeToElementAtIndex(index, strings$1.ARIA_DISABLED_ATTR, 'true');
             }
         };
         MDCMenuFoundation.prototype.validatedIndex_ = function (index) {
@@ -19275,9 +19300,9 @@ var app = (function () {
 
     const { document: document_1 } = globals;
 
-    const file$b = "node_modules\\@smui\\menu-surface\\MenuSurface.svelte";
+    const file$d = "node_modules\\@smui\\menu-surface\\MenuSurface.svelte";
 
-    function create_fragment$e(ctx) {
+    function create_fragment$g(ctx) {
     	let t;
     	let div;
     	let div_class_value;
@@ -19302,7 +19327,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: div_style_value = Object.entries(/*internalStyles*/ ctx[10]).map(func$1).concat([/*style*/ ctx[3]]).join(" ")
+    			style: div_style_value = Object.entries(/*internalStyles*/ ctx[10]).map(func$2).concat([/*style*/ ctx[3]]).join(" ")
     		},
     		/*$$restProps*/ ctx[12]
     	];
@@ -19319,7 +19344,7 @@ var app = (function () {
     			div = element("div");
     			if (default_slot) default_slot.c();
     			set_attributes(div, div_data);
-    			add_location(div, file$b, 4, 0, 105);
+    			add_location(div, file$d, 4, 0, 105);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -19363,7 +19388,7 @@ var app = (function () {
     					"mdc-menu-surface--fullwidth": /*fullWidth*/ ctx[6],
     					.../*internalClasses*/ ctx[9]
     				}))) && { class: div_class_value },
-    				(!current || dirty[0] & /*internalStyles, style*/ 1032 && div_style_value !== (div_style_value = Object.entries(/*internalStyles*/ ctx[10]).map(func$1).concat([/*style*/ ctx[3]]).join(" "))) && { style: div_style_value },
+    				(!current || dirty[0] & /*internalStyles, style*/ 1032 && div_style_value !== (div_style_value = Object.entries(/*internalStyles*/ ctx[10]).map(func$2).concat([/*style*/ ctx[3]]).join(" "))) && { style: div_style_value },
     				dirty[0] & /*$$restProps*/ 4096 && /*$$restProps*/ ctx[12]
     			]));
 
@@ -19390,7 +19415,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$e.name,
+    		id: create_fragment$g.name,
     		type: "component",
     		source: "",
     		ctx
@@ -19399,9 +19424,9 @@ var app = (function () {
     	return block;
     }
 
-    const func$1 = ([name, value]) => `${name}: ${value};`;
+    const func$2 = ([name, value]) => `${name}: ${value};`;
 
-    function instance_1$2($$self, $$props, $$invalidate) {
+    function instance_1$3($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","style","static","anchor","fixed","open","fullWidth","quickOpen","anchorElement","anchorCorner","anchorMargin","maxHeight","horizontallyCenteredOnViewport","isOpen","setOpen","setAbsolutePosition","setIsHoisted","getElement"
     	];
@@ -19787,8 +19812,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance_1$2,
-    			create_fragment$e,
+    			instance_1$3,
+    			create_fragment$g,
     			safe_not_equal,
     			{
     				use: 1,
@@ -19818,7 +19843,7 @@ var app = (function () {
     			component: this,
     			tagName: "MenuSurface",
     			options,
-    			id: create_fragment$e.name
+    			id: create_fragment$g.name
     		});
     	}
 
@@ -20026,7 +20051,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$d(ctx) {
+    function create_fragment$f(ctx) {
     	let menusurface;
     	let updating_open;
     	let current;
@@ -20126,7 +20151,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$d.name,
+    		id: create_fragment$f.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20135,7 +20160,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance_1$1($$self, $$props, $$invalidate) {
+    function instance_1$2($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","open","isOpen","setOpen","setDefaultFocusState","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -20317,7 +20342,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance_1$1, create_fragment$d, safe_not_equal, {
+    		init(this, options, instance_1$2, create_fragment$f, safe_not_equal, {
     			use: 1,
     			class: 2,
     			open: 0,
@@ -20331,7 +20356,7 @@ var app = (function () {
     			component: this,
     			tagName: "Menu",
     			options,
-    			id: create_fragment$d.name
+    			id: create_fragment$f.name
     		});
     	}
 
@@ -20394,9 +20419,9 @@ var app = (function () {
 
     /* node_modules\@smui\list\Graphic.svelte generated by Svelte v3.38.2 */
 
-    const file$a = "node_modules\\@smui\\list\\Graphic.svelte";
+    const file$c = "node_modules\\@smui\\list\\Graphic.svelte";
 
-    function create_fragment$c(ctx) {
+    function create_fragment$e(ctx) {
     	let span;
     	let span_class_value;
     	let useActions_action;
@@ -20428,7 +20453,7 @@ var app = (function () {
     			span = element("span");
     			if (default_slot) default_slot.c();
     			set_attributes(span, span_data);
-    			add_location(span, file$a, 0, 0, 0);
+    			add_location(span, file$c, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -20490,7 +20515,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$c.name,
+    		id: create_fragment$e.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20499,7 +20524,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$b($$self, $$props, $$invalidate) {
+    function instance$c($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -20571,13 +20596,13 @@ var app = (function () {
     class Graphic extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$b, create_fragment$c, safe_not_equal, { use: 0, class: 1, getElement: 6 });
+    		init(this, options, instance$c, create_fragment$e, safe_not_equal, { use: 0, class: 1, getElement: 6 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Graphic",
     			options,
-    			id: create_fragment$c.name
+    			id: create_fragment$e.name
     		});
     	}
 
@@ -20612,9 +20637,9 @@ var app = (function () {
     });
 
     /* node_modules\@smui\common\Ul.svelte generated by Svelte v3.38.2 */
-    const file$9 = "node_modules\\@smui\\common\\Ul.svelte";
+    const file$b = "node_modules\\@smui\\common\\Ul.svelte";
 
-    function create_fragment$b(ctx) {
+    function create_fragment$d(ctx) {
     	let ul;
     	let useActions_action;
     	let current;
@@ -20634,7 +20659,7 @@ var app = (function () {
     			ul = element("ul");
     			if (default_slot) default_slot.c();
     			set_attributes(ul, ul_data);
-    			add_location(ul, file$9, 0, 0, 0);
+    			add_location(ul, file$b, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -20688,7 +20713,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$b.name,
+    		id: create_fragment$d.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20697,7 +20722,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$a($$self, $$props, $$invalidate) {
+    function instance$b($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -20758,13 +20783,13 @@ var app = (function () {
     class Ul extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$a, create_fragment$b, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$b, create_fragment$d, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Ul",
     			options,
-    			id: create_fragment$b.name
+    			id: create_fragment$d.name
     		});
     	}
 
@@ -20786,9 +20811,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\Nav.svelte generated by Svelte v3.38.2 */
-    const file$8 = "node_modules\\@smui\\common\\Nav.svelte";
+    const file$a = "node_modules\\@smui\\common\\Nav.svelte";
 
-    function create_fragment$a(ctx) {
+    function create_fragment$c(ctx) {
     	let nav;
     	let useActions_action;
     	let current;
@@ -20808,7 +20833,7 @@ var app = (function () {
     			nav = element("nav");
     			if (default_slot) default_slot.c();
     			set_attributes(nav, nav_data);
-    			add_location(nav, file$8, 0, 0, 0);
+    			add_location(nav, file$a, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -20862,7 +20887,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$a.name,
+    		id: create_fragment$c.name,
     		type: "component",
     		source: "",
     		ctx
@@ -20871,7 +20896,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$9($$self, $$props, $$invalidate) {
+    function instance$a($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -20932,13 +20957,13 @@ var app = (function () {
     class Nav extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$9, create_fragment$a, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$a, create_fragment$c, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Nav",
     			options,
-    			id: create_fragment$a.name
+    			id: create_fragment$c.name
     		});
     	}
 
@@ -21010,7 +21035,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$9(ctx) {
+    function create_fragment$b(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -21166,7 +21191,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$9.name,
+    		id: create_fragment$b.name,
     		type: "component",
     		source: "",
     		ctx
@@ -21175,7 +21200,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance_1($$self, $$props, $$invalidate) {
+    function instance_1$1($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","nonInteractive","dense","textualList","avatarList","iconList","imageList","thumbnailList","videoList","twoLine","threeLine","vertical","wrapFocus","singleSelection","selectedIndex","radioList","checkList","hasTypeahead","radiolist","checklist","component","layout","setEnabled","getTypeaheadInProgress","getSelectedIndex","getElement"
     	];
@@ -21669,8 +21694,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance_1,
-    			create_fragment$9,
+    			instance_1$1,
+    			create_fragment$b,
     			safe_not_equal,
     			{
     				use: 0,
@@ -21708,7 +21733,7 @@ var app = (function () {
     			component: this,
     			tagName: "List",
     			options,
-    			id: create_fragment$9.name
+    			id: create_fragment$b.name
     		});
     	}
 
@@ -21930,9 +21955,9 @@ var app = (function () {
     }
 
     /* node_modules\@smui\common\Li.svelte generated by Svelte v3.38.2 */
-    const file$7 = "node_modules\\@smui\\common\\Li.svelte";
+    const file$9 = "node_modules\\@smui\\common\\Li.svelte";
 
-    function create_fragment$8(ctx) {
+    function create_fragment$a(ctx) {
     	let li;
     	let useActions_action;
     	let current;
@@ -21952,7 +21977,7 @@ var app = (function () {
     			li = element("li");
     			if (default_slot) default_slot.c();
     			set_attributes(li, li_data);
-    			add_location(li, file$7, 0, 0, 0);
+    			add_location(li, file$9, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -22006,7 +22031,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$8.name,
+    		id: create_fragment$a.name,
     		type: "component",
     		source: "",
     		ctx
@@ -22015,7 +22040,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$8($$self, $$props, $$invalidate) {
+    function instance$9($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -22076,13 +22101,13 @@ var app = (function () {
     class Li extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$8, create_fragment$8, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$9, create_fragment$a, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Li",
     			options,
-    			id: create_fragment$8.name
+    			id: create_fragment$a.name
     		});
     	}
 
@@ -22104,17 +22129,17 @@ var app = (function () {
     }
 
     /* node_modules\@smui\list\Item.svelte generated by Svelte v3.38.2 */
-    const file$6 = "node_modules\\@smui\\list\\Item.svelte";
+    const file$8 = "node_modules\\@smui\\list\\Item.svelte";
 
     // (56:3) {#if ripple}
-    function create_if_block$2(ctx) {
+    function create_if_block$4(ctx) {
     	let span;
 
     	const block = {
     		c: function create() {
     			span = element("span");
     			attr_dev(span, "class", "mdc-deprecated-list-item__ripple");
-    			add_location(span, file$6, 55, 15, 1654);
+    			add_location(span, file$8, 55, 15, 1654);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -22126,7 +22151,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$2.name,
+    		id: create_if_block$4.name,
     		type: "if",
     		source: "(56:3) {#if ripple}",
     		ctx
@@ -22139,7 +22164,7 @@ var app = (function () {
     function create_default_slot$2(ctx) {
     	let if_block_anchor;
     	let current;
-    	let if_block = /*ripple*/ ctx[6] && create_if_block$2(ctx);
+    	let if_block = /*ripple*/ ctx[6] && create_if_block$4(ctx);
     	const default_slot_template = /*#slots*/ ctx[30].default;
     	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[34], null);
 
@@ -22162,7 +22187,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			if (/*ripple*/ ctx[6]) {
     				if (if_block) ; else {
-    					if_block = create_if_block$2(ctx);
+    					if_block = create_if_block$4(ctx);
     					if_block.c();
     					if_block.m(if_block_anchor.parentNode, if_block_anchor);
     				}
@@ -22204,7 +22229,7 @@ var app = (function () {
     	return block;
     }
 
-    function create_fragment$7(ctx) {
+    function create_fragment$9(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -22247,7 +22272,7 @@ var app = (function () {
     			})
     		},
     		{
-    			style: Object.entries(/*internalStyles*/ ctx[15]).map(func).concat([/*style*/ ctx[3]]).join(" ")
+    			style: Object.entries(/*internalStyles*/ ctx[15]).map(func$1).concat([/*style*/ ctx[3]]).join(" ")
     		},
     		/*nav*/ ctx[19] && /*activated*/ ctx[7]
     		? { "aria-current": "page" }
@@ -22359,7 +22384,7 @@ var app = (function () {
     						})
     					},
     					dirty[0] & /*internalStyles, style*/ 32776 && {
-    						style: Object.entries(/*internalStyles*/ ctx[15]).map(func).concat([/*style*/ ctx[3]]).join(" ")
+    						style: Object.entries(/*internalStyles*/ ctx[15]).map(func$1).concat([/*style*/ ctx[3]]).join(" ")
     					},
     					dirty[0] & /*nav, activated*/ 524416 && get_spread_object(/*nav*/ ctx[19] && /*activated*/ ctx[7]
     					? { "aria-current": "page" }
@@ -22440,7 +22465,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$7.name,
+    		id: create_fragment$9.name,
     		type: "component",
     		source: "",
     		ctx
@@ -22449,10 +22474,10 @@ var app = (function () {
     	return block;
     }
 
-    let counter = 0;
-    const func = ([name, value]) => `${name}: ${value};`;
+    let counter$1 = 0;
+    const func$1 = ([name, value]) => `${name}: ${value};`;
 
-    function instance$7($$self, $$props, $$invalidate) {
+    function instance$8($$self, $$props, $$invalidate) {
     	let tabindex;
 
     	const omit_props_names = [
@@ -22481,7 +22506,7 @@ var app = (function () {
     	let { selected = false } = $$props;
     	let { disabled = false } = $$props;
     	let { tabindex: tabindexProp = uninitializedValue } = $$props;
-    	let { inputId = "SMUI-form-field-list-" + counter++ } = $$props;
+    	let { inputId = "SMUI-form-field-list-" + counter$1++ } = $$props;
     	let { href = null } = $$props;
     	let element;
     	let internalClasses = {};
@@ -22717,7 +22742,7 @@ var app = (function () {
     	};
 
     	$$self.$capture_state = () => ({
-    		counter,
+    		counter: counter$1,
     		onMount,
     		onDestroy,
     		getContext,
@@ -22852,8 +22877,8 @@ var app = (function () {
     		init(
     			this,
     			options,
-    			instance$7,
-    			create_fragment$7,
+    			instance$8,
+    			create_fragment$9,
     			safe_not_equal,
     			{
     				use: 1,
@@ -22880,7 +22905,7 @@ var app = (function () {
     			component: this,
     			tagName: "Item",
     			options,
-    			id: create_fragment$7.name
+    			id: create_fragment$9.name
     		});
     	}
 
@@ -23035,9 +23060,9 @@ var app = (function () {
 
     /* node_modules\@smui\list\Label.svelte generated by Svelte v3.38.2 */
 
-    const file$5 = "node_modules\\@smui\\list\\Label.svelte";
+    const file$7 = "node_modules\\@smui\\list\\Label.svelte";
 
-    function create_fragment$6(ctx) {
+    function create_fragment$8(ctx) {
     	let label;
     	let label_class_value;
     	let label_for_value;
@@ -23072,7 +23097,7 @@ var app = (function () {
     			label = element("label");
     			if (default_slot) default_slot.c();
     			set_attributes(label, label_data);
-    			add_location(label, file$5, 0, 0, 0);
+    			add_location(label, file$7, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23134,7 +23159,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$6.name,
+    		id: create_fragment$8.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23143,7 +23168,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$6($$self, $$props, $$invalidate) {
+    function instance$7($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","class","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -23215,13 +23240,13 @@ var app = (function () {
     class Label extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$6, create_fragment$6, safe_not_equal, { use: 0, class: 1, getElement: 6 });
+    		init(this, options, instance$7, create_fragment$8, safe_not_equal, { use: 0, class: 1, getElement: 6 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Label",
     			options,
-    			id: create_fragment$6.name
+    			id: create_fragment$8.name
     		});
     	}
 
@@ -23256,9 +23281,9 @@ var app = (function () {
     });
 
     /* node_modules\@smui\common\H3.svelte generated by Svelte v3.38.2 */
-    const file$4 = "node_modules\\@smui\\common\\H3.svelte";
+    const file$6 = "node_modules\\@smui\\common\\H3.svelte";
 
-    function create_fragment$5(ctx) {
+    function create_fragment$7(ctx) {
     	let h3;
     	let useActions_action;
     	let current;
@@ -23278,7 +23303,7 @@ var app = (function () {
     			h3 = element("h3");
     			if (default_slot) default_slot.c();
     			set_attributes(h3, h3_data);
-    			add_location(h3, file$4, 0, 0, 0);
+    			add_location(h3, file$6, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23332,7 +23357,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$5.name,
+    		id: create_fragment$7.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23341,7 +23366,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$5($$self, $$props, $$invalidate) {
+    function instance$6($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -23402,13 +23427,13 @@ var app = (function () {
     class H3 extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$5, create_fragment$5, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$6, create_fragment$7, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "H3",
     			options,
-    			id: create_fragment$5.name
+    			id: create_fragment$7.name
     		});
     	}
 
@@ -23435,9 +23460,9 @@ var app = (function () {
     });
 
     /* node_modules\@smui\common\Hr.svelte generated by Svelte v3.38.2 */
-    const file$3 = "node_modules\\@smui\\common\\Hr.svelte";
+    const file$5 = "node_modules\\@smui\\common\\Hr.svelte";
 
-    function create_fragment$4(ctx) {
+    function create_fragment$6(ctx) {
     	let hr;
     	let useActions_action;
     	let t;
@@ -23460,7 +23485,7 @@ var app = (function () {
     			t = space();
     			if (default_slot) default_slot.c();
     			set_attributes(hr, hr_data);
-    			add_location(hr, file$3, 0, 0, 0);
+    			add_location(hr, file$5, 0, 0, 0);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -23516,7 +23541,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$4.name,
+    		id: create_fragment$6.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23525,7 +23550,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$4($$self, $$props, $$invalidate) {
+    function instance$5($$self, $$props, $$invalidate) {
     	const omit_props_names = ["use","getElement"];
     	let $$restProps = compute_rest_props($$props, omit_props_names);
     	let { $$slots: slots = {}, $$scope } = $$props;
@@ -23586,13 +23611,13 @@ var app = (function () {
     class Hr extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$4, create_fragment$4, safe_not_equal, { use: 0, getElement: 4 });
+    		init(this, options, instance$5, create_fragment$6, safe_not_equal, { use: 0, getElement: 4 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Hr",
     			options,
-    			id: create_fragment$4.name
+    			id: create_fragment$6.name
     		});
     	}
 
@@ -23615,7 +23640,7 @@ var app = (function () {
 
     /* node_modules\@smui\list\Separator.svelte generated by Svelte v3.38.2 */
 
-    function create_fragment$3(ctx) {
+    function create_fragment$5(ctx) {
     	let switch_instance;
     	let switch_instance_anchor;
     	let current;
@@ -23740,7 +23765,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$3.name,
+    		id: create_fragment$5.name,
     		type: "component",
     		source: "",
     		ctx
@@ -23749,7 +23774,7 @@ var app = (function () {
     	return block;
     }
 
-    function instance$3($$self, $$props, $$invalidate) {
+    function instance$4($$self, $$props, $$invalidate) {
     	const omit_props_names = [
     		"use","class","padded","inset","insetLeading","insetTrailing","insetPadding","component","getElement"
     	];
@@ -23855,7 +23880,7 @@ var app = (function () {
     	constructor(options) {
     		super(options);
 
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
+    		init(this, options, instance$4, create_fragment$5, safe_not_equal, {
     			use: 0,
     			class: 1,
     			padded: 2,
@@ -23871,7 +23896,7 @@ var app = (function () {
     			component: this,
     			tagName: "Separator",
     			options,
-    			id: create_fragment$3.name
+    			id: create_fragment$5.name
     		});
     	}
 
@@ -23949,10 +23974,64 @@ var app = (function () {
     }
 
     /* src\lib\auth\login.svelte generated by Svelte v3.38.2 */
-    const file$2 = "src\\lib\\auth\\login.svelte";
+    const file$4 = "src\\lib\\auth\\login.svelte";
 
-    // (60:8) {:else}
-    function create_else_block(ctx) {
+    // (70:4) {#if errorMessage}
+    function create_if_block_1$1(ctx) {
+    	let div;
+    	let t;
+    	let div_transition;
+    	let current;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			t = text(/*errorMessage*/ ctx[2]);
+    			attr_dev(div, "class", "text-red-500");
+    			add_location(div, file$4, 70, 6, 2101);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, t);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (!current || dirty & /*errorMessage*/ 4) set_data_dev(t, /*errorMessage*/ ctx[2]);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+
+    			add_render_callback(() => {
+    				if (!div_transition) div_transition = create_bidirectional_transition(div, slide, {}, true);
+    				div_transition.run(1);
+    			});
+
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			if (!div_transition) div_transition = create_bidirectional_transition(div, slide, {}, false);
+    			div_transition.run(0);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (detaching && div_transition) div_transition.end();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1$1.name,
+    		type: "if",
+    		source: "(70:4) {#if errorMessage}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (78:8) {:else}
+    function create_else_block$2(ctx) {
     	let t;
 
     	const block = {
@@ -23969,17 +24048,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_else_block.name,
+    		id: create_else_block$2.name,
     		type: "else",
-    		source: "(60:8) {:else}",
+    		source: "(78:8) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (59:9) {#if loading}
-    function create_if_block$1(ctx) {
+    // (77:9) {#if loading}
+    function create_if_block$3(ctx) {
     	let span;
 
     	const block = {
@@ -23987,7 +24066,7 @@ var app = (function () {
     			span = element("span");
     			span.textContent = "sync";
     			attr_dev(span, "class", "material-icons animate-spin");
-    			add_location(span, file$2, 58, 22, 1817);
+    			add_location(span, file$4, 76, 22, 2277);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, span, anchor);
@@ -23999,22 +24078,22 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_if_block$1.name,
+    		id: create_if_block$3.name,
     		type: "if",
-    		source: "(59:9) {#if loading}",
+    		source: "(77:9) {#if loading}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (58:6) <Label          >
+    // (76:6) <Label          >
     function create_default_slot_1$1(ctx) {
     	let if_block_anchor;
 
     	function select_block_type(ctx, dirty) {
-    		if (/*loading*/ ctx[1]) return create_if_block$1;
-    		return create_else_block;
+    		if (/*loading*/ ctx[1]) return create_if_block$3;
+    		return create_else_block$2;
     	}
 
     	let current_block_type = select_block_type(ctx);
@@ -24050,14 +24129,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1$1.name,
     		type: "slot",
-    		source: "(58:6) <Label          >",
+    		source: "(76:6) <Label          >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (57:4) <Button variant="raised" class="w-full">
+    // (75:4) <Button variant="raised" class="w-full">
     function create_default_slot$1(ctx) {
     	let label;
     	let current;
@@ -24081,7 +24160,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const label_changes = {};
 
-    			if (dirty & /*$$scope, loading*/ 130) {
+    			if (dirty & /*$$scope, loading*/ 258) {
     				label_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24105,14 +24184,14 @@ var app = (function () {
     		block,
     		id: create_default_slot$1.name,
     		type: "slot",
-    		source: "(57:4) <Button variant=\\\"raised\\\" class=\\\"w-full\\\">",
+    		source: "(75:4) <Button variant=\\\"raised\\\" class=\\\"w-full\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    function create_fragment$2(ctx) {
+    function create_fragment$4(ctx) {
     	let div;
     	let form;
     	let textfield0;
@@ -24121,15 +24200,16 @@ var app = (function () {
     	let textfield1;
     	let updating_value_1;
     	let t1;
-    	let button;
     	let t2;
+    	let button;
+    	let t3;
     	let span;
     	let current;
     	let mounted;
     	let dispose;
 
     	function textfield0_value_binding(value) {
-    		/*textfield0_value_binding*/ ctx[4](value);
+    		/*textfield0_value_binding*/ ctx[5](value);
     	}
 
     	let textfield0_props = { variant: "filled", label: "Username" };
@@ -24142,7 +24222,7 @@ var app = (function () {
     	binding_callbacks.push(() => bind$1(textfield0, "value", textfield0_value_binding));
 
     	function textfield1_value_binding(value) {
-    		/*textfield1_value_binding*/ ctx[5](value);
+    		/*textfield1_value_binding*/ ctx[6](value);
     	}
 
     	let textfield1_props = {
@@ -24157,6 +24237,7 @@ var app = (function () {
 
     	textfield1 = new Textfield({ props: textfield1_props, $$inline: true });
     	binding_callbacks.push(() => bind$1(textfield1, "value", textfield1_value_binding));
+    	let if_block = /*errorMessage*/ ctx[2] && create_if_block_1$1(ctx);
 
     	button = new Button_1({
     			props: {
@@ -24176,18 +24257,20 @@ var app = (function () {
     			t0 = space();
     			create_component(textfield1.$$.fragment);
     			t1 = space();
-    			create_component(button.$$.fragment);
+    			if (if_block) if_block.c();
     			t2 = space();
+    			create_component(button.$$.fragment);
+    			t3 = space();
     			span = element("span");
     			span.textContent = "Forgot your details?";
     			attr_dev(form, "action", "");
     			attr_dev(form, "class", "flex flex-col justify-center items-center gap-2");
-    			add_location(form, file$2, 12, 2, 413);
+    			add_location(form, file$4, 19, 2, 584);
     			attr_dev(span, "href", "#restoreUser");
     			attr_dev(span, "class", "mt-12 text-blue-500 cursor-pointer");
-    			add_location(span, file$2, 65, 2, 1959);
+    			add_location(span, file$4, 83, 2, 2419);
     			attr_dev(div, "class", "flex flex-col w-full justify-center items-center py-16");
-    			add_location(div, file$2, 11, 0, 341);
+    			add_location(div, file$4, 18, 0, 512);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -24199,13 +24282,15 @@ var app = (function () {
     			append_dev(form, t0);
     			mount_component(textfield1, form, null);
     			append_dev(form, t1);
+    			if (if_block) if_block.m(form, null);
+    			append_dev(form, t2);
     			mount_component(button, form, null);
-    			append_dev(div, t2);
+    			append_dev(div, t3);
     			append_dev(div, span);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[6]), false, true, false);
+    				dispose = listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[7]), false, true, false);
     				mounted = true;
     			}
     		},
@@ -24228,9 +24313,33 @@ var app = (function () {
     			}
 
     			textfield1.$set(textfield1_changes);
+
+    			if (/*errorMessage*/ ctx[2]) {
+    				if (if_block) {
+    					if_block.p(ctx, dirty);
+
+    					if (dirty & /*errorMessage*/ 4) {
+    						transition_in(if_block, 1);
+    					}
+    				} else {
+    					if_block = create_if_block_1$1(ctx);
+    					if_block.c();
+    					transition_in(if_block, 1);
+    					if_block.m(form, t2);
+    				}
+    			} else if (if_block) {
+    				group_outros();
+
+    				transition_out(if_block, 1, 1, () => {
+    					if_block = null;
+    				});
+
+    				check_outros();
+    			}
+
     			const button_changes = {};
 
-    			if (dirty & /*$$scope, loading*/ 130) {
+    			if (dirty & /*$$scope, loading*/ 258) {
     				button_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24240,12 +24349,14 @@ var app = (function () {
     			if (current) return;
     			transition_in(textfield0.$$.fragment, local);
     			transition_in(textfield1.$$.fragment, local);
+    			transition_in(if_block);
     			transition_in(button.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(textfield0.$$.fragment, local);
     			transition_out(textfield1.$$.fragment, local);
+    			transition_out(if_block);
     			transition_out(button.$$.fragment, local);
     			current = false;
     		},
@@ -24253,6 +24364,7 @@ var app = (function () {
     			if (detaching) detach_dev(div);
     			destroy_component(textfield0);
     			destroy_component(textfield1);
+    			if (if_block) if_block.d();
     			destroy_component(button);
     			mounted = false;
     			dispose();
@@ -24261,7 +24373,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$2.name,
+    		id: create_fragment$4.name,
     		type: "component",
     		source: "",
     		ctx
@@ -24270,13 +24382,13 @@ var app = (function () {
     	return block;
     }
 
-    function instance$2($$self, $$props, $$invalidate) {
+    function instance$3($$self, $$props, $$invalidate) {
     	let $user;
     	let $modal;
     	validate_store(user, "user");
-    	component_subscribe($$self, user, $$value => $$invalidate(2, $user = $$value));
+    	component_subscribe($$self, user, $$value => $$invalidate(3, $user = $$value));
     	validate_store(modal, "modal");
-    	component_subscribe($$self, modal, $$value => $$invalidate(3, $modal = $$value));
+    	component_subscribe($$self, modal, $$value => $$invalidate(4, $modal = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Login", slots, []);
 
@@ -24287,6 +24399,7 @@ var app = (function () {
     	};
 
     	let loading = false;
+    	let errorMessage;
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -24320,19 +24433,24 @@ var app = (function () {
     		bodyFormData.append("password", userData.password);
 
     		//making the request with axios
-    		let request = await axios.post("https://foodsight.azurewebsites.net/token", bodyFormData, {
-    			headers: {
-    				"Content-Type": "multipart/form-data",
-    				Authorization: "Basic Og=="
-    			}
-    		});
+    		try {
+    			let request = await axios.post("https://foodsight.azurewebsites.net/token", bodyFormData, {
+    				headers: {
+    					"Content-Type": "multipart/form-data",
+    					Authorization: "Basic Og=="
+    				}
+    			});
 
-    		// closing modal if request was successfull and storing tokens and seting it in store
-    		if (request.data) {
-    			set_store_value(user, $user = request.data, $user);
-    			localStorage.setItem("auth", JSON.stringify(request.data));
+    			// closing modal if request was successfull and storing tokens and seting it in store
+    			if (request?.data) {
+    				set_store_value(user, $user = request.data, $user);
+    				localStorage.setItem("auth", JSON.stringify(request.data));
+    				$$invalidate(1, loading = false);
+    				set_store_value(modal, $modal = {}, $modal);
+    			}
+    		} catch(error) {
+    			$$invalidate(2, errorMessage = error?.response?.data?.detail);
     			$$invalidate(1, loading = false);
-    			set_store_value(modal, $modal = {}, $modal);
     		}
     	};
 
@@ -24343,8 +24461,10 @@ var app = (function () {
     		axios,
     		modal,
     		user,
+    		slide,
     		userData,
     		loading,
+    		errorMessage,
     		$user,
     		$modal
     	});
@@ -24352,15 +24472,27 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("userData" in $$props) $$invalidate(0, userData = $$props.userData);
     		if ("loading" in $$props) $$invalidate(1, loading = $$props.loading);
+    		if ("errorMessage" in $$props) $$invalidate(2, errorMessage = $$props.errorMessage);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*userData*/ 1) {
+    			{
+    				if (userData.password && userData.username) {
+    					$$invalidate(2, errorMessage = undefined);
+    				}
+    			}
+    		}
+    	};
+
     	return [
     		userData,
     		loading,
+    		errorMessage,
     		$user,
     		$modal,
     		textfield0_value_binding,
@@ -24372,22 +24504,2388 @@ var app = (function () {
     class Login extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
+    		init(this, options, instance$3, create_fragment$4, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "Login",
     			options,
+    			id: create_fragment$4.name
+    		});
+    	}
+    }
+
+    /* node_modules\@smui\tooltip\Wrapper.svelte generated by Svelte v3.38.2 */
+
+    const file$3 = "node_modules\\@smui\\tooltip\\Wrapper.svelte";
+
+    // (14:0) {:else}
+    function create_else_block$1(ctx) {
+    	let current;
+    	const default_slot_template = /*#slots*/ ctx[12].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[11], null);
+
+    	const block = {
+    		c: function create() {
+    			if (default_slot) default_slot.c();
+    		},
+    		m: function mount(target, anchor) {
+    			if (default_slot) {
+    				default_slot.m(target, anchor);
+    			}
+
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 2048)) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[11], dirty, null, null);
+    				}
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (default_slot) default_slot.d(detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block$1.name,
+    		type: "else",
+    		source: "(14:0) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (1:0) {#if rich}
+    function create_if_block$2(ctx) {
+    	let div;
+    	let div_class_value;
+    	let useActions_action;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	const default_slot_template = /*#slots*/ ctx[12].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[11], null);
+
+    	let div_levels = [
+    		{
+    			class: div_class_value = classMap({
+    				[/*className*/ ctx[1]]: true,
+    				"mdc-tooltip-wrapper--rich": true
+    			})
+    		},
+    		/*$$restProps*/ ctx[7]
+    	];
+
+    	let div_data = {};
+
+    	for (let i = 0; i < div_levels.length; i += 1) {
+    		div_data = assign(div_data, div_levels[i]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			if (default_slot) default_slot.c();
+    			set_attributes(div, div_data);
+    			add_location(div, file$3, 1, 2, 13);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			if (default_slot) {
+    				default_slot.m(div, null);
+    			}
+
+    			/*div_binding*/ ctx[13](div);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					action_destroyer(useActions_action = useActions.call(null, div, /*use*/ ctx[0])),
+    					action_destroyer(/*forwardEvents*/ ctx[4].call(null, div))
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty & /*$$scope*/ 2048)) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[11], dirty, null, null);
+    				}
+    			}
+
+    			set_attributes(div, div_data = get_spread_update(div_levels, [
+    				(!current || dirty & /*className*/ 2 && div_class_value !== (div_class_value = classMap({
+    					[/*className*/ ctx[1]]: true,
+    					"mdc-tooltip-wrapper--rich": true
+    				}))) && { class: div_class_value },
+    				dirty & /*$$restProps*/ 128 && /*$$restProps*/ ctx[7]
+    			]));
+
+    			if (useActions_action && is_function(useActions_action.update) && dirty & /*use*/ 1) useActions_action.update.call(null, /*use*/ ctx[0]);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			if (default_slot) default_slot.d(detaching);
+    			/*div_binding*/ ctx[13](null);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$2.name,
+    		type: "if",
+    		source: "(1:0) {#if rich}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function create_fragment$3(ctx) {
+    	let current_block_type_index;
+    	let if_block;
+    	let if_block_anchor;
+    	let current;
+    	const if_block_creators = [create_if_block$2, create_else_block$1];
+    	const if_blocks = [];
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*rich*/ ctx[2]) return 0;
+    		return 1;
+    	}
+
+    	current_block_type_index = select_block_type(ctx);
+    	if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			if_blocks[current_block_type_index].m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, [dirty]) {
+    			let previous_block_index = current_block_type_index;
+    			current_block_type_index = select_block_type(ctx);
+
+    			if (current_block_type_index === previous_block_index) {
+    				if_blocks[current_block_type_index].p(ctx, dirty);
+    			} else {
+    				group_outros();
+
+    				transition_out(if_blocks[previous_block_index], 1, 1, () => {
+    					if_blocks[previous_block_index] = null;
+    				});
+
+    				check_outros();
+    				if_block = if_blocks[current_block_type_index];
+
+    				if (!if_block) {
+    					if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx);
+    					if_block.c();
+    				} else {
+    					if_block.p(ctx, dirty);
+    				}
+
+    				transition_in(if_block, 1);
+    				if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    			}
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(if_block);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(if_block);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if_blocks[current_block_type_index].d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$3.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	const omit_props_names = ["use","class","rich","getElement"];
+    	let $$restProps = compute_rest_props($$props, omit_props_names);
+    	let $tooltip;
+    	let $anchor;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots("Wrapper", slots, ['default']);
+    	const forwardEvents = forwardEventsBuilder(get_current_component());
+    	let { use = [] } = $$props;
+    	let { class: className = "" } = $$props;
+    	let { rich = false } = $$props;
+    	let element;
+    	const anchor = writable(null);
+    	validate_store(anchor, "anchor");
+    	component_subscribe($$self, anchor, value => $$invalidate(10, $anchor = value));
+    	const tooltip = writable(null);
+    	validate_store(tooltip, "tooltip");
+    	component_subscribe($$self, tooltip, value => $$invalidate(9, $tooltip = value));
+    	setContext("SMUI:tooltip:wrapper:anchor", anchor);
+    	setContext("SMUI:tooltip:wrapper:tooltip", tooltip);
+    	setContext("SMUI:tooltip:rich", rich);
+
+    	function getElement() {
+    		return element;
+    	}
+
+    	function div_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			element = $$value;
+    			$$invalidate(3, element);
+    		});
+    	}
+
+    	$$self.$$set = $$new_props => {
+    		$$props = assign(assign({}, $$props), exclude_internal_props($$new_props));
+    		$$invalidate(7, $$restProps = compute_rest_props($$props, omit_props_names));
+    		if ("use" in $$new_props) $$invalidate(0, use = $$new_props.use);
+    		if ("class" in $$new_props) $$invalidate(1, className = $$new_props.class);
+    		if ("rich" in $$new_props) $$invalidate(2, rich = $$new_props.rich);
+    		if ("$$scope" in $$new_props) $$invalidate(11, $$scope = $$new_props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		setContext,
+    		writable,
+    		get_current_component,
+    		forwardEventsBuilder,
+    		classMap,
+    		useActions,
+    		forwardEvents,
+    		use,
+    		className,
+    		rich,
+    		element,
+    		anchor,
+    		tooltip,
+    		getElement,
+    		$tooltip,
+    		$anchor
+    	});
+
+    	$$self.$inject_state = $$new_props => {
+    		if ("use" in $$props) $$invalidate(0, use = $$new_props.use);
+    		if ("className" in $$props) $$invalidate(1, className = $$new_props.className);
+    		if ("rich" in $$props) $$invalidate(2, rich = $$new_props.rich);
+    		if ("element" in $$props) $$invalidate(3, element = $$new_props.element);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty & /*$tooltip, $anchor*/ 1536) {
+    			if ($tooltip && !$anchor) {
+    				set_store_value(anchor, $anchor = $tooltip.previousElementSibling, $anchor);
+    			}
+    		}
+    	};
+
+    	return [
+    		use,
+    		className,
+    		rich,
+    		element,
+    		forwardEvents,
+    		anchor,
+    		tooltip,
+    		$$restProps,
+    		getElement,
+    		$tooltip,
+    		$anchor,
+    		$$scope,
+    		slots,
+    		div_binding
+    	];
+    }
+
+    class Wrapper extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$3, safe_not_equal, { use: 0, class: 1, rich: 2, getElement: 8 });
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Wrapper",
+    			options,
+    			id: create_fragment$3.name
+    		});
+    	}
+
+    	get use() {
+    		throw new Error("<Wrapper>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set use(value) {
+    		throw new Error("<Wrapper>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get class() {
+    		throw new Error("<Wrapper>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set class(value) {
+    		throw new Error("<Wrapper>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get rich() {
+    		throw new Error("<Wrapper>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set rich(value) {
+    		throw new Error("<Wrapper>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get getElement() {
+    		return this.$$.ctx[8];
+    	}
+
+    	set getElement(value) {
+    		throw new Error("<Wrapper>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+    }
+
+    /**
+     * @license
+     * Copyright 2020 Google Inc.
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a copy
+     * of this software and associated documentation files (the "Software"), to deal
+     * in the Software without restriction, including without limitation the rights
+     * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     * copies of the Software, and to permit persons to whom the Software is
+     * furnished to do so, subject to the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included in
+     * all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+     * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+     * THE SOFTWARE.
+     */
+    var CssClasses;
+    (function (CssClasses) {
+        CssClasses["RICH"] = "mdc-tooltip--rich";
+        CssClasses["SHOWN"] = "mdc-tooltip--shown";
+        CssClasses["SHOWING"] = "mdc-tooltip--showing";
+        CssClasses["SHOWING_TRANSITION"] = "mdc-tooltip--showing-transition";
+        CssClasses["HIDE"] = "mdc-tooltip--hide";
+        CssClasses["HIDE_TRANSITION"] = "mdc-tooltip--hide-transition";
+        CssClasses["MULTILINE_TOOLTIP"] = "mdc-tooltip--multiline";
+        CssClasses["SURFACE"] = "mdc-tooltip__surface";
+        CssClasses["TOOLTIP_CARET_TOP"] = "mdc-tooltip__caret-surface-top";
+        CssClasses["TOOLTIP_CARET_BOTTOM"] = "mdc-tooltip__caret-surface-bottom";
+    })(CssClasses || (CssClasses = {}));
+    var numbers = {
+        BOUNDED_ANCHOR_GAP: 4,
+        UNBOUNDED_ANCHOR_GAP: 8,
+        MIN_VIEWPORT_TOOLTIP_THRESHOLD: 8,
+        HIDE_DELAY_MS: 600,
+        SHOW_DELAY_MS: 500,
+        // LINT.IfChange(tooltip-dimensions)
+        MIN_HEIGHT: 24,
+        MAX_WIDTH: 200,
+        // LINT.ThenChange(_tooltip.scss:tooltip-dimensions)
+        CARET_INDENTATION: 24,
+    };
+    var attributes = {
+        ARIA_EXPANDED: 'aria-expanded',
+        ARIA_HASPOPUP: 'aria-haspopup',
+        PERSISTENT: 'data-mdc-tooltip-persistent',
+        SCROLLABLE_ANCESTOR: 'tooltip-scrollable-ancestor',
+        HAS_CARET: 'data-mdc-tooltip-has-caret',
+    };
+    /** Enum for possible tooltip positioning relative to its anchor element. */
+    var XPosition;
+    (function (XPosition) {
+        XPosition[XPosition["DETECTED"] = 0] = "DETECTED";
+        XPosition[XPosition["START"] = 1] = "START";
+        // Note: CENTER is not valid for rich tooltips.
+        XPosition[XPosition["CENTER"] = 2] = "CENTER";
+        XPosition[XPosition["END"] = 3] = "END";
+    })(XPosition || (XPosition = {}));
+    var YPosition;
+    (function (YPosition) {
+        YPosition[YPosition["DETECTED"] = 0] = "DETECTED";
+        YPosition[YPosition["ABOVE"] = 1] = "ABOVE";
+        YPosition[YPosition["BELOW"] = 2] = "BELOW";
+    })(YPosition || (YPosition = {}));
+    /**
+     * Enum for possible anchor boundary types. This determines the gap between the
+     * bottom of the anchor and the tooltip element.
+     * Bounded anchors have an identifiable boundary (e.g. buttons).
+     * Unbounded anchors don't have a visually declared boundary (e.g. plain text).
+     */
+    var AnchorBoundaryType;
+    (function (AnchorBoundaryType) {
+        AnchorBoundaryType[AnchorBoundaryType["BOUNDED"] = 0] = "BOUNDED";
+        AnchorBoundaryType[AnchorBoundaryType["UNBOUNDED"] = 1] = "UNBOUNDED";
+    })(AnchorBoundaryType || (AnchorBoundaryType = {}));
+    var strings = {
+        LEFT: 'left',
+        RIGHT: 'right',
+        CENTER: 'center',
+        TOP: 'top',
+        BOTTOM: 'bottom'
+    };
+    /**
+     * Enum for possible positions of a tooltip with caret (this specifies the
+     * positioning of the tooltip relative to the anchor -- the position of the
+     * caret will follow that of the tooltip). This can NOT be combined with the
+     * above X/YPosition options. Naming for the enums follows: (vertical
+     * placement)_(horizontal placement).
+     */
+    var PositionWithCaret;
+    (function (PositionWithCaret) {
+        PositionWithCaret[PositionWithCaret["DETECTED"] = 0] = "DETECTED";
+        PositionWithCaret[PositionWithCaret["ABOVE_START"] = 1] = "ABOVE_START";
+        PositionWithCaret[PositionWithCaret["ABOVE_CENTER"] = 2] = "ABOVE_CENTER";
+        PositionWithCaret[PositionWithCaret["ABOVE_END"] = 3] = "ABOVE_END";
+        PositionWithCaret[PositionWithCaret["TOP_SIDE_START"] = 4] = "TOP_SIDE_START";
+        PositionWithCaret[PositionWithCaret["CENTER_SIDE_START"] = 5] = "CENTER_SIDE_START";
+        PositionWithCaret[PositionWithCaret["BOTTOM_SIDE_START"] = 6] = "BOTTOM_SIDE_START";
+        PositionWithCaret[PositionWithCaret["TOP_SIDE_END"] = 7] = "TOP_SIDE_END";
+        PositionWithCaret[PositionWithCaret["CENTER_SIDE_END"] = 8] = "CENTER_SIDE_END";
+        PositionWithCaret[PositionWithCaret["BOTTOM_SIDE_END"] = 9] = "BOTTOM_SIDE_END";
+        PositionWithCaret[PositionWithCaret["BELOW_START"] = 10] = "BELOW_START";
+        PositionWithCaret[PositionWithCaret["BELOW_CENTER"] = 11] = "BELOW_CENTER";
+        PositionWithCaret[PositionWithCaret["BELOW_END"] = 12] = "BELOW_END";
+    })(PositionWithCaret || (PositionWithCaret = {}));
+
+    /**
+     * @license
+     * Copyright 2020 Google Inc.
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a copy
+     * of this software and associated documentation files (the "Software"), to deal
+     * in the Software without restriction, including without limitation the rights
+     * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     * copies of the Software, and to permit persons to whom the Software is
+     * furnished to do so, subject to the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included in
+     * all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+     * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+     * THE SOFTWARE.
+     */
+    /**
+     * AnimationFrame provides a user-friendly abstraction around requesting
+     * and canceling animation frames.
+     */
+    var AnimationFrame = /** @class */ (function () {
+        function AnimationFrame() {
+            this.rafIDs = new Map();
+        }
+        /**
+         * Requests an animation frame. Cancels any existing frame with the same key.
+         * @param {string} key The key for this callback.
+         * @param {FrameRequestCallback} callback The callback to be executed.
+         */
+        AnimationFrame.prototype.request = function (key, callback) {
+            var _this = this;
+            this.cancel(key);
+            var frameID = requestAnimationFrame(function (frame) {
+                _this.rafIDs.delete(key);
+                // Callback must come *after* the key is deleted so that nested calls to
+                // request with the same key are not deleted.
+                callback(frame);
+            });
+            this.rafIDs.set(key, frameID);
+        };
+        /**
+         * Cancels a queued callback with the given key.
+         * @param {string} key The key for this callback.
+         */
+        AnimationFrame.prototype.cancel = function (key) {
+            var rafID = this.rafIDs.get(key);
+            if (rafID) {
+                cancelAnimationFrame(rafID);
+                this.rafIDs.delete(key);
+            }
+        };
+        /**
+         * Cancels all queued callback.
+         */
+        AnimationFrame.prototype.cancelAll = function () {
+            var _this = this;
+            // Need to use forEach because it's the only iteration method supported
+            // by IE11. Suppress the underscore because we don't need it.
+            // tslint:disable-next-line:enforce-name-casing
+            this.rafIDs.forEach(function (_, key) {
+                _this.cancel(key);
+            });
+        };
+        /**
+         * Returns the queue of unexecuted callback keys.
+         */
+        AnimationFrame.prototype.getQueue = function () {
+            var queue = [];
+            // Need to use forEach because it's the only iteration method supported
+            // by IE11. Suppress the underscore because we don't need it.
+            // tslint:disable-next-line:enforce-name-casing
+            this.rafIDs.forEach(function (_, key) {
+                queue.push(key);
+            });
+            return queue;
+        };
+        return AnimationFrame;
+    }());
+
+    /**
+     * @license
+     * Copyright 2020 Google Inc.
+     *
+     * Permission is hereby granted, free of charge, to any person obtaining a copy
+     * of this software and associated documentation files (the "Software"), to deal
+     * in the Software without restriction, including without limitation the rights
+     * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     * copies of the Software, and to permit persons to whom the Software is
+     * furnished to do so, subject to the following conditions:
+     *
+     * The above copyright notice and this permission notice shall be included in
+     * all copies or substantial portions of the Software.
+     *
+     * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+     * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+     * THE SOFTWARE.
+     */
+    var RICH = CssClasses.RICH, SHOWN = CssClasses.SHOWN, SHOWING = CssClasses.SHOWING, SHOWING_TRANSITION = CssClasses.SHOWING_TRANSITION, HIDE = CssClasses.HIDE, HIDE_TRANSITION = CssClasses.HIDE_TRANSITION, MULTILINE_TOOLTIP = CssClasses.MULTILINE_TOOLTIP;
+    var AnimationKeys;
+    (function (AnimationKeys) {
+        AnimationKeys["POLL_ANCHOR"] = "poll_anchor";
+    })(AnimationKeys || (AnimationKeys = {}));
+    // Accessing `window` without a `typeof` check will throw on Node environments.
+    var HAS_WINDOW = typeof window !== 'undefined';
+    var MDCTooltipFoundation = /** @class */ (function (_super) {
+        __extends(MDCTooltipFoundation, _super);
+        function MDCTooltipFoundation(adapter) {
+            var _this = _super.call(this, __assign(__assign({}, MDCTooltipFoundation.defaultAdapter), adapter)) || this;
+            _this.tooltipShown = false;
+            _this.anchorGap = numbers.BOUNDED_ANCHOR_GAP;
+            _this.xTooltipPos = XPosition.DETECTED;
+            _this.yTooltipPos = YPosition.DETECTED;
+            _this.tooltipPositionWithCaret = PositionWithCaret.DETECTED;
+            // Minimum threshold distance needed between the tooltip and the viewport.
+            _this.minViewportTooltipThreshold = numbers.MIN_VIEWPORT_TOOLTIP_THRESHOLD;
+            _this.hideDelayMs = numbers.HIDE_DELAY_MS;
+            _this.showDelayMs = numbers.SHOW_DELAY_MS;
+            _this.anchorRect = null;
+            _this.parentRect = null;
+            _this.frameId = null;
+            _this.hideTimeout = null;
+            _this.showTimeout = null;
+            _this.addAncestorScrollEventListeners = new Array();
+            _this.removeAncestorScrollEventListeners = new Array();
+            _this.animFrame = new AnimationFrame();
+            _this.anchorBlurHandler = function (evt) {
+                _this.handleAnchorBlur(evt);
+            };
+            _this.documentClickHandler = function (evt) {
+                _this.handleDocumentClick(evt);
+            };
+            _this.documentKeydownHandler = function (evt) {
+                _this.handleKeydown(evt);
+            };
+            _this.richTooltipMouseEnterHandler = function () {
+                _this.handleRichTooltipMouseEnter();
+            };
+            _this.richTooltipMouseLeaveHandler = function () {
+                _this.handleRichTooltipMouseLeave();
+            };
+            _this.richTooltipFocusOutHandler = function (evt) {
+                _this.handleRichTooltipFocusOut(evt);
+            };
+            _this.windowScrollHandler = function () {
+                _this.handleWindowChangeEvent();
+            };
+            _this.windowResizeHandler = function () {
+                _this.handleWindowChangeEvent();
+            };
+            return _this;
+        }
+        Object.defineProperty(MDCTooltipFoundation, "defaultAdapter", {
+            get: function () {
+                return {
+                    getAttribute: function () { return null; },
+                    setAttribute: function () { return undefined; },
+                    addClass: function () { return undefined; },
+                    hasClass: function () { return false; },
+                    removeClass: function () { return undefined; },
+                    getComputedStyleProperty: function () { return ''; },
+                    setStyleProperty: function () { return undefined; },
+                    setSurfaceStyleProperty: function () { return undefined; },
+                    getViewportWidth: function () { return 0; },
+                    getViewportHeight: function () { return 0; },
+                    getTooltipSize: function () { return ({ width: 0, height: 0 }); },
+                    getAnchorBoundingRect: function () {
+                        return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 });
+                    },
+                    getParentBoundingRect: function () {
+                        return ({ top: 0, right: 0, bottom: 0, left: 0, width: 0, height: 0 });
+                    },
+                    getAnchorAttribute: function () { return null; },
+                    setAnchorAttribute: function () { return null; },
+                    isRTL: function () { return false; },
+                    anchorContainsElement: function () { return false; },
+                    tooltipContainsElement: function () { return false; },
+                    focusAnchorElement: function () { return undefined; },
+                    registerEventHandler: function () { return undefined; },
+                    deregisterEventHandler: function () { return undefined; },
+                    registerAnchorEventHandler: function () { return undefined; },
+                    deregisterAnchorEventHandler: function () { return undefined; },
+                    registerDocumentEventHandler: function () { return undefined; },
+                    deregisterDocumentEventHandler: function () { return undefined; },
+                    registerWindowEventHandler: function () { return undefined; },
+                    deregisterWindowEventHandler: function () { return undefined; },
+                    notifyHidden: function () { return undefined; },
+                    getTooltipCaretSize: function () { return null; },
+                    setTooltipCaretStyle: function () { return undefined; },
+                    clearTooltipCaretStyles: function () { return undefined; },
+                };
+            },
+            enumerable: false,
+            configurable: true
+        });
+        MDCTooltipFoundation.prototype.init = function () {
+            this.richTooltip = this.adapter.hasClass(RICH);
+            this.persistentTooltip =
+                this.adapter.getAttribute(attributes.PERSISTENT) === 'true';
+            this.interactiveTooltip =
+                !!this.adapter.getAnchorAttribute(attributes.ARIA_EXPANDED) &&
+                    this.adapter.getAnchorAttribute(attributes.ARIA_HASPOPUP) === 'dialog';
+            this.hasCaret = this.richTooltip &&
+                this.adapter.getAttribute(attributes.HAS_CARET) === 'true';
+        };
+        MDCTooltipFoundation.prototype.isShown = function () {
+            return this.tooltipShown;
+        };
+        MDCTooltipFoundation.prototype.isRich = function () {
+            return this.richTooltip;
+        };
+        MDCTooltipFoundation.prototype.isPersistent = function () {
+            return this.persistentTooltip;
+        };
+        MDCTooltipFoundation.prototype.handleAnchorMouseEnter = function () {
+            var _this = this;
+            if (this.tooltipShown) {
+                // Covers the instance where a user hovers over the anchor to reveal the
+                // tooltip, and then quickly navigates away and then back to the anchor.
+                // The tooltip should stay visible without animating out and then back in
+                // again.
+                this.show();
+            }
+            else {
+                // clearHideTimeout here since handleAnchorMouseLeave sets a hideTimeout
+                // and that can execute before the showTimeout executes, resulting in hide
+                // being called and the showTimeout set below to be cleared.
+                this.clearHideTimeout();
+                this.showTimeout = setTimeout(function () {
+                    _this.show();
+                }, this.showDelayMs);
+            }
+        };
+        MDCTooltipFoundation.prototype.handleAnchorTouchstart = function () {
+            var _this = this;
+            this.showTimeout = setTimeout(function () {
+                _this.show();
+            }, this.showDelayMs);
+            // Prevent a context menu from appearing if user is long-pressing on a
+            // tooltip anchor.
+            this.adapter.registerWindowEventHandler('contextmenu', this.preventContextMenuOnLongTouch);
+        };
+        MDCTooltipFoundation.prototype.preventContextMenuOnLongTouch = function (evt) {
+            evt.preventDefault();
+        };
+        MDCTooltipFoundation.prototype.handleAnchorTouchend = function () {
+            this.clearShowTimeout();
+            // Only remove the 'contextmenu' listener if the tooltip is not shown. When
+            // the tooltip *is* shown, listener is removed in the close method.
+            if (!this.isShown()) {
+                this.adapter.deregisterWindowEventHandler('contextmenu', this.preventContextMenuOnLongTouch);
+            }
+        };
+        MDCTooltipFoundation.prototype.handleAnchorFocus = function (evt) {
+            var _this = this;
+            // TODO(b/157075286): Need to add some way to distinguish keyboard
+            // navigation focus events from other focus events, and only show the
+            // tooltip on the former of these events.
+            var relatedTarget = evt.relatedTarget;
+            var tooltipContainsRelatedTarget = relatedTarget instanceof HTMLElement &&
+                this.adapter.tooltipContainsElement(relatedTarget);
+            // Do not show tooltip if the previous focus was on a tooltip element. This
+            // occurs when a rich tooltip is closed and focus is restored to the anchor
+            // or when user tab-navigates back into the anchor from the rich tooltip.
+            if (tooltipContainsRelatedTarget) {
+                return;
+            }
+            this.showTimeout = setTimeout(function () {
+                _this.show();
+            }, this.showDelayMs);
+        };
+        MDCTooltipFoundation.prototype.handleAnchorMouseLeave = function () {
+            var _this = this;
+            this.clearShowTimeout();
+            this.hideTimeout = setTimeout(function () {
+                _this.hide();
+            }, this.hideDelayMs);
+        };
+        MDCTooltipFoundation.prototype.handleAnchorClick = function () {
+            if (this.tooltipShown) {
+                this.hide();
+            }
+            else {
+                this.show();
+            }
+        };
+        MDCTooltipFoundation.prototype.handleDocumentClick = function (evt) {
+            var anchorOrTooltipContainsTargetElement = evt.target instanceof HTMLElement &&
+                (this.adapter.anchorContainsElement(evt.target) ||
+                    this.adapter.tooltipContainsElement(evt.target));
+            // For persistent rich tooltips, we will not hide if:
+            // - The click target is within the anchor element. Otherwise, both
+            //   the anchor element's click handler and this handler will handle the
+            //   click (due to event propagation), resulting in a shown tooltip
+            //   being immediately hidden if the tooltip was initially hidden.
+            // - The click target is within the tooltip element, since clicks
+            //   on the tooltip do not close the tooltip.
+            if (this.richTooltip && this.persistentTooltip &&
+                anchorOrTooltipContainsTargetElement) {
+                return;
+            }
+            // Hide the tooltip immediately on click.
+            this.hide();
+        };
+        MDCTooltipFoundation.prototype.handleKeydown = function (evt) {
+            // Hide the tooltip immediately on ESC key.
+            var key = normalizeKey(evt);
+            if (key === KEY.ESCAPE) {
+                var tooltipContainsActiveElement = document.activeElement instanceof HTMLElement &&
+                    this.adapter.tooltipContainsElement(document.activeElement);
+                if (tooltipContainsActiveElement) {
+                    this.adapter.focusAnchorElement();
+                }
+                this.hide();
+            }
+        };
+        MDCTooltipFoundation.prototype.handleAnchorBlur = function (evt) {
+            if (this.richTooltip) {
+                var tooltipContainsRelatedTargetElement = evt.relatedTarget instanceof HTMLElement &&
+                    this.adapter.tooltipContainsElement(evt.relatedTarget);
+                // If focus changed to the tooltip element, don't hide the tooltip.
+                if (tooltipContainsRelatedTargetElement) {
+                    return;
+                }
+            }
+            // Hide tooltip immediately on focus change.
+            this.hide();
+        };
+        MDCTooltipFoundation.prototype.handleRichTooltipMouseEnter = function () {
+            this.show();
+        };
+        MDCTooltipFoundation.prototype.handleRichTooltipMouseLeave = function () {
+            var _this = this;
+            this.clearShowTimeout();
+            this.hideTimeout = setTimeout(function () {
+                _this.hide();
+            }, this.hideDelayMs);
+        };
+        MDCTooltipFoundation.prototype.handleRichTooltipFocusOut = function (evt) {
+            var anchorOrTooltipContainsRelatedTargetElement = evt.relatedTarget instanceof HTMLElement &&
+                (this.adapter.anchorContainsElement(evt.relatedTarget) ||
+                    this.adapter.tooltipContainsElement(evt.relatedTarget));
+            // If the focus is still within the anchor or the tooltip, do not hide the
+            // tooltip.
+            if (anchorOrTooltipContainsRelatedTargetElement) {
+                return;
+            }
+            this.hide();
+        };
+        /**
+         * On window resize or scroll, check the anchor position and size and
+         * repostion tooltip if necessary.
+         */
+        MDCTooltipFoundation.prototype.handleWindowChangeEvent = function () {
+            var _this = this;
+            // Since scroll and resize events can fire at a high rate, we throttle
+            // the potential re-positioning of tooltip component using
+            // requestAnimationFrame.
+            this.animFrame.request(AnimationKeys.POLL_ANCHOR, function () {
+                _this.repositionTooltipOnAnchorMove();
+            });
+        };
+        MDCTooltipFoundation.prototype.show = function () {
+            var e_1, _a;
+            var _this = this;
+            this.clearHideTimeout();
+            this.clearShowTimeout();
+            if (this.tooltipShown) {
+                return;
+            }
+            this.tooltipShown = true;
+            var showTooltipOptions = this.parseShowTooltipOptions();
+            if (!showTooltipOptions.hideFromScreenreader) {
+                this.adapter.setAttribute('aria-hidden', 'false');
+            }
+            if (this.richTooltip) {
+                if (this.interactiveTooltip) {
+                    this.adapter.setAnchorAttribute('aria-expanded', 'true');
+                }
+                this.adapter.registerEventHandler('focusout', this.richTooltipFocusOutHandler);
+                if (!this.persistentTooltip) {
+                    this.adapter.registerEventHandler('mouseenter', this.richTooltipMouseEnterHandler);
+                    this.adapter.registerEventHandler('mouseleave', this.richTooltipMouseLeaveHandler);
+                }
+            }
+            this.adapter.removeClass(HIDE);
+            this.adapter.addClass(SHOWING);
+            if (this.isTooltipMultiline() && !this.richTooltip) {
+                this.adapter.addClass(MULTILINE_TOOLTIP);
+            }
+            this.anchorRect = this.adapter.getAnchorBoundingRect();
+            this.parentRect = this.adapter.getParentBoundingRect();
+            this.richTooltip ? this.positionRichTooltip() : this.positionPlainTooltip();
+            // TODO(b/182906431): Position of the tooltip caret should be informed by
+            // the position of the tooltip.
+            if (this.hasCaret) {
+                this.setCaretPositionStyles(this.tooltipPositionWithCaret);
+            }
+            this.adapter.registerAnchorEventHandler('blur', this.anchorBlurHandler);
+            this.adapter.registerDocumentEventHandler('click', this.documentClickHandler);
+            this.adapter.registerDocumentEventHandler('keydown', this.documentKeydownHandler);
+            this.adapter.registerWindowEventHandler('scroll', this.windowScrollHandler);
+            this.adapter.registerWindowEventHandler('resize', this.windowResizeHandler);
+            try {
+                // Register any additional scroll handlers
+                for (var _b = __values(this.addAncestorScrollEventListeners), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var fn = _c.value;
+                    fn();
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+            this.frameId = requestAnimationFrame(function () {
+                _this.clearAllAnimationClasses();
+                _this.adapter.addClass(SHOWN);
+                _this.adapter.addClass(SHOWING_TRANSITION);
+            });
+        };
+        MDCTooltipFoundation.prototype.hide = function () {
+            var e_2, _a;
+            this.clearHideTimeout();
+            this.clearShowTimeout();
+            if (!this.tooltipShown) {
+                return;
+            }
+            if (this.frameId) {
+                cancelAnimationFrame(this.frameId);
+            }
+            this.tooltipShown = false;
+            this.adapter.setAttribute('aria-hidden', 'true');
+            this.adapter.deregisterEventHandler('focusout', this.richTooltipFocusOutHandler);
+            if (this.richTooltip) {
+                if (this.interactiveTooltip) {
+                    this.adapter.setAnchorAttribute('aria-expanded', 'false');
+                }
+                if (!this.persistentTooltip) {
+                    this.adapter.deregisterEventHandler('mouseenter', this.richTooltipMouseEnterHandler);
+                    this.adapter.deregisterEventHandler('mouseleave', this.richTooltipMouseLeaveHandler);
+                }
+            }
+            this.clearAllAnimationClasses();
+            this.adapter.addClass(HIDE);
+            this.adapter.addClass(HIDE_TRANSITION);
+            this.adapter.removeClass(SHOWN);
+            this.adapter.deregisterAnchorEventHandler('blur', this.anchorBlurHandler);
+            this.adapter.deregisterDocumentEventHandler('click', this.documentClickHandler);
+            this.adapter.deregisterDocumentEventHandler('keydown', this.documentKeydownHandler);
+            this.adapter.deregisterWindowEventHandler('scroll', this.windowScrollHandler);
+            this.adapter.deregisterWindowEventHandler('resize', this.windowResizeHandler);
+            this.adapter.deregisterWindowEventHandler('contextmenu', this.preventContextMenuOnLongTouch);
+            try {
+                // Deregister any additional scroll handlers
+                for (var _b = __values(this.removeAncestorScrollEventListeners), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var fn = _c.value;
+                    fn();
+                }
+            }
+            catch (e_2_1) { e_2 = { error: e_2_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_2) throw e_2.error; }
+            }
+        };
+        MDCTooltipFoundation.prototype.handleTransitionEnd = function () {
+            var isHidingTooltip = this.adapter.hasClass(HIDE);
+            this.adapter.removeClass(SHOWING);
+            this.adapter.removeClass(SHOWING_TRANSITION);
+            this.adapter.removeClass(HIDE);
+            this.adapter.removeClass(HIDE_TRANSITION);
+            // If handleTransitionEnd is called after hiding the tooltip, the tooltip
+            // will have the HIDE class (before calling the adapter removeClass method).
+            // If tooltip is now hidden, send a notification that the animation has
+            // completed and the tooltip is no longer visible.
+            if (isHidingTooltip) {
+                this.adapter.notifyHidden();
+            }
+        };
+        MDCTooltipFoundation.prototype.clearAllAnimationClasses = function () {
+            this.adapter.removeClass(SHOWING_TRANSITION);
+            this.adapter.removeClass(HIDE_TRANSITION);
+        };
+        MDCTooltipFoundation.prototype.setTooltipPosition = function (position) {
+            var xPos = position.xPos, yPos = position.yPos, withCaretPos = position.withCaretPos;
+            if (this.hasCaret && withCaretPos) {
+                this.tooltipPositionWithCaret = withCaretPos;
+                return;
+            }
+            if (xPos) {
+                this.xTooltipPos = xPos;
+            }
+            if (yPos) {
+                this.yTooltipPos = yPos;
+            }
+        };
+        MDCTooltipFoundation.prototype.setAnchorBoundaryType = function (type) {
+            if (type === AnchorBoundaryType.UNBOUNDED) {
+                this.anchorGap = numbers.UNBOUNDED_ANCHOR_GAP;
+            }
+            else {
+                this.anchorGap = numbers.BOUNDED_ANCHOR_GAP;
+            }
+        };
+        MDCTooltipFoundation.prototype.parseShowTooltipOptions = function () {
+            var hideFromScreenreader = Boolean(this.adapter.getAnchorAttribute('data-tooltip-id'));
+            return { hideFromScreenreader: hideFromScreenreader };
+        };
+        MDCTooltipFoundation.prototype.isTooltipMultiline = function () {
+            var tooltipSize = this.adapter.getTooltipSize();
+            return tooltipSize.height > numbers.MIN_HEIGHT &&
+                tooltipSize.width >= numbers.MAX_WIDTH;
+        };
+        MDCTooltipFoundation.prototype.positionPlainTooltip = function () {
+            // A plain tooltip has `fixed` positioning and is placed as an immediate
+            // child of the document body. Its positioning is calculated with respect to
+            // the viewport.
+            var _a = this.calculateTooltipStyles(this.anchorRect), top = _a.top, yTransformOrigin = _a.yTransformOrigin, left = _a.left, xTransformOrigin = _a.xTransformOrigin;
+            var transformProperty = HAS_WINDOW ? getCorrectPropertyName(window, 'transform') : 'transform';
+            this.adapter.setSurfaceStyleProperty(transformProperty + "-origin", yTransformOrigin + " " + xTransformOrigin);
+            this.adapter.setStyleProperty('top', top + "px");
+            this.adapter.setStyleProperty('left', left + "px");
+        };
+        MDCTooltipFoundation.prototype.positionRichTooltip = function () {
+            // TODO(b/177686782): Remove width setting when max-content is used to style
+            // the rich tooltip.
+            var _a, _b, _c, _d;
+            // getComputedStyleProperty is used instead of getTooltipSize since
+            // getTooltipSize returns the offSetWidth, which includes the border and
+            // padding. What we need is the width of the tooltip without border and
+            // padding.
+            var width = this.adapter.getComputedStyleProperty('width');
+            // When rich tooltips are positioned within their parent containers, the
+            // tooltip width might be shrunk if it collides with the edge of the parent
+            // container. We set the width of the tooltip to prevent this.
+            this.adapter.setStyleProperty('width', width);
+            var _e = this.calculateTooltipStyles(this.anchorRect), top = _e.top, yTransformOrigin = _e.yTransformOrigin, left = _e.left, xTransformOrigin = _e.xTransformOrigin;
+            var transformProperty = HAS_WINDOW ? getCorrectPropertyName(window, 'transform') : 'transform';
+            this.adapter.setSurfaceStyleProperty(transformProperty + "-origin", yTransformOrigin + " " + xTransformOrigin);
+            // A rich tooltip has `absolute` positioning and is placed as a sibling to
+            // the anchor element. Its positioning is calculated with respect to the
+            // parent element, and so the values need to be adjusted against the parent
+            // element.
+            var leftAdjustment = left - ((_b = (_a = this.parentRect) === null || _a === void 0 ? void 0 : _a.left) !== null && _b !== void 0 ? _b : 0);
+            var topAdjustment = top - ((_d = (_c = this.parentRect) === null || _c === void 0 ? void 0 : _c.top) !== null && _d !== void 0 ? _d : 0);
+            this.adapter.setStyleProperty('top', topAdjustment + "px");
+            this.adapter.setStyleProperty('left', leftAdjustment + "px");
+        };
+        /**
+         * Calculates the position of the tooltip. A tooltip will be placed beneath
+         * the anchor element and aligned either with the 'start'/'end' edge of the
+         * anchor element or the 'center'.
+         *
+         * Tooltip alignment is selected such that the tooltip maintains a threshold
+         * distance away from the viewport (defaulting to 'center' alignment). If the
+         * placement of the anchor prevents this threshold distance from being
+         * maintained, the tooltip is positioned so that it does not collide with the
+         * viewport.
+         *
+         * Users can specify an alignment, however, if this alignment results in the
+         * tooltip colliding with the viewport, this specification is overwritten.
+         */
+        MDCTooltipFoundation.prototype.calculateTooltipStyles = function (anchorRect) {
+            if (!anchorRect) {
+                return { top: 0, left: 0 };
+            }
+            var tooltipSize = this.adapter.getTooltipSize();
+            var top = this.calculateYTooltipDistance(anchorRect, tooltipSize.height);
+            var left = this.calculateXTooltipDistance(anchorRect, tooltipSize.width);
+            return {
+                top: top.distance,
+                yTransformOrigin: top.yTransformOrigin,
+                left: left.distance,
+                xTransformOrigin: left.xTransformOrigin
+            };
+        };
+        /**
+         * Calculates the `left` distance for the tooltip.
+         * Returns the distance value and a string indicating the x-axis transform-
+         * origin that should be used when animating the tooltip.
+         */
+        MDCTooltipFoundation.prototype.calculateXTooltipDistance = function (anchorRect, tooltipWidth) {
+            var isLTR = !this.adapter.isRTL();
+            var startPos, endPos, centerPos;
+            var startTransformOrigin, endTransformOrigin;
+            if (this.richTooltip) {
+                startPos = isLTR ? anchorRect.left - tooltipWidth : anchorRect.right;
+                endPos = isLTR ? anchorRect.right : anchorRect.left - tooltipWidth;
+                startTransformOrigin = isLTR ? strings.RIGHT : strings.LEFT;
+                endTransformOrigin = isLTR ? strings.LEFT : strings.RIGHT;
+            }
+            else {
+                startPos = isLTR ? anchorRect.left : anchorRect.right - tooltipWidth;
+                endPos = isLTR ? anchorRect.right - tooltipWidth : anchorRect.left;
+                centerPos = anchorRect.left + (anchorRect.width - tooltipWidth) / 2;
+                startTransformOrigin = isLTR ? strings.LEFT : strings.RIGHT;
+                endTransformOrigin = isLTR ? strings.RIGHT : strings.LEFT;
+            }
+            var positionOptions = this.richTooltip ?
+                this.determineValidPositionOptions(startPos, endPos) :
+                // For plain tooltips, centerPos is defined
+                this.determineValidPositionOptions(centerPos, startPos, endPos);
+            if (this.xTooltipPos === XPosition.START && positionOptions.has(startPos)) {
+                return { distance: startPos, xTransformOrigin: startTransformOrigin };
+            }
+            if (this.xTooltipPos === XPosition.END && positionOptions.has(endPos)) {
+                return { distance: endPos, xTransformOrigin: endTransformOrigin };
+            }
+            if (this.xTooltipPos === XPosition.CENTER &&
+                positionOptions.has(centerPos)) {
+                // This code path is only executed if calculating the distance for plain
+                // tooltips. In this instance, centerPos will always be defined, so we can
+                // safely assert that the returned value is non-null/undefined.
+                return { distance: centerPos, xTransformOrigin: strings.CENTER };
+            }
+            // If no user position is supplied, rich tooltips default to end pos, then
+            // start position. Plain tooltips default to center, start, then end.
+            var possiblePositions = this.richTooltip ?
+                [
+                    { distance: endPos, xTransformOrigin: endTransformOrigin },
+                    { distance: startPos, xTransformOrigin: startTransformOrigin }
+                ] :
+                [
+                    { distance: centerPos, xTransformOrigin: strings.CENTER },
+                    { distance: startPos, xTransformOrigin: startTransformOrigin },
+                    { distance: endPos, xTransformOrigin: endTransformOrigin }
+                ];
+            var validPosition = possiblePositions.find(function (_a) {
+                var distance = _a.distance;
+                return positionOptions.has(distance);
+            });
+            if (validPosition) {
+                return validPosition;
+            }
+            // Indicates that all potential positions would result in the tooltip
+            // colliding with the viewport. This would only occur when the anchor
+            // element itself collides with the viewport, or the viewport is very
+            // narrow. In this case, we allow the tooltip to be mis-aligned from the
+            // anchor element.
+            if (anchorRect.left < 0) {
+                return {
+                    distance: this.minViewportTooltipThreshold,
+                    xTransformOrigin: strings.LEFT
+                };
+            }
+            else {
+                var viewportWidth = this.adapter.getViewportWidth();
+                var distance = viewportWidth - (tooltipWidth + this.minViewportTooltipThreshold);
+                return { distance: distance, xTransformOrigin: strings.RIGHT };
+            }
+        };
+        /**
+         * Given the values for the horizontal alignments of the tooltip, calculates
+         * which of these options would result in the tooltip maintaining the required
+         * threshold distance vs which would result in the tooltip staying within the
+         * viewport.
+         *
+         * A Set of values is returned holding the distances that would honor the
+         * above requirements. Following the logic for determining the tooltip
+         * position, if all alignments violate the threshold, then the returned Set
+         * contains values that keep the tooltip within the viewport.
+         */
+        MDCTooltipFoundation.prototype.determineValidPositionOptions = function () {
+            var e_3, _a;
+            var positions = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                positions[_i] = arguments[_i];
+            }
+            var posWithinThreshold = new Set();
+            var posWithinViewport = new Set();
+            try {
+                for (var positions_1 = __values(positions), positions_1_1 = positions_1.next(); !positions_1_1.done; positions_1_1 = positions_1.next()) {
+                    var position = positions_1_1.value;
+                    if (this.positionHonorsViewportThreshold(position)) {
+                        posWithinThreshold.add(position);
+                    }
+                    else if (this.positionDoesntCollideWithViewport(position)) {
+                        posWithinViewport.add(position);
+                    }
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (positions_1_1 && !positions_1_1.done && (_a = positions_1.return)) _a.call(positions_1);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
+            return posWithinThreshold.size ? posWithinThreshold : posWithinViewport;
+        };
+        MDCTooltipFoundation.prototype.positionHonorsViewportThreshold = function (leftPos) {
+            var viewportWidth = this.adapter.getViewportWidth();
+            var tooltipWidth = this.adapter.getTooltipSize().width;
+            return leftPos + tooltipWidth <=
+                viewportWidth - this.minViewportTooltipThreshold &&
+                leftPos >= this.minViewportTooltipThreshold;
+        };
+        MDCTooltipFoundation.prototype.positionDoesntCollideWithViewport = function (leftPos) {
+            var viewportWidth = this.adapter.getViewportWidth();
+            var tooltipWidth = this.adapter.getTooltipSize().width;
+            return leftPos + tooltipWidth <= viewportWidth && leftPos >= 0;
+        };
+        /**
+         * Calculates the `top` distance for the tooltip.
+         * Returns the distance value and a string indicating the y-axis transform-
+         * origin that should be used when animating the tooltip.
+         */
+        MDCTooltipFoundation.prototype.calculateYTooltipDistance = function (anchorRect, tooltipHeight) {
+            var belowYPos = anchorRect.bottom + this.anchorGap;
+            var aboveYPos = anchorRect.top - (this.anchorGap + tooltipHeight);
+            var yPositionOptions = this.determineValidYPositionOptions(aboveYPos, belowYPos);
+            if (this.yTooltipPos === YPosition.ABOVE &&
+                yPositionOptions.has(aboveYPos)) {
+                return { distance: aboveYPos, yTransformOrigin: strings.BOTTOM };
+            }
+            else if (this.yTooltipPos === YPosition.BELOW &&
+                yPositionOptions.has(belowYPos)) {
+                return { distance: belowYPos, yTransformOrigin: strings.TOP };
+            }
+            if (yPositionOptions.has(belowYPos)) {
+                return { distance: belowYPos, yTransformOrigin: strings.TOP };
+            }
+            if (yPositionOptions.has(aboveYPos)) {
+                return { distance: aboveYPos, yTransformOrigin: strings.BOTTOM };
+            }
+            // Indicates that all potential positions would result in the tooltip
+            // colliding with the viewport. This would only occur when the viewport is
+            // very short.
+            return { distance: belowYPos, yTransformOrigin: strings.TOP };
+        };
+        /**
+         * Given the values for above/below alignment of the tooltip, calculates
+         * which of these options would result in the tooltip maintaining the required
+         * threshold distance vs which would result in the tooltip staying within the
+         * viewport.
+         *
+         * A Set of values is returned holding the distances that would honor the
+         * above requirements. Following the logic for determining the tooltip
+         * position, if all possible alignments violate the threshold, then the
+         * returned Set contains values that keep the tooltip within the viewport.
+         */
+        MDCTooltipFoundation.prototype.determineValidYPositionOptions = function (aboveAnchorPos, belowAnchorPos) {
+            var posWithinThreshold = new Set();
+            var posWithinViewport = new Set();
+            if (this.yPositionHonorsViewportThreshold(aboveAnchorPos)) {
+                posWithinThreshold.add(aboveAnchorPos);
+            }
+            else if (this.yPositionDoesntCollideWithViewport(aboveAnchorPos)) {
+                posWithinViewport.add(aboveAnchorPos);
+            }
+            if (this.yPositionHonorsViewportThreshold(belowAnchorPos)) {
+                posWithinThreshold.add(belowAnchorPos);
+            }
+            else if (this.yPositionDoesntCollideWithViewport(belowAnchorPos)) {
+                posWithinViewport.add(belowAnchorPos);
+            }
+            return posWithinThreshold.size ? posWithinThreshold : posWithinViewport;
+        };
+        MDCTooltipFoundation.prototype.yPositionHonorsViewportThreshold = function (yPos) {
+            var viewportHeight = this.adapter.getViewportHeight();
+            var tooltipHeight = this.adapter.getTooltipSize().height;
+            return yPos + tooltipHeight + this.minViewportTooltipThreshold <=
+                viewportHeight &&
+                yPos >= this.minViewportTooltipThreshold;
+        };
+        MDCTooltipFoundation.prototype.yPositionDoesntCollideWithViewport = function (yPos) {
+            var viewportHeight = this.adapter.getViewportHeight();
+            var tooltipHeight = this.adapter.getTooltipSize().height;
+            return yPos + tooltipHeight <= viewportHeight && yPos >= 0;
+        };
+        MDCTooltipFoundation.prototype.repositionTooltipOnAnchorMove = function () {
+            var newAnchorRect = this.adapter.getAnchorBoundingRect();
+            if (!newAnchorRect || !this.anchorRect)
+                return;
+            if (newAnchorRect.top !== this.anchorRect.top ||
+                newAnchorRect.left !== this.anchorRect.left ||
+                newAnchorRect.height !== this.anchorRect.height ||
+                newAnchorRect.width !== this.anchorRect.width) {
+                this.anchorRect = newAnchorRect;
+                this.parentRect = this.adapter.getParentBoundingRect();
+                this.richTooltip ? this.positionRichTooltip() :
+                    this.positionPlainTooltip();
+            }
+        };
+        /**
+         * Given a PositionWithCaret, applies the correct styles to the caret element
+         * so that it is positioned properly on the rich tooltip.
+         * Returns the x and y positions of the caret, to be used as the
+         * transform-origin on the tooltip itself for entrance animations.
+         */
+        MDCTooltipFoundation.prototype.setCaretPositionStyles = function (position) {
+            var values = this.calculateCaretPositionOnTooltip(position);
+            if (!values) {
+                return { yTransformOrigin: 0, xTransformOrigin: 0 };
+            }
+            // Prior to setting the caret position styles, clear any previous styles
+            // set. This is necessary as all position options do not use the same
+            // properties (e.g. using 'left' or 'right') and so old style properties
+            // might not get overridden, causing misplaced carets.
+            this.adapter.clearTooltipCaretStyles();
+            this.adapter.setTooltipCaretStyle(values.yAlignment, values.yAxisPx);
+            this.adapter.setTooltipCaretStyle(values.xAlignment, values.xAxisPx);
+            this.adapter.setTooltipCaretStyle('transform', "rotate(" + values.rotation + ")");
+            this.adapter.setTooltipCaretStyle('transform-origin', values.yAlignment + " " + values.xAlignment);
+            return { yTransformOrigin: values.yAxisPx, xTransformOrigin: values.xAxisPx };
+        };
+        /**
+         * Given a PositionWithCaret, determines the correct styles to position the
+         * caret properly on the rich tooltip.
+         */
+        MDCTooltipFoundation.prototype.calculateCaretPositionOnTooltip = function (tooltipPos) {
+            var isLTR = !this.adapter.isRTL();
+            var tooltipWidth = this.adapter.getComputedStyleProperty('width');
+            var tooltipHeight = this.adapter.getComputedStyleProperty('height');
+            var caretDimensions = this.adapter.getTooltipCaretSize();
+            if (!tooltipWidth || !tooltipHeight || !caretDimensions) {
+                return;
+            }
+            var caretDiagonal = caretDimensions.width * Math.sqrt(2);
+            var midpointWidth = "calc((" + tooltipWidth + " - " + caretDiagonal + "px) / 2)";
+            var midpointHeight = "calc((" + tooltipHeight + " - " + caretDiagonal + "px) / 2)";
+            var flushWithEdge = '0';
+            var indentedFromEdge = numbers.CARET_INDENTATION + "px";
+            var positiveRot = '45deg';
+            var negativeRot = '-45deg';
+            switch (tooltipPos) {
+                case PositionWithCaret.BELOW_CENTER:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: strings.LEFT,
+                        yAxisPx: flushWithEdge,
+                        xAxisPx: midpointWidth,
+                        rotation: negativeRot
+                    };
+                case PositionWithCaret.BELOW_END:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: isLTR ? strings.RIGHT : strings.LEFT,
+                        yAxisPx: flushWithEdge,
+                        xAxisPx: indentedFromEdge,
+                        rotation: isLTR ? positiveRot : negativeRot
+                    };
+                case PositionWithCaret.BELOW_START:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: isLTR ? strings.LEFT : strings.RIGHT,
+                        yAxisPx: flushWithEdge,
+                        xAxisPx: indentedFromEdge,
+                        rotation: isLTR ? negativeRot : positiveRot
+                    };
+                case PositionWithCaret.TOP_SIDE_END:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: isLTR ? strings.LEFT : strings.RIGHT,
+                        yAxisPx: indentedFromEdge,
+                        xAxisPx: flushWithEdge,
+                        rotation: isLTR ? positiveRot : negativeRot
+                    };
+                case PositionWithCaret.CENTER_SIDE_END:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: isLTR ? strings.LEFT : strings.RIGHT,
+                        yAxisPx: midpointHeight,
+                        xAxisPx: flushWithEdge,
+                        rotation: isLTR ? positiveRot : negativeRot
+                    };
+                case PositionWithCaret.BOTTOM_SIDE_END:
+                    return {
+                        yAlignment: strings.BOTTOM,
+                        xAlignment: isLTR ? strings.LEFT : strings.RIGHT,
+                        yAxisPx: indentedFromEdge,
+                        xAxisPx: flushWithEdge,
+                        rotation: isLTR ? negativeRot : positiveRot
+                    };
+                case PositionWithCaret.TOP_SIDE_START:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: isLTR ? strings.RIGHT : strings.LEFT,
+                        yAxisPx: indentedFromEdge,
+                        xAxisPx: flushWithEdge,
+                        rotation: isLTR ? negativeRot : positiveRot
+                    };
+                case PositionWithCaret.CENTER_SIDE_START:
+                    return {
+                        yAlignment: strings.TOP,
+                        xAlignment: isLTR ? strings.RIGHT : strings.LEFT,
+                        yAxisPx: midpointHeight,
+                        xAxisPx: flushWithEdge,
+                        rotation: isLTR ? negativeRot : positiveRot
+                    };
+                case PositionWithCaret.BOTTOM_SIDE_START:
+                    return {
+                        yAlignment: strings.BOTTOM,
+                        xAlignment: isLTR ? strings.RIGHT : strings.LEFT,
+                        yAxisPx: indentedFromEdge,
+                        xAxisPx: flushWithEdge,
+                        rotation: isLTR ? positiveRot : negativeRot
+                    };
+                case PositionWithCaret.ABOVE_CENTER:
+                    return {
+                        yAlignment: strings.BOTTOM,
+                        xAlignment: strings.LEFT,
+                        yAxisPx: flushWithEdge,
+                        xAxisPx: midpointWidth,
+                        rotation: positiveRot
+                    };
+                case PositionWithCaret.ABOVE_END:
+                    return {
+                        yAlignment: strings.BOTTOM,
+                        xAlignment: isLTR ? strings.RIGHT : strings.LEFT,
+                        yAxisPx: flushWithEdge,
+                        xAxisPx: indentedFromEdge,
+                        rotation: isLTR ? negativeRot : positiveRot
+                    };
+                default:
+                case PositionWithCaret.ABOVE_START:
+                    return {
+                        yAlignment: strings.BOTTOM,
+                        xAlignment: isLTR ? strings.LEFT : strings.RIGHT,
+                        yAxisPx: flushWithEdge,
+                        xAxisPx: indentedFromEdge,
+                        rotation: isLTR ? positiveRot : negativeRot
+                    };
+            }
+        };
+        MDCTooltipFoundation.prototype.clearShowTimeout = function () {
+            if (this.showTimeout) {
+                clearTimeout(this.showTimeout);
+                this.showTimeout = null;
+            }
+        };
+        MDCTooltipFoundation.prototype.clearHideTimeout = function () {
+            if (this.hideTimeout) {
+                clearTimeout(this.hideTimeout);
+                this.hideTimeout = null;
+            }
+        };
+        /**
+         * Method that allows user to specify additional elements that should have a
+         * scroll event listener attached to it. This should be used in instances
+         * where the anchor element is placed inside a scrollable container, and will
+         * ensure that the tooltip will stay attached to the anchor on scroll.
+         */
+        MDCTooltipFoundation.prototype.attachScrollHandler = function (addEventListenerFn) {
+            var _this = this;
+            this.addAncestorScrollEventListeners.push(function () {
+                addEventListenerFn('scroll', _this.windowScrollHandler);
+            });
+        };
+        /**
+         * Must be used in conjunction with #attachScrollHandler. Removes the scroll
+         * event handler from elements on the page.
+         */
+        MDCTooltipFoundation.prototype.removeScrollHandler = function (removeEventHandlerFn) {
+            var _this = this;
+            this.removeAncestorScrollEventListeners.push(function () {
+                removeEventHandlerFn('scroll', _this.windowScrollHandler);
+            });
+        };
+        MDCTooltipFoundation.prototype.destroy = function () {
+            var e_4, _a;
+            if (this.frameId) {
+                cancelAnimationFrame(this.frameId);
+                this.frameId = null;
+            }
+            this.clearHideTimeout();
+            this.clearShowTimeout();
+            this.adapter.removeClass(SHOWN);
+            this.adapter.removeClass(SHOWING_TRANSITION);
+            this.adapter.removeClass(SHOWING);
+            this.adapter.removeClass(HIDE);
+            this.adapter.removeClass(HIDE_TRANSITION);
+            if (this.richTooltip) {
+                this.adapter.deregisterEventHandler('focusout', this.richTooltipFocusOutHandler);
+                if (!this.persistentTooltip) {
+                    this.adapter.deregisterEventHandler('mouseenter', this.richTooltipMouseEnterHandler);
+                    this.adapter.deregisterEventHandler('mouseleave', this.richTooltipMouseLeaveHandler);
+                }
+            }
+            this.adapter.deregisterDocumentEventHandler('click', this.documentClickHandler);
+            this.adapter.deregisterDocumentEventHandler('keydown', this.documentKeydownHandler);
+            this.adapter.deregisterWindowEventHandler('scroll', this.windowScrollHandler);
+            this.adapter.deregisterWindowEventHandler('resize', this.windowResizeHandler);
+            try {
+                for (var _b = __values(this.removeAncestorScrollEventListeners), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var fn = _c.value;
+                    fn();
+                }
+            }
+            catch (e_4_1) { e_4 = { error: e_4_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_4) throw e_4.error; }
+            }
+            this.animFrame.cancelAll();
+        };
+        return MDCTooltipFoundation;
+    }(MDCFoundation));
+
+    /* node_modules\@smui\tooltip\Tooltip.svelte generated by Svelte v3.38.2 */
+
+    const file$2 = "node_modules\\@smui\\tooltip\\Tooltip.svelte";
+
+    function create_fragment$2(ctx) {
+    	let div1;
+    	let div0;
+    	let div0_class_value;
+    	let div0_style_value;
+    	let div1_class_value;
+    	let div1_style_value;
+    	let div1_role_value;
+    	let div1_tabindex_value;
+    	let div1_data_mdc_tooltip_persist_value;
+    	let div1_data_mdc_tooltip_persistent_value;
+    	let useActions_action;
+    	let current;
+    	let mounted;
+    	let dispose;
+    	const default_slot_template = /*#slots*/ ctx[28].default;
+    	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[27], null);
+
+    	let div0_levels = [
+    		{
+    			class: div0_class_value = classMap({
+    				[/*surface$class*/ ctx[6]]: true,
+    				"mdc-tooltip__surface": true,
+    				"mdc-tooltip__surface-animation": true
+    			})
+    		},
+    		{
+    			style: div0_style_value = Object.entries(/*surfaceStyles*/ ctx[13]).map(func).concat([/*surface$style*/ ctx[7]]).join(" ")
+    		},
+    		prefixFilter(/*$$restProps*/ ctx[18], "surface$")
+    	];
+
+    	let div0_data = {};
+
+    	for (let i = 0; i < div0_levels.length; i += 1) {
+    		div0_data = assign(div0_data, div0_levels[i]);
+    	}
+
+    	let div1_levels = [
+    		{
+    			class: div1_class_value = classMap({
+    				[/*className*/ ctx[1]]: true,
+    				"mdc-tooltip": true,
+    				"mdc-tooltip--rich": /*rich*/ ctx[17],
+    				.../*internalClasses*/ ctx[10]
+    			})
+    		},
+    		{
+    			style: div1_style_value = Object.entries(/*internalStyles*/ ctx[11]).map(func_1).concat([/*style*/ ctx[2]]).join(" ")
+    		},
+    		{
+    			role: div1_role_value = /*rich*/ ctx[17] && /*interactive*/ ctx[5]
+    			? "dialog"
+    			: "tooltip"
+    		},
+    		{ "aria-hidden": "true" },
+    		{ id: /*id*/ ctx[3] },
+    		{
+    			tabindex: div1_tabindex_value = /*rich*/ ctx[17] && /*persistent*/ ctx[4] ? "-1" : null
+    		},
+    		{
+    			"data-mdc-tooltip-persist": div1_data_mdc_tooltip_persist_value = /*rich*/ ctx[17] && /*persistent*/ ctx[4]
+    			? "true"
+    			: null
+    		},
+    		{
+    			"data-mdc-tooltip-persistent": div1_data_mdc_tooltip_persistent_value = /* MDC uses this attr, but document the one above */ /*rich*/ ctx[17] && /*persistent*/ ctx[4]
+    			? "true"
+    			: null
+    		},
+    		/*internalAttrs*/ ctx[12],
+    		exclude(/*$$restProps*/ ctx[18], ["surface$"])
+    	];
+
+    	let div1_data = {};
+
+    	for (let i = 0; i < div1_levels.length; i += 1) {
+    		div1_data = assign(div1_data, div1_levels[i]);
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div1 = element("div");
+    			div0 = element("div");
+    			if (default_slot) default_slot.c();
+    			set_attributes(div0, div0_data);
+    			add_location(div0, file$2, 27, 2, 783);
+    			set_attributes(div1, div1_data);
+    			add_location(div1, file$2, 0, 0, 0);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div1, anchor);
+    			append_dev(div1, div0);
+
+    			if (default_slot) {
+    				default_slot.m(div0, null);
+    			}
+
+    			/*div1_binding*/ ctx[29](div1);
+    			current = true;
+
+    			if (!mounted) {
+    				dispose = [
+    					action_destroyer(useActions_action = useActions.call(null, div1, /*use*/ ctx[0])),
+    					action_destroyer(/*forwardEvents*/ ctx[14].call(null, div1)),
+    					listen_dev(div1, "transitionend", /*transitionend_handler*/ ctx[30], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, dirty) {
+    			if (default_slot) {
+    				if (default_slot.p && (!current || dirty[0] & /*$$scope*/ 134217728)) {
+    					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[27], dirty, null, null);
+    				}
+    			}
+
+    			set_attributes(div0, div0_data = get_spread_update(div0_levels, [
+    				(!current || dirty[0] & /*surface$class*/ 64 && div0_class_value !== (div0_class_value = classMap({
+    					[/*surface$class*/ ctx[6]]: true,
+    					"mdc-tooltip__surface": true,
+    					"mdc-tooltip__surface-animation": true
+    				}))) && { class: div0_class_value },
+    				(!current || dirty[0] & /*surfaceStyles, surface$style*/ 8320 && div0_style_value !== (div0_style_value = Object.entries(/*surfaceStyles*/ ctx[13]).map(func).concat([/*surface$style*/ ctx[7]]).join(" "))) && { style: div0_style_value },
+    				dirty[0] & /*$$restProps*/ 262144 && prefixFilter(/*$$restProps*/ ctx[18], "surface$")
+    			]));
+
+    			set_attributes(div1, div1_data = get_spread_update(div1_levels, [
+    				(!current || dirty[0] & /*className, internalClasses*/ 1026 && div1_class_value !== (div1_class_value = classMap({
+    					[/*className*/ ctx[1]]: true,
+    					"mdc-tooltip": true,
+    					"mdc-tooltip--rich": /*rich*/ ctx[17],
+    					.../*internalClasses*/ ctx[10]
+    				}))) && { class: div1_class_value },
+    				(!current || dirty[0] & /*internalStyles, style*/ 2052 && div1_style_value !== (div1_style_value = Object.entries(/*internalStyles*/ ctx[11]).map(func_1).concat([/*style*/ ctx[2]]).join(" "))) && { style: div1_style_value },
+    				(!current || dirty[0] & /*interactive*/ 32 && div1_role_value !== (div1_role_value = /*rich*/ ctx[17] && /*interactive*/ ctx[5]
+    				? "dialog"
+    				: "tooltip")) && { role: div1_role_value },
+    				{ "aria-hidden": "true" },
+    				(!current || dirty[0] & /*id*/ 8) && { id: /*id*/ ctx[3] },
+    				(!current || dirty[0] & /*persistent*/ 16 && div1_tabindex_value !== (div1_tabindex_value = /*rich*/ ctx[17] && /*persistent*/ ctx[4] ? "-1" : null)) && { tabindex: div1_tabindex_value },
+    				(!current || dirty[0] & /*persistent*/ 16 && div1_data_mdc_tooltip_persist_value !== (div1_data_mdc_tooltip_persist_value = /*rich*/ ctx[17] && /*persistent*/ ctx[4]
+    				? "true"
+    				: null)) && {
+    					"data-mdc-tooltip-persist": div1_data_mdc_tooltip_persist_value
+    				},
+    				(!current || dirty[0] & /*persistent*/ 16 && div1_data_mdc_tooltip_persistent_value !== (div1_data_mdc_tooltip_persistent_value = /* MDC uses this attr, but document the one above */ /*rich*/ ctx[17] && /*persistent*/ ctx[4]
+    				? "true"
+    				: null)) && {
+    					"data-mdc-tooltip-persistent": div1_data_mdc_tooltip_persistent_value
+    				},
+    				dirty[0] & /*internalAttrs*/ 4096 && /*internalAttrs*/ ctx[12],
+    				dirty[0] & /*$$restProps*/ 262144 && exclude(/*$$restProps*/ ctx[18], ["surface$"])
+    			]));
+
+    			if (useActions_action && is_function(useActions_action.update) && dirty[0] & /*use*/ 1) useActions_action.update.call(null, /*use*/ ctx[0]);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(default_slot, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(default_slot, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div1);
+    			if (default_slot) default_slot.d(detaching);
+    			/*div1_binding*/ ctx[29](null);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    let counter = 0;
+    const func = ([name, value]) => `${name}: ${value};`;
+    const func_1 = ([name, value]) => `${name}: ${value};`;
+
+    function instance_1($$self, $$props, $$invalidate) {
+    	const omit_props_names = [
+    		"use","class","style","id","unbounded","xPos","yPos","persistent","interactive","surface$class","surface$style","attachScrollHandler","removeScrollHandler","getElement"
+    	];
+
+    	let $$restProps = compute_rest_props($$props, omit_props_names);
+    	let $anchor;
+    	let $tooltip;
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots("Tooltip", slots, ['default']);
+    	const forwardEvents = forwardEventsBuilder(get_current_component());
+    	let { use = [] } = $$props;
+    	let { class: className = "" } = $$props;
+    	let { style = "" } = $$props;
+    	let { id = "SMUI-tooltip-" + counter++ } = $$props;
+    	let { unbounded = false } = $$props;
+    	let { xPos = "detected" } = $$props;
+    	let { yPos = "detected" } = $$props;
+    	let { persistent = false } = $$props;
+    	let { interactive = persistent } = $$props;
+    	let { surface$class = "" } = $$props;
+    	let { surface$style = "" } = $$props;
+    	let element;
+    	let instance;
+
+    	let nonReactiveLocationStore = {
+    		setParent(value) {
+    			Object.defineProperty(this, "parent", { value });
+    		},
+    		setNextSibling(value) {
+    			Object.defineProperty(this, "nextSibling", { value });
+    		}
+    	};
+
+    	let internalClasses = {};
+    	let internalStyles = {};
+    	let internalAttrs = {};
+    	let surfaceStyles = {};
+    	let anchor = getContext("SMUI:tooltip:wrapper:anchor");
+    	validate_store(anchor, "anchor");
+    	component_subscribe($$self, anchor, value => $$invalidate(26, $anchor = value));
+    	let tooltip = getContext("SMUI:tooltip:wrapper:tooltip");
+    	validate_store(tooltip, "tooltip");
+    	component_subscribe($$self, tooltip, value => $$invalidate(31, $tooltip = value));
+    	const rich = getContext("SMUI:tooltip:rich");
+    	let previousAnchor = null;
+
+    	onMount(() => {
+    		$$invalidate(8, instance = new MDCTooltipFoundation({
+    				getAttribute: getAttr,
+    				setAttribute: addAttr,
+    				addClass,
+    				hasClass,
+    				removeClass,
+    				getComputedStyleProperty: propertyName => {
+    					const element = getElement();
+    					let style = getComputedStyle(element).getPropertyValue(propertyName);
+
+    					if (style === "auto") {
+    						element.classList.add("smui-banner--force-show");
+    						style = getComputedStyle(element).getPropertyValue(propertyName);
+    						element.classList.remove("smui-banner--force-show");
+    					}
+
+    					return style;
+    				},
+    				setStyleProperty: addStyle,
+    				setSurfaceStyleProperty: addSurfaceStyle,
+    				getViewportWidth: () => window.innerWidth,
+    				getViewportHeight: () => window.innerHeight,
+    				getTooltipSize: () => {
+    					const element = getElement();
+
+    					let size = {
+    						width: element.offsetWidth,
+    						height: element.offsetHeight
+    					};
+
+    					if (size.width === 0 || size.height === 0) {
+    						element.classList.add("smui-banner--force-show");
+
+    						size = {
+    							width: element.offsetWidth,
+    							height: element.offsetHeight
+    						};
+
+    						element.classList.remove("smui-banner--force-show");
+    					}
+
+    					return size;
+    				},
+    				getAnchorBoundingRect: () => {
+    					return $anchor ? $anchor.getBoundingClientRect() : null;
+    				},
+    				getParentBoundingRect: () => {
+    					let parent = getElement().parentNode;
+
+    					if (!rich) {
+    						parent = document.body;
+    					}
+
+    					return parent.getBoundingClientRect() || null;
+    				},
+    				getAnchorAttribute: attr => {
+    					return $anchor ? $anchor.getAttribute(attr) : null;
+    				},
+    				setAnchorAttribute: (attr, value) => {
+    					$anchor && $anchor.setAttribute(attr, value);
+    				},
+    				isRTL: () => getComputedStyle(getElement()).direction === "rtl",
+    				anchorContainsElement: element => {
+    					return !!($anchor && $anchor.contains(element));
+    				},
+    				tooltipContainsElement: element => {
+    					return getElement().contains(element);
+    				},
+    				focusAnchorElement: () => {
+    					$anchor && $anchor.focus();
+    				},
+    				registerEventHandler: (evt, handler) => {
+    					getElement().addEventListener(evt, handler);
+    				},
+    				deregisterEventHandler: (evt, handler) => {
+    					getElement().removeEventListener(evt, handler);
+    				},
+    				registerAnchorEventHandler: (evt, handler) => {
+    					$anchor && $anchor.addEventListener(evt, handler);
+    				},
+    				deregisterAnchorEventHandler: (evt, handler) => {
+    					$anchor && $anchor.removeEventListener(evt, handler);
+    				},
+    				registerDocumentEventHandler: (evt, handler) => {
+    					document.body.addEventListener(evt, handler);
+    				},
+    				deregisterDocumentEventHandler: (evt, handler) => {
+    					document.body.removeEventListener(evt, handler);
+    				},
+    				registerWindowEventHandler: (evt, handler) => {
+    					window.addEventListener(evt, handler, evt === "scroll" && { capture: true, passive: true });
+    				},
+    				deregisterWindowEventHandler: (evt, handler) => {
+    					window.removeEventListener(evt, handler, evt === "scroll" && { capture: true, passive: true });
+    				},
+    				notifyHidden: () => {
+    					dispatch(getElement(), "MDCTooltip:hidden");
+    				}
+    			}));
+
+    		set_store_value(tooltip, $tooltip = element, $tooltip);
+
+    		return () => {
+    			if ($anchor) {
+    				destroy($anchor);
+    			}
+    		};
+    	});
+
+    	onDestroy(() => {
+    		if (!rich && typeof document !== "undefined" && document.body === getElement().parentNode && nonReactiveLocationStore.parent.insertBefore) {
+    			nonReactiveLocationStore.parent.insertBefore(getElement(), nonReactiveLocationStore.nextSibling);
+    		}
+    	});
+
+    	function destroy(anchor) {
+    		anchor.removeEventListener("focusout", handleAnchorFocusOut);
+
+    		if (rich && persistent) {
+    			anchor.removeEventListener("click", handleAnchorActivate);
+    			anchor.removeEventListener("keydown", handleAnchorActivate);
+    		} else {
+    			anchor.removeEventListener("mouseenter", handleAnchorMouseEnter);
+    			anchor.removeEventListener("focusin", handleAnchorFocus);
+    			anchor.removeEventListener("mouseleave", handleAnchorMouseLeave);
+    			anchor.removeEventListener("touchstart", handleAnchorTouchStart);
+    			anchor.removeEventListener("touchend", handleAnchorTouchEnd);
+    		}
+
+    		if (rich && interactive) {
+    			anchor.removeAttribute("aria-haspopup");
+    			anchor.removeAttribute("aria-expanded");
+    			anchor.removeAttribute("data-tooltip-id");
+    		} else {
+    			anchor.removeAttribute("aria-describedby");
+    		}
+
+    		instance.destroy();
+    	}
+
+    	function init(anchor) {
+    		anchor.addEventListener("focusout", handleAnchorFocusOut);
+
+    		if (rich && persistent) {
+    			anchor.addEventListener("click", handleAnchorActivate);
+    			anchor.addEventListener("keydown", handleAnchorActivate);
+    		} else {
+    			anchor.addEventListener("mouseenter", handleAnchorMouseEnter);
+    			anchor.addEventListener("focusin", handleAnchorFocus);
+    			anchor.addEventListener("mouseleave", handleAnchorMouseLeave);
+    			anchor.addEventListener("touchstart", handleAnchorTouchStart);
+    			anchor.addEventListener("touchend", handleAnchorTouchEnd);
+    		}
+
+    		if (rich && interactive) {
+    			anchor.setAttribute("aria-haspopup", "dialog");
+    			anchor.setAttribute("aria-expanded", "false");
+    			anchor.setAttribute("data-tooltip-id", id);
+    		} else {
+    			anchor.setAttribute("aria-describedby", id);
+    		}
+
+    		if (!rich) {
+    			hoistToBody();
+    		}
+
+    		instance.init();
+    	}
+
+    	function hasClass(className) {
+    		return className in internalClasses
+    		? internalClasses[className]
+    		: getElement().classList.contains(className);
+    	}
+
+    	function addClass(className) {
+    		if (!internalClasses[className]) {
+    			$$invalidate(10, internalClasses[className] = true, internalClasses);
+    		}
+    	}
+
+    	function removeClass(className) {
+    		if (!(className in internalClasses) || internalClasses[className]) {
+    			$$invalidate(10, internalClasses[className] = false, internalClasses);
+    		}
+    	}
+
+    	function addStyle(name, value) {
+    		if (internalStyles[name] != value) {
+    			if (value === "" || value == null) {
+    				delete internalStyles[name];
+    				$$invalidate(11, internalStyles);
+    			} else {
+    				$$invalidate(11, internalStyles[name] = value, internalStyles);
+    			}
+    		}
+    	}
+
+    	function addSurfaceStyle(name, value) {
+    		if (surfaceStyles[name] != value) {
+    			if (value === "" || value == null) {
+    				delete surfaceStyles[name];
+    				$$invalidate(13, surfaceStyles);
+    			} else {
+    				$$invalidate(13, surfaceStyles[name] = value, surfaceStyles);
+    			}
+    		}
+    	}
+
+    	function getAttr(name) {
+    		return name in internalAttrs
+    		? internalAttrs[name]
+    		: getElement().getAttribute(name);
+    	}
+
+    	function addAttr(name, value) {
+    		if (internalAttrs[name] !== value) {
+    			$$invalidate(12, internalAttrs[name] = value, internalAttrs);
+    		}
+    	}
+
+    	function handleAnchorFocusOut(event) {
+    		// The foundation only watches for blur, which
+    		// doesn't fire on all components you would
+    		// anchor a tooltip to (since it doesn't
+    		// bubble), so we handle focusout like a blur.
+    		if (element.contains(event.relatedTarget)) {
+    			return;
+    		}
+
+    		instance && instance.hide();
+    	}
+
+    	function handleAnchorActivate(event) {
+    		if (event.type === "keydown" && event.key !== "Enter" && event.key !== " ") {
+    			return;
+    		}
+
+    		instance && instance.handleAnchorClick();
+    	}
+
+    	function handleAnchorMouseEnter() {
+    		instance && instance.handleAnchorMouseEnter();
+    	}
+
+    	function handleAnchorFocus(event) {
+    		instance && instance.handleAnchorFocus(event);
+    	}
+
+    	function handleAnchorMouseLeave() {
+    		instance && instance.handleAnchorMouseLeave();
+    	}
+
+    	function handleAnchorTouchStart() {
+    		// Purposefully capitalized differently to match MDC.
+    		instance && instance.handleAnchorTouchstart();
+    	}
+
+    	function handleAnchorTouchEnd() {
+    		// Purposefully capitalized differently to match MDC.
+    		instance && instance.handleAnchorTouchend();
+    	}
+
+    	function hoistToBody() {
+    		if ($anchor && document.body !== getElement().parentNode) {
+    			nonReactiveLocationStore.setParent(getElement().parentNode);
+    			nonReactiveLocationStore.setNextSibling(getElement().nextSibling);
+    			document.body.appendChild(getElement());
+    		}
+    	}
+
+    	function attachScrollHandler(addEventListenerFn) {
+    		instance && instance.attachScrollHandler(addEventListenerFn);
+    	}
+
+    	function removeScrollHandler(removeEventHandlerFn) {
+    		instance && instance.removeScrollHandler(removeEventHandlerFn);
+    	}
+
+    	function getElement() {
+    		return element;
+    	}
+
+    	function div1_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			element = $$value;
+    			$$invalidate(9, element);
+    		});
+    	}
+
+    	const transitionend_handler = () => instance && instance.handleTransitionEnd();
+
+    	$$self.$$set = $$new_props => {
+    		$$props = assign(assign({}, $$props), exclude_internal_props($$new_props));
+    		$$invalidate(18, $$restProps = compute_rest_props($$props, omit_props_names));
+    		if ("use" in $$new_props) $$invalidate(0, use = $$new_props.use);
+    		if ("class" in $$new_props) $$invalidate(1, className = $$new_props.class);
+    		if ("style" in $$new_props) $$invalidate(2, style = $$new_props.style);
+    		if ("id" in $$new_props) $$invalidate(3, id = $$new_props.id);
+    		if ("unbounded" in $$new_props) $$invalidate(19, unbounded = $$new_props.unbounded);
+    		if ("xPos" in $$new_props) $$invalidate(20, xPos = $$new_props.xPos);
+    		if ("yPos" in $$new_props) $$invalidate(21, yPos = $$new_props.yPos);
+    		if ("persistent" in $$new_props) $$invalidate(4, persistent = $$new_props.persistent);
+    		if ("interactive" in $$new_props) $$invalidate(5, interactive = $$new_props.interactive);
+    		if ("surface$class" in $$new_props) $$invalidate(6, surface$class = $$new_props.surface$class);
+    		if ("surface$style" in $$new_props) $$invalidate(7, surface$style = $$new_props.surface$style);
+    		if ("$$scope" in $$new_props) $$invalidate(27, $$scope = $$new_props.$$scope);
+    	};
+
+    	$$self.$capture_state = () => ({
+    		counter,
+    		MDCTooltipFoundation,
+    		AnchorBoundaryType,
+    		XPosition,
+    		YPosition,
+    		onMount,
+    		onDestroy,
+    		getContext,
+    		get_current_component,
+    		forwardEventsBuilder,
+    		classMap,
+    		exclude,
+    		prefixFilter,
+    		useActions,
+    		dispatch,
+    		forwardEvents,
+    		use,
+    		className,
+    		style,
+    		id,
+    		unbounded,
+    		xPos,
+    		yPos,
+    		persistent,
+    		interactive,
+    		surface$class,
+    		surface$style,
+    		element,
+    		instance,
+    		nonReactiveLocationStore,
+    		internalClasses,
+    		internalStyles,
+    		internalAttrs,
+    		surfaceStyles,
+    		anchor,
+    		tooltip,
+    		rich,
+    		previousAnchor,
+    		destroy,
+    		init,
+    		hasClass,
+    		addClass,
+    		removeClass,
+    		addStyle,
+    		addSurfaceStyle,
+    		getAttr,
+    		addAttr,
+    		handleAnchorFocusOut,
+    		handleAnchorActivate,
+    		handleAnchorMouseEnter,
+    		handleAnchorFocus,
+    		handleAnchorMouseLeave,
+    		handleAnchorTouchStart,
+    		handleAnchorTouchEnd,
+    		hoistToBody,
+    		attachScrollHandler,
+    		removeScrollHandler,
+    		getElement,
+    		$anchor,
+    		$tooltip
+    	});
+
+    	$$self.$inject_state = $$new_props => {
+    		if ("use" in $$props) $$invalidate(0, use = $$new_props.use);
+    		if ("className" in $$props) $$invalidate(1, className = $$new_props.className);
+    		if ("style" in $$props) $$invalidate(2, style = $$new_props.style);
+    		if ("id" in $$props) $$invalidate(3, id = $$new_props.id);
+    		if ("unbounded" in $$props) $$invalidate(19, unbounded = $$new_props.unbounded);
+    		if ("xPos" in $$props) $$invalidate(20, xPos = $$new_props.xPos);
+    		if ("yPos" in $$props) $$invalidate(21, yPos = $$new_props.yPos);
+    		if ("persistent" in $$props) $$invalidate(4, persistent = $$new_props.persistent);
+    		if ("interactive" in $$props) $$invalidate(5, interactive = $$new_props.interactive);
+    		if ("surface$class" in $$props) $$invalidate(6, surface$class = $$new_props.surface$class);
+    		if ("surface$style" in $$props) $$invalidate(7, surface$style = $$new_props.surface$style);
+    		if ("element" in $$props) $$invalidate(9, element = $$new_props.element);
+    		if ("instance" in $$props) $$invalidate(8, instance = $$new_props.instance);
+    		if ("nonReactiveLocationStore" in $$props) nonReactiveLocationStore = $$new_props.nonReactiveLocationStore;
+    		if ("internalClasses" in $$props) $$invalidate(10, internalClasses = $$new_props.internalClasses);
+    		if ("internalStyles" in $$props) $$invalidate(11, internalStyles = $$new_props.internalStyles);
+    		if ("internalAttrs" in $$props) $$invalidate(12, internalAttrs = $$new_props.internalAttrs);
+    		if ("surfaceStyles" in $$props) $$invalidate(13, surfaceStyles = $$new_props.surfaceStyles);
+    		if ("anchor" in $$props) $$invalidate(15, anchor = $$new_props.anchor);
+    		if ("tooltip" in $$props) $$invalidate(16, tooltip = $$new_props.tooltip);
+    		if ("previousAnchor" in $$props) $$invalidate(25, previousAnchor = $$new_props.previousAnchor);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	$$self.$$.update = () => {
+    		if ($$self.$$.dirty[0] & /*instance, previousAnchor, $anchor*/ 100663552) {
+    			if (instance && previousAnchor !== $anchor) {
+    				if (previousAnchor) {
+    					destroy(previousAnchor);
+    				}
+
+    				if ($anchor) {
+    					init($anchor);
+    				}
+
+    				$$invalidate(25, previousAnchor = $anchor);
+    			}
+    		}
+
+    		if ($$self.$$.dirty[0] & /*instance, unbounded*/ 524544) {
+    			if (instance) {
+    				instance.setAnchorBoundaryType(AnchorBoundaryType[unbounded ? "UNBOUNDED" : "BOUNDED"]);
+    			}
+    		}
+
+    		if ($$self.$$.dirty[0] & /*instance, xPos, yPos*/ 3145984) {
+    			if (instance) {
+    				instance.setTooltipPosition({
+    					xPos: XPosition[xPos.toUpperCase()],
+    					yPos: YPosition[yPos.toUpperCase()]
+    				});
+    			}
+    		}
+    	};
+
+    	return [
+    		use,
+    		className,
+    		style,
+    		id,
+    		persistent,
+    		interactive,
+    		surface$class,
+    		surface$style,
+    		instance,
+    		element,
+    		internalClasses,
+    		internalStyles,
+    		internalAttrs,
+    		surfaceStyles,
+    		forwardEvents,
+    		anchor,
+    		tooltip,
+    		rich,
+    		$$restProps,
+    		unbounded,
+    		xPos,
+    		yPos,
+    		attachScrollHandler,
+    		removeScrollHandler,
+    		getElement,
+    		previousAnchor,
+    		$anchor,
+    		$$scope,
+    		slots,
+    		div1_binding,
+    		transitionend_handler
+    	];
+    }
+
+    class Tooltip extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+
+    		init(
+    			this,
+    			options,
+    			instance_1,
+    			create_fragment$2,
+    			safe_not_equal,
+    			{
+    				use: 0,
+    				class: 1,
+    				style: 2,
+    				id: 3,
+    				unbounded: 19,
+    				xPos: 20,
+    				yPos: 21,
+    				persistent: 4,
+    				interactive: 5,
+    				surface$class: 6,
+    				surface$style: 7,
+    				attachScrollHandler: 22,
+    				removeScrollHandler: 23,
+    				getElement: 24
+    			},
+    			[-1, -1]
+    		);
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "Tooltip",
+    			options,
     			id: create_fragment$2.name
     		});
+    	}
+
+    	get use() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set use(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get class() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set class(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get style() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set style(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get id() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set id(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get unbounded() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set unbounded(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get xPos() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set xPos(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get yPos() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set yPos(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get persistent() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set persistent(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get interactive() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set interactive(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get surface$class() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set surface$class(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get surface$style() {
+    		throw new Error("<Tooltip>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set surface$style(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get attachScrollHandler() {
+    		return this.$$.ctx[22];
+    	}
+
+    	set attachScrollHandler(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get removeScrollHandler() {
+    		return this.$$.ctx[23];
+    	}
+
+    	set removeScrollHandler(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get getElement() {
+    		return this.$$.ctx[24];
+    	}
+
+    	set getElement(value) {
+    		throw new Error("<Tooltip>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
     /* src\lib\nav\main.svelte generated by Svelte v3.38.2 */
     const file$1 = "src\\lib\\nav\\main.svelte";
 
-    // (36:8) <Title>
-    function create_default_slot_10(ctx) {
+    // (37:8) <Title>
+    function create_default_slot_12(ctx) {
     	let t;
 
     	const block = {
@@ -24404,17 +26902,17 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_10.name,
+    		id: create_default_slot_12.name,
     		type: "slot",
-    		source: "(36:8) <Title>",
+    		source: "(37:8) <Title>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (30:6) <Section>
-    function create_default_slot_9(ctx) {
+    // (31:6) <Section>
+    function create_default_slot_11(ctx) {
     	let icon;
     	let t;
     	let title;
@@ -24431,7 +26929,7 @@ var app = (function () {
 
     	title = new Title({
     			props: {
-    				$$slots: { default: [create_default_slot_10] },
+    				$$slots: { default: [create_default_slot_12] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -24452,7 +26950,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const title_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope*/ 2048) {
     				title_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24478,17 +26976,44 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_9.name,
+    		id: create_default_slot_11.name,
     		type: "slot",
-    		source: "(30:6) <Section>",
+    		source: "(31:6) <Section>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (39:8) <IconButton class="material-icons" on:click={auth}            >
-    function create_default_slot_8(ctx) {
+    // (42:38) {:else}
+    function create_else_block_2(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("login");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block_2.name,
+    		type: "else",
+    		source: "(42:38) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (42:13) {#if $user}
+    function create_if_block_2(ctx) {
     	let t;
 
     	const block = {
@@ -24505,27 +27030,75 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_8.name,
-    		type: "slot",
-    		source: "(39:8) <IconButton class=\\\"material-icons\\\" on:click={auth}            >",
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(42:13) {#if $user}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (57:16) <Text>
-    function create_default_slot_7(ctx) {
+    // (41:10) <IconButton class="material-icons" on:click={auth}              >
+    function create_default_slot_10(ctx) {
+    	let if_block_anchor;
+
+    	function select_block_type(ctx, dirty) {
+    		if (/*$user*/ ctx[3]) return create_if_block_2;
+    		return create_else_block_2;
+    	}
+
+    	let current_block_type = select_block_type(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type !== (current_block_type = select_block_type(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_10.name,
+    		type: "slot",
+    		source: "(41:10) <IconButton class=\\\"material-icons\\\" on:click={auth}              >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (48:30) {:else}
+    function create_else_block_1(ctx) {
     	let t;
 
     	const block = {
     		c: function create() {
-    			t = text(/*login*/ ctx[3]);
+    			t = text("Login");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, t, anchor);
     		},
-    		p: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(t);
     		}
@@ -24533,16 +27106,278 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_default_slot_7.name,
-    		type: "slot",
-    		source: "(57:16) <Text>",
+    		id: create_else_block_1.name,
+    		type: "else",
+    		source: "(48:30) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (56:14) <Item on:SMUI:action={() => (clicked = "Cut")} on:click={auth}>
+    // (48:13) {#if $user}
+    function create_if_block_1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Logout");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_1.name,
+    		type: "if",
+    		source: "(48:13) {#if $user}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (47:10) <Tooltip              >
+    function create_default_slot_9(ctx) {
+    	let if_block_anchor;
+
+    	function select_block_type_1(ctx, dirty) {
+    		if (/*$user*/ ctx[3]) return create_if_block_1;
+    		return create_else_block_1;
+    	}
+
+    	let current_block_type = select_block_type_1(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type !== (current_block_type = select_block_type_1(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_9.name,
+    		type: "slot",
+    		source: "(47:10) <Tooltip              >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (40:8) <Wrapper>
+    function create_default_slot_8(ctx) {
+    	let iconbutton;
+    	let t;
+    	let tooltip;
+    	let current;
+
+    	iconbutton = new IconButton({
+    			props: {
+    				class: "material-icons",
+    				$$slots: { default: [create_default_slot_10] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	iconbutton.$on("click", /*auth*/ ctx[4]);
+
+    	tooltip = new Tooltip({
+    			props: {
+    				$$slots: { default: [create_default_slot_9] },
+    				$$scope: { ctx }
+    			},
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(iconbutton.$$.fragment);
+    			t = space();
+    			create_component(tooltip.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(iconbutton, target, anchor);
+    			insert_dev(target, t, anchor);
+    			mount_component(tooltip, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const iconbutton_changes = {};
+
+    			if (dirty & /*$$scope, $user*/ 2056) {
+    				iconbutton_changes.$$scope = { dirty, ctx };
+    			}
+
+    			iconbutton.$set(iconbutton_changes);
+    			const tooltip_changes = {};
+
+    			if (dirty & /*$$scope, $user*/ 2056) {
+    				tooltip_changes.$$scope = { dirty, ctx };
+    			}
+
+    			tooltip.$set(tooltip_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(iconbutton.$$.fragment, local);
+    			transition_in(tooltip.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(iconbutton.$$.fragment, local);
+    			transition_out(tooltip.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(iconbutton, detaching);
+    			if (detaching) detach_dev(t);
+    			destroy_component(tooltip, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_8.name,
+    		type: "slot",
+    		source: "(40:8) <Wrapper>",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (64:36) {:else}
+    function create_else_block(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Login");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_else_block.name,
+    		type: "else",
+    		source: "(64:36) {:else}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (64:19) {#if $user}
+    function create_if_block$1(ctx) {
+    	let t;
+
+    	const block = {
+    		c: function create() {
+    			t = text("Logout");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, t, anchor);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(t);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block$1.name,
+    		type: "if",
+    		source: "(64:19) {#if $user}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (63:16) <Text                    >
+    function create_default_slot_7(ctx) {
+    	let if_block_anchor;
+
+    	function select_block_type_2(ctx, dirty) {
+    		if (/*$user*/ ctx[3]) return create_if_block$1;
+    		return create_else_block;
+    	}
+
+    	let current_block_type = select_block_type_2(ctx);
+    	let if_block = current_block_type(ctx);
+
+    	const block = {
+    		c: function create() {
+    			if_block.c();
+    			if_block_anchor = empty();
+    		},
+    		m: function mount(target, anchor) {
+    			if_block.m(target, anchor);
+    			insert_dev(target, if_block_anchor, anchor);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (current_block_type !== (current_block_type = select_block_type_2(ctx))) {
+    				if_block.d(1);
+    				if_block = current_block_type(ctx);
+
+    				if (if_block) {
+    					if_block.c();
+    					if_block.m(if_block_anchor.parentNode, if_block_anchor);
+    				}
+    			}
+    		},
+    		d: function destroy(detaching) {
+    			if_block.d(detaching);
+    			if (detaching) detach_dev(if_block_anchor);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_default_slot_7.name,
+    		type: "slot",
+    		source: "(63:16) <Text                    >",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (62:14) <Item on:SMUI:action={() => (clicked = "Cut")} on:click={auth}>
     function create_default_slot_6(ctx) {
     	let text_1;
     	let current;
@@ -24566,7 +27401,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const text_1_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope, $user*/ 2056) {
     				text_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24590,14 +27425,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_6.name,
     		type: "slot",
-    		source: "(56:14) <Item on:SMUI:action={() => (clicked = \\\"Cut\\\")} on:click={auth}>",
+    		source: "(62:14) <Item on:SMUI:action={() => (clicked = \\\"Cut\\\")} on:click={auth}>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (55:12) <List>
+    // (61:12) <List>
     function create_default_slot_5(ctx) {
     	let item;
     	let current;
@@ -24624,7 +27459,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const item_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope, $user*/ 2056) {
     				item_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24648,14 +27483,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_5.name,
     		type: "slot",
-    		source: "(55:12) <List>",
+    		source: "(61:12) <List>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (50:10) <Menu              bind:this={menu}              bind:anchorElement={burger}              anchorCorner="TOP_RIGHT"            >
+    // (56:10) <Menu              bind:this={menu}              bind:anchorElement={burger}              anchorCorner="TOP_RIGHT"            >
     function create_default_slot_4(ctx) {
     	let list;
     	let current;
@@ -24679,7 +27514,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const list_changes = {};
 
-    			if (dirty & /*$$scope, clicked*/ 4100) {
+    			if (dirty & /*$$scope, clicked, $user*/ 2060) {
     				list_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24703,14 +27538,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_4.name,
     		type: "slot",
-    		source: "(50:10) <Menu              bind:this={menu}              bind:anchorElement={burger}              anchorCorner=\\\"TOP_RIGHT\\\"            >",
+    		source: "(56:10) <Menu              bind:this={menu}              bind:anchorElement={burger}              anchorCorner=\\\"TOP_RIGHT\\\"            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (45:8) <IconButton            class="material-icons"            on:click={() => menu.setOpen(true)}            bind:id={burger}            >
+    // (51:8) <IconButton            class="material-icons"            on:click={() => menu.setOpen(true)}            bind:id={burger}            >
     function create_default_slot_3(ctx) {
     	let t;
     	let menu_1;
@@ -24748,7 +27583,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const menu_1_changes = {};
 
-    			if (dirty & /*$$scope, clicked*/ 4100) {
+    			if (dirty & /*$$scope, clicked, $user*/ 2060) {
     				menu_1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24780,99 +27615,96 @@ var app = (function () {
     		block,
     		id: create_default_slot_3.name,
     		type: "slot",
-    		source: "(45:8) <IconButton            class=\\\"material-icons\\\"            on:click={() => menu.setOpen(true)}            bind:id={burger}            >",
+    		source: "(51:8) <IconButton            class=\\\"material-icons\\\"            on:click={() => menu.setOpen(true)}            bind:id={burger}            >",
     		ctx
     	});
 
     	return block;
     }
 
-    // (38:6) <Section align="end">
+    // (39:6) <Section align="end">
     function create_default_slot_2(ctx) {
-    	let iconbutton0;
+    	let wrapper;
     	let t;
-    	let iconbutton1;
+    	let iconbutton;
     	let updating_id;
     	let current;
 
-    	iconbutton0 = new IconButton({
+    	wrapper = new Wrapper({
     			props: {
-    				class: "material-icons",
     				$$slots: { default: [create_default_slot_8] },
     				$$scope: { ctx }
     			},
     			$$inline: true
     		});
 
-    	iconbutton0.$on("click", /*auth*/ ctx[4]);
-
-    	function iconbutton1_id_binding(value) {
-    		/*iconbutton1_id_binding*/ ctx[8](value);
+    	function iconbutton_id_binding(value) {
+    		/*iconbutton_id_binding*/ ctx[8](value);
     	}
 
-    	let iconbutton1_props = {
+    	let iconbutton_props = {
     		class: "material-icons",
     		$$slots: { default: [create_default_slot_3] },
     		$$scope: { ctx }
     	};
 
     	if (/*burger*/ ctx[1] !== void 0) {
-    		iconbutton1_props.id = /*burger*/ ctx[1];
+    		iconbutton_props.id = /*burger*/ ctx[1];
     	}
 
-    	iconbutton1 = new IconButton({ props: iconbutton1_props, $$inline: true });
-    	binding_callbacks.push(() => bind$1(iconbutton1, "id", iconbutton1_id_binding));
-    	iconbutton1.$on("click", /*click_handler*/ ctx[9]);
+    	iconbutton = new IconButton({ props: iconbutton_props, $$inline: true });
+    	binding_callbacks.push(() => bind$1(iconbutton, "id", iconbutton_id_binding));
+    	iconbutton.$on("click", /*click_handler*/ ctx[9]);
 
     	const block = {
     		c: function create() {
-    			create_component(iconbutton0.$$.fragment);
+    			create_component(wrapper.$$.fragment);
     			t = space();
-    			create_component(iconbutton1.$$.fragment);
+    			create_component(iconbutton.$$.fragment);
     		},
     		m: function mount(target, anchor) {
-    			mount_component(iconbutton0, target, anchor);
+    			mount_component(wrapper, target, anchor);
     			insert_dev(target, t, anchor);
-    			mount_component(iconbutton1, target, anchor);
+    			mount_component(iconbutton, target, anchor);
     			current = true;
     		},
     		p: function update(ctx, dirty) {
-    			const iconbutton0_changes = {};
+    			const wrapper_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
-    				iconbutton0_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope, $user*/ 2056) {
+    				wrapper_changes.$$scope = { dirty, ctx };
     			}
 
-    			iconbutton0.$set(iconbutton0_changes);
-    			const iconbutton1_changes = {};
+    			wrapper.$set(wrapper_changes);
+    			const iconbutton_changes = {};
 
-    			if (dirty & /*$$scope, menu, burger, clicked*/ 4103) {
-    				iconbutton1_changes.$$scope = { dirty, ctx };
+    			if (dirty & /*$$scope, menu, burger, clicked, $user*/ 2063) {
+    				iconbutton_changes.$$scope = { dirty, ctx };
     			}
 
     			if (!updating_id && dirty & /*burger*/ 2) {
     				updating_id = true;
-    				iconbutton1_changes.id = /*burger*/ ctx[1];
+    				iconbutton_changes.id = /*burger*/ ctx[1];
     				add_flush_callback(() => updating_id = false);
     			}
 
-    			iconbutton1.$set(iconbutton1_changes);
+    			iconbutton.$set(iconbutton_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(iconbutton0.$$.fragment, local);
-    			transition_in(iconbutton1.$$.fragment, local);
+    			transition_in(wrapper.$$.fragment, local);
+    			transition_in(iconbutton.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(iconbutton0.$$.fragment, local);
-    			transition_out(iconbutton1.$$.fragment, local);
+    			transition_out(wrapper.$$.fragment, local);
+    			transition_out(iconbutton.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			destroy_component(iconbutton0, detaching);
+    			destroy_component(wrapper, detaching);
     			if (detaching) detach_dev(t);
-    			destroy_component(iconbutton1, detaching);
+    			destroy_component(iconbutton, detaching);
     		}
     	};
 
@@ -24880,14 +27712,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_2.name,
     		type: "slot",
-    		source: "(38:6) <Section align=\\\"end\\\">",
+    		source: "(39:6) <Section align=\\\"end\\\">",
     		ctx
     	});
 
     	return block;
     }
 
-    // (29:4) <Row>
+    // (30:4) <Row>
     function create_default_slot_1(ctx) {
     	let section0;
     	let t;
@@ -24896,7 +27728,7 @@ var app = (function () {
 
     	section0 = new Section({
     			props: {
-    				$$slots: { default: [create_default_slot_9] },
+    				$$slots: { default: [create_default_slot_11] },
     				$$scope: { ctx }
     			},
     			$$inline: true
@@ -24926,14 +27758,14 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const section0_changes = {};
 
-    			if (dirty & /*$$scope*/ 4096) {
+    			if (dirty & /*$$scope*/ 2048) {
     				section0_changes.$$scope = { dirty, ctx };
     			}
 
     			section0.$set(section0_changes);
     			const section1_changes = {};
 
-    			if (dirty & /*$$scope, burger, menu, clicked*/ 4103) {
+    			if (dirty & /*$$scope, burger, menu, clicked, $user*/ 2063) {
     				section1_changes.$$scope = { dirty, ctx };
     			}
 
@@ -24961,14 +27793,14 @@ var app = (function () {
     		block,
     		id: create_default_slot_1.name,
     		type: "slot",
-    		source: "(29:4) <Row>",
+    		source: "(30:4) <Row>",
     		ctx
     	});
 
     	return block;
     }
 
-    // (28:2) <TopAppBar variant="static">
+    // (29:2) <TopAppBar variant="static">
     function create_default_slot(ctx) {
     	let row;
     	let current;
@@ -24992,7 +27824,7 @@ var app = (function () {
     		p: function update(ctx, dirty) {
     			const row_changes = {};
 
-    			if (dirty & /*$$scope, burger, menu, clicked*/ 4103) {
+    			if (dirty & /*$$scope, burger, menu, clicked, $user*/ 2063) {
     				row_changes.$$scope = { dirty, ctx };
     			}
 
@@ -25016,7 +27848,7 @@ var app = (function () {
     		block,
     		id: create_default_slot.name,
     		type: "slot",
-    		source: "(28:2) <TopAppBar variant=\\\"static\\\">",
+    		source: "(29:2) <TopAppBar variant=\\\"static\\\">",
     		ctx
     	});
 
@@ -25041,7 +27873,7 @@ var app = (function () {
     		c: function create() {
     			header = element("header");
     			create_component(topappbar.$$.fragment);
-    			add_location(header, file$1, 26, 0, 705);
+    			add_location(header, file$1, 27, 0, 791);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -25054,7 +27886,7 @@ var app = (function () {
     		p: function update(ctx, [dirty]) {
     			const topappbar_changes = {};
 
-    			if (dirty & /*$$scope, burger, menu, clicked*/ 4103) {
+    			if (dirty & /*$$scope, burger, menu, clicked, $user*/ 2063) {
     				topappbar_changes.$$scope = { dirty, ctx };
     			}
 
@@ -25090,14 +27922,13 @@ var app = (function () {
     	let $user;
     	let $modal;
     	validate_store(user, "user");
-    	component_subscribe($$self, user, $$value => $$invalidate(10, $user = $$value));
+    	component_subscribe($$self, user, $$value => $$invalidate(3, $user = $$value));
     	validate_store(modal, "modal");
-    	component_subscribe($$self, modal, $$value => $$invalidate(11, $modal = $$value));
+    	component_subscribe($$self, modal, $$value => $$invalidate(10, $modal = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("Main", slots, []);
     	let menu;
     	let burger;
-    	let login = "Login";
     	let clicked = "nothing yet";
 
     	function auth() {
@@ -25130,7 +27961,7 @@ var app = (function () {
     		$$invalidate(1, burger);
     	}
 
-    	function iconbutton1_id_binding(value) {
+    	function iconbutton_id_binding(value) {
     		burger = value;
     		$$invalidate(1, burger);
     	}
@@ -25154,9 +27985,10 @@ var app = (function () {
     		Separator,
     		Text,
     		Login,
+    		Wrapper,
+    		Tooltip,
     		menu,
     		burger,
-    		login,
     		clicked,
     		auth,
     		$user,
@@ -25166,7 +27998,6 @@ var app = (function () {
     	$$self.$inject_state = $$props => {
     		if ("menu" in $$props) $$invalidate(0, menu = $$props.menu);
     		if ("burger" in $$props) $$invalidate(1, burger = $$props.burger);
-    		if ("login" in $$props) $$invalidate(3, login = $$props.login);
     		if ("clicked" in $$props) $$invalidate(2, clicked = $$props.clicked);
     	};
 
@@ -25178,12 +28009,12 @@ var app = (function () {
     		menu,
     		burger,
     		clicked,
-    		login,
+    		$user,
     		auth,
     		SMUI_action_handler,
     		menu_1_binding,
     		menu_1_anchorElement_binding,
-    		iconbutton1_id_binding,
+    		iconbutton_id_binding,
     		click_handler
     	];
     }

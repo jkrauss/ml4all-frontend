@@ -4,9 +4,16 @@
   import Label from "@smui/list/Label.svelte";
   import axios from "axios";
   import { modal, user } from "../stores";
-
+  import { slide } from "svelte/transition";
   let userData = { grant_type: "password", username: "", password: "" };
   let loading = false;
+  let errorMessage;
+
+  $: {
+    if (userData.password && userData.username) {
+      errorMessage = undefined;
+    }
+  }
 </script>
 
 <div class="flex flex-col w-full justify-center items-center py-16">
@@ -24,22 +31,28 @@
       bodyFormData.append("password", userData.password);
 
       //making the request with axios
-      let request = await axios.post(
-        "https://foodsight.azurewebsites.net/token",
-        bodyFormData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: "Basic Og==",
-          },
+      try {
+        let request = await axios.post(
+          "https://foodsight.azurewebsites.net/token",
+          bodyFormData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: "Basic Og==",
+            },
+          }
+        );
+
+        // closing modal if request was successfull and storing tokens and seting it in store
+        if (request?.data) {
+          $user = request.data;
+          localStorage.setItem("auth", JSON.stringify(request.data));
+          loading = false;
+          $modal = {};
         }
-      );
-      // closing modal if request was successfull and storing tokens and seting it in store
-      if (request.data) {
-        $user = request.data;
-        localStorage.setItem("auth", JSON.stringify(request.data));
+      } catch (error) {
+        errorMessage = error?.response?.data?.detail;
         loading = false;
-        $modal = {};
       }
     }}
   >
@@ -54,6 +67,11 @@
       type="password"
       label="Password"
     />
+    {#if errorMessage}
+      <div class="text-red-500" transition:slide>
+        {errorMessage}
+      </div>
+    {/if}
     <Button variant="raised" class="w-full">
       <Label
         >{#if loading}<span class="material-icons animate-spin"> sync </span>
