@@ -1,5 +1,0 @@
-.svelte-1i6dqsc{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}.svelte-1i6dqsc .shaped-outlined
-      .mdc-notched-outline
-      .mdc-notched-outline__leading{border-radius:28px 0 0 28px;width:28px}.svelte-1i6dqsc .shaped-outlined
-      .mdc-notched-outline
-      .mdc-notched-outline__trailing{border-radius:0 28px 28px 0}.svelte-1i6dqsc .shaped-outlined .mdc-notched-outline .mdc-notched-outline__notch{max-width:calc(100% - 28px * 2)}.svelte-1i6dqsc .shaped-outlined{width:100px;height:35px}@tailwind base;@tailwind components;@tailwind utilities;input{@apply w-auto;}th.svelte-n2brsx,td.svelte-n2brsx{@apply text-center;;width:20000px}input.svelte-n2brsx{@apply py-2;;@apply px-4;;@apply rounded;}
