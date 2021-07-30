@@ -12,7 +12,7 @@
     getUserFromLocalstorage();
   });
 
-  $: getUserFromLocalstorage($user);
+  $: getUserFromLocalstorage($user, localStorage.getItem("auth"));
 
   function getUserFromLocalstorage() {
     if ($user && Object.keys($user).length != 0) {
@@ -40,7 +40,7 @@
 
 <Nav />
 
-{#if $user}
+{#if $user && Object.keys($user).length}
   <div class="p-2 h-full">
     <Foodtable />
   </div>

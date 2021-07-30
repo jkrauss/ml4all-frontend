@@ -15,9 +15,9 @@
   let clicked = "nothing yet";
 
   function auth() {
-    if ($user) {
+    if ($user && Object.keys($user).length) {
       localStorage.removeItem("auth");
-      $user = undefined;
+      $user = {};
     } else {
       $modal.title = "Login";
       $modal.component = Login;
@@ -39,13 +39,13 @@
       <Section align="end">
         <Wrapper>
           <IconButton class="material-icons" on:click={auth}
-            >{#if $user}account_circle{:else}login{/if}
+            >{#if $user && Object.keys($user).length}account_circle{:else}login{/if}
             <!--
 						form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
 					-->
           </IconButton>
           <Tooltip
-            >{#if $user}Logout{:else}Login{/if}</Tooltip
+            >{#if $user && Object.keys($user).length}Logout{:else}Login{/if}</Tooltip
           >
         </Wrapper>
         <IconButton
@@ -61,7 +61,7 @@
             <List>
               <Item on:SMUI:action={() => (clicked = "Cut")} on:click={auth}>
                 <Text
-                  >{#if $user}Logout{:else}Login{/if}</Text
+                  >{#if $user && Object.keys($user).length}Logout{:else}Login{/if}</Text
                 >
                 <!--
 									form: login (if not logged in), logout (if logged in), forgot password (if not logged in)

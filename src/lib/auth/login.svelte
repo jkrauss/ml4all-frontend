@@ -4,35 +4,24 @@
   import Label from "@smui/list/Label.svelte";
   import axios from "axios";
   import { modal, user } from "../stores";
-  import { slide } from "svelte/transition";
   let userData = { grant_type: "password", username: "", password: "" };
-  let loading = false;
   let errorMessage;
-
+  let loginPromise;
   $: {
     if (userData.password && userData.username) {
       errorMessage = undefined;
     }
   }
-</script>
 
-<div class="flex flex-col w-full justify-center items-center py-16">
-  <form
-    action=""
-    class="flex flex-col justify-center items-center gap-2"
-    on:submit|preventDefault={async () => {
-      loading = true;
-      //catch if the fields are not complete
-      if (!userData.username || !userData.password) return;
-
-      // changing the data from json to Formdata
-      var bodyFormData = new FormData();
+  async function login() {
+    if (!userData.username || !userData.password) return;
+    console.log($user);
+    loginPromise = new Promise(async (res, rej) => {
+      let bodyFormData = new FormData();
       bodyFormData.append("username", userData.username);
       bodyFormData.append("password", userData.password);
-
-      //making the request with axios
       try {
-        let request = await axios.post(
+        let { data } = await axios.post(
           "https://foodsight.azurewebsites.net/token",
           bodyFormData,
           {
@@ -42,19 +31,26 @@
             },
           }
         );
-
-        // closing modal if request was successfull and storing tokens and seting it in store
-        if (request?.data) {
-          $user = request.data;
-          localStorage.setItem("auth", JSON.stringify(request.data));
-          loading = false;
+        console.log(data);
+        if (data && user) {
+          $user = data;
+          localStorage.setItem("auth", JSON.stringify(data));
           $modal = {};
+          bodyFormData = undefined;
         }
-      } catch (error) {
-        errorMessage = error?.response?.data?.detail;
-        loading = false;
+        res(data);
+      } catch (err) {
+        rej(err.response?.data.detail);
       }
-    }}
+    });
+  }
+</script>
+
+<div class="flex flex-col w-full justify-center items-center py-16">
+  <form
+    action=""
+    class="flex flex-col justify-center items-center gap-2"
+    on:submit|preventDefault={login}
   >
     <Textfield
       variant="filled"
@@ -67,18 +63,27 @@
       type="password"
       label="Password"
     />
-    {#if errorMessage}
-      <div class="text-red-500" transition:slide>
-        {errorMessage}
-      </div>
+
+    {#if loginPromise}
+      {#await loginPromise}
+        <Button variant="raised" class="w-full">
+          <Label><span class="material-icons animate-spin"> sync </span></Label>
+        </Button>
+      {:then data}
+        Login sucessfull
+      {:catch err}
+        <div class="text-red-500">
+          {err}
+        </div>
+        <Button variant="raised" class="w-full">
+          <Label>Login</Label>
+        </Button>
+      {/await}
+    {:else}
+      <Button variant="raised" class="w-full">
+        <Label>Login</Label>
+      </Button>
     {/if}
-    <Button variant="raised" class="w-full">
-      <Label
-        >{#if loading}<span class="material-icons animate-spin"> sync </span>
-        {:else}
-          Login{/if}</Label
-      >
-    </Button>
   </form>
 
   <span href="#restoreUser" class="mt-12 text-blue-500 cursor-pointer"
