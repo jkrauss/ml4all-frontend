@@ -22,7 +22,7 @@
       bodyFormData.append("password", userData.password);
       try {
         let { data } = await axios.post(
-          "https://foodsight.azurewebsites.net/token",
+          window.location.origin + "/token",
           bodyFormData,
           {
             headers: {
@@ -31,7 +31,7 @@
             },
           }
         );
-        console.log(data);
+        //console.log(data);
         if (data && user) {
           $user = data;
           localStorage.setItem("auth", JSON.stringify(data));
@@ -55,13 +55,13 @@
     <Textfield
       variant="filled"
       bind:value={userData.username}
-      label="Username"
+      label="Benutzername"
     />
     <Textfield
       variant="filled"
       bind:value={userData.password}
       type="password"
-      label="Password"
+      label="Passwort"
     />
 
     {#if loginPromise}
@@ -85,8 +85,9 @@
       </Button>
     {/if}
   </form>
-
+  <!--
   <span href="#restoreUser" class="mt-12 text-blue-500 cursor-pointer"
     >Forgot your details?</span
   >
+  -->
 </div>

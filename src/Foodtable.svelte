@@ -4,6 +4,7 @@
   import Datatable from "./lib/Datatable.svelte";
   import { search } from "ss-search";
   import Textfield, { Input } from "@smui/textfield";
+  import { user } from "./lib/stores.js";
   //import HelperText from '@smui/textfield/helper-text/index';
   // intitial variable declaration
 
@@ -36,8 +37,8 @@
         text: "var(--mdc-theme-secondary)",
       }, // var(--VARNAME) can be used to use the vars from foodsight.css
       head: {
-        bg: "var(--mdc-theme-secondary)",
-        text: "var(--mdc-theme-on-secondary)",
+        bg: "var(--mdc-theme-primary)",
+        text: "var(--mdc-theme-on-primary)",
       }, // var(--VARNAME) can be used to use the vars from foodsight.css
     }; // a bit less horrible styling ;)
 
@@ -45,21 +46,27 @@
   async function getData() {
     if (typeof window === "undefined") return;
     loaded = false;
-    // use window.location.origin , see https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc
-    //TODO: need to set authentication-header, containing the received token from login
+
+    //determine where to get data - local demo or remote with token
+    let dataUrl;
+    if ($user && Object.keys($user).length) {
+      // use window.location.origin , see https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc
+      dataUrl = window.location.origin + "/api/forecast/?store=1&days=1"
+    }
+    else {
+      //use for demo-mode
+      dataUrl = "tableData.json"
+    }
+
+    //actually retrieve data 
     let request = await axios.get(
-      `https://foodsight.azurewebsites.net/api/forecast/?store=2&days=1`
-    );
-    // use for prod later when CORS-headers are set strict
-    //const res = await fetch(window.location.origin + "/api/forecast/?store=2&days=1");
-    //use for quick local iterations
-    //const res = await fetch("tableData.json");
-    const body = request.data;
-    data = body;
-    setTimeout(() => (loaded = true), 500);
+        dataUrl
+      );
+      data = request.data;
+      setTimeout(() => (loaded = true), 500);
   }
 
-  // geting the keys form json objects in data (raw)
+  // geting the keys from json objects in data (raw)
   function getKeys(data) {
     let keys = [];
     data.forEach((val) => {

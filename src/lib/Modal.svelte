@@ -1,7 +1,7 @@
 <script>
   import { fly, fade } from "svelte/transition";
   import IconButton from "@smui/icon-button";
-  import { modal } from "./stores.js";
+  import { modal, mainContent } from "./stores.js";
 </script>
 
 {#if $modal && Object.keys($modal).length != 0}

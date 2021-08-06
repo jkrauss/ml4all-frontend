@@ -4,7 +4,8 @@
   import Foodtable from "./Foodtable.svelte";
   import Tailwind from "./Tailwind.svelte";
   import Nav from "./lib/nav/main.svelte";
-  import { user } from "./lib/stores";
+  import Footer from "./lib/Footer.svelte";
+  import { mainContent, user } from "./lib/stores";
   import { onMount } from "svelte";
 
   //getting tokens from Localstorage and seting the axios header globaly
@@ -34,19 +35,6 @@
   }
 </script>
 
-<Tailwind />
-
-<Modal />
-
-<Nav />
-
-{#if $user && Object.keys($user).length}
-  <div class="p-2 h-full">
-    <Foodtable />
-  </div>
-{/if}
-
-<footer>Here goes the footer</footer>
 
 <svelte:head>
   <!-- Fonts -->
@@ -69,6 +57,24 @@
   <link rel="stylesheet" href="foodsight.css" />
   <link rel="stylesheet" href="bare.css" />
 </svelte:head>
+
+<main>
+
+  <Tailwind />
+  <Modal />
+  <Nav />
+
+  <div class="p-2 h-full">
+    {#if $mainContent==="settings"}
+      <p>Hier sind die Einstellungen</p>
+    {:else }
+    <Foodtable />
+    {/if}
+  </div>
+  
+</main>
+
+<Footer />
 
 <style>
   * {

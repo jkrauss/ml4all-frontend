@@ -1,5 +1,5 @@
 <script>
-  import { modal, user } from "../stores.js";
+  import { modal, user, mainContent } from "../stores.js";
   import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
   import IconButton from "@smui/icon-button";
   import Img from "@smui/common/Img.svelte";
@@ -22,24 +22,37 @@
       $modal.title = "Login";
       $modal.component = Login;
     }
+    // after every login or logout set the main content to show the table
+    // "https://raw.githubusercontent.com/hperrin/svelte-material-ui/master/site/static/logo.png"
+    $mainContent = "table";
+  }
+  function settings(){
+    console.log('settings clicked')
+    menu.setOpen(false)
+    $mainContent = "settings";
   }
 </script>
 
 <header>
   <TopAppBar variant="static">
     <Row>
-      <Section>
-        <Icon
+      <Section
+        on:click={() => $mainContent="table"}
+      >
+      <Wrapper>
+          <Icon
           component={Img}
           style="height: 48px; width: 48px;"
-          src="https://raw.githubusercontent.com/hperrin/svelte-material-ui/master/site/static/logo.png"
+          src="logo.png"
         />
         <Title>ml4all</Title>
+        <Tooltip>Hauptseite</Tooltip>
+      </Wrapper>
       </Section>
       <Section align="end">
         <Wrapper>
           <IconButton class="material-icons" on:click={auth}
-            >{#if $user && Object.keys($user).length}account_circle{:else}login{/if}
+            >{#if $user && Object.keys($user).length}logout{:else}login{/if}
             <!--
 						form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
 					-->
@@ -59,9 +72,17 @@
             anchorCorner="TOP_RIGHT"
           >
             <List>
-              <Item on:SMUI:action={() => (clicked = "Cut")} on:click={auth}>
+              <Item on:SMUI:action={() => (menu.setOpen(false))} on:click={auth}>
                 <Text
                   >{#if $user && Object.keys($user).length}Logout{:else}Login{/if}</Text
+                >
+                <!--
+									form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
+								-->
+              </Item>
+              <Item on:SMUI:action={() => (menu.setOpen(false))} on:click={() => ($mainContent = "settings")} >
+                <Text
+                  >Einstellungen</Text
                 >
                 <!--
 									form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
