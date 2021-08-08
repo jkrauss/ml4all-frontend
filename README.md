@@ -40,6 +40,8 @@ If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommen
 
 ## What you can do for me
 
+__(I will build out / adopt required endpoints in the next 3 days)__
+
 - TODO: BUG: On a small device like iPhone SE / when the table is longer than the page: no scrollbars are available to scroll the table
 - TODO: BUG: When I click an entry in the main/burger-menu, the menu disappears and re-appears again. It should not re-appear.
 - TODO: BUG: I have introduced a "demo-mode" - when no-one is logged in the app is still functional and shows demo-data
