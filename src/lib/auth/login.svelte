@@ -15,7 +15,7 @@
 
   async function login() {
     if (!userData.username || !userData.password) return;
-    console.log($user);
+    //console.log($user);
     loginPromise = new Promise(async (res, rej) => {
       let bodyFormData = new FormData();
       bodyFormData.append("username", userData.username);
