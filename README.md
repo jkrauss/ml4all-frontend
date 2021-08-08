@@ -84,3 +84,4 @@ __(I will build out / adopt required endpoints in the next 3 days)__
       - send screenshot and text to "problem_url" from userSettings.json
       - (I still need to build this endpoint)
       - After sending say "Dankeschön, wir kümmern uns schnellstmöglich darum."
+- TODO: Make the logo / little robot react like a button (brings user back to home-page)
