@@ -1,5 +1,5 @@
 {
-    "register_plugin" : "ready2order",
+    "register_plugin_name" : "ready2order",
     "country" : "DE",
     "state" : "HE",
     "city" : "Wiesbaden",
