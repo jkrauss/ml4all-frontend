@@ -1,40 +1,15 @@
 <script>
 	import Settings from "./Settings.svelte";
-	import axios from "axios";
 	import Modal from "./lib/Modal.svelte";
 	import Foodtable from "./Foodtable.svelte";
 	import Tailwind from "./Tailwind.svelte";
 	import Nav from "./lib/nav/main.svelte";
 	import Footer from "./lib/Footer.svelte";
+	import Backend from "./lib/BackendStores.svelte";
 	import { mainContent, user } from "./lib/stores";
-	import { onMount } from "svelte";
-
-	//getting tokens from Localstorage and seting the axios header globaly
-	onMount(() => {
-		getUserFromLocalstorage();
-	});
-
-	$: getUserFromLocalstorage($user, localStorage.getItem("auth"));
-
-	function getUserFromLocalstorage() {
-		if ($user && Object.keys($user).length != 0) {
-			//setting axios headers
-			axios.interceptors.request.use(
-				(config) => {
-					config.headers.authorization = `Bearer ${$user.access_token}`;
-					return config;
-				},
-				(error) => {
-					return Promise.reject(error);
-				}
-			);
-		} else {
-			if (localStorage.getItem("auth")) {
-				$user = JSON.parse(localStorage.getItem("auth"));
-			}
-		}
-	}
 </script>
+
+<Backend />
 
 <svelte:head>
 	<!-- Fonts -->

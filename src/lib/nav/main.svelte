@@ -1,6 +1,6 @@
 <script>
 	import ReportProblem from "./../Modals/ReportProblem.svelte";
-	import { modal, user, mainContent, userData } from "../stores.js";
+	import { modal, user, mainContent, userSettings } from "../stores.js";
 	import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
 	import IconButton from "@smui/icon-button";
 	import Img from "@smui/common/Img.svelte";
@@ -63,9 +63,11 @@
 					</IconButton>
 					<Tooltip>Report Problem</Tooltip>
 				</Wrapper>
-				{#if $userData?.username && width >= 786}
-					{$userData.username}
-				{/if}
+
+				<div class="sm:flex hidden">
+					{$userSettings?.username || "DEMO"}
+				</div>
+
 				<Wrapper>
 					<IconButton class="material-icons" on:click={auth}
 						>{#if $user && Object.keys($user).length}logout{:else}login{/if}

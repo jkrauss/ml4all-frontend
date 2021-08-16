@@ -2,10 +2,11 @@
 	import Button, { Label } from "@smui/button";
 	import html2canvas from "html2canvas";
 	import Textfield from "@smui/textfield";
-	import { modal, screenShotMode } from "../stores";
-	let problemText = "",
-		screenshot,
-		problemJSON = {};
+	import { backendURL, screenShotMode, problemReport } from "../stores";
+	import axios from "axios";
+	$: if (!$problemReport || Object.keys($problemReport).length == 0) {
+		$problemReport.problem_text = "";
+	}
 </script>
 
 <section
@@ -13,8 +14,12 @@
 >
 	<div class="flex justify-center items-center flex-col">
 		<div class="flex justify-center items-center">
-			{#if screenshot}
-				<img src={screenshot} alt="screenshot" class="mx-auto" />
+			{#if $problemReport.screenshot}
+				<img
+					src={$problemReport.screenshot}
+					alt="screenshot"
+					class="mx-auto aspect-w-16 aspect-h-9 max-h-32"
+				/>
 			{/if}
 		</div>
 
@@ -25,7 +30,7 @@
 				setTimeout(() => {
 					html2canvas(document.body).then((canvas) => {
 						const base64image = canvas.toDataURL("image/png");
-						screenshot = base64image;
+						$problemReport.screenshot = base64image;
 					});
 				}, 200);
 				setTimeout(() => {
@@ -38,26 +43,34 @@
 	</div>
 	<from
 		class=" flex flex-col  gap-4 w-full"
-		on:submit|preventDefault={() => {
-			problemJSON.img = screenshot;
-			problemJSON.text = problemText;
-			console.log("send", problemJSON);
+		on:submit|preventDefault={async () => {
+			console.log("send", $problemReport);
+			let { data } = await axios.post(
+				`${backendURL}/api/problem/`,
+				$problemReport
+			);
+			$problemReport = { problem_text: "" };
+			console.log(data);
 		}}
 	>
 		<Textfield
 			textarea
 			style="width: 100%;"
 			helperLine$style="width: 100%;"
-			bind:value={problemText}
+			bind:value={$problemReport.problem_text}
 			label="Problem Beschreibung"
 		/>
 		<Button
 			variant="raised"
 			class="w-full"
-			on:click={() => {
-				problemJSON.img = screenshot;
-				problemJSON.text = problemText;
-				console.log("send", problemJSON);
+			on:click={async () => {
+				console.log("send", $problemReport);
+				let { data } = await axios.post(
+					`${backendURL}/api/problem/`,
+					$problemReport
+				);
+				$problemReport = { problem_text: "" };
+				console.log(data);
 			}}
 		>
 			<Label>Melden</Label>

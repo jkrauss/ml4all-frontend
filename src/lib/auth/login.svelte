@@ -3,26 +3,20 @@
 	import Button from "@smui/button/Button.svelte";
 	import Label from "@smui/list/Label.svelte";
 	import axios from "axios";
-	import { modal, user } from "../stores";
-	let userData = { grant_type: "password", username: "", password: "" };
-	let errorMessage;
+	import { modal, user, backendURL } from "../stores";
+	let userSettings = { grant_type: "password", username: "", password: "" };
 	let loginPromise;
-	$: {
-		if (userData.password && userData.username) {
-			errorMessage = undefined;
-		}
-	}
 
 	async function login() {
-		if (!userData.username || !userData.password) return;
+		if (!userSettings.username || !userSettings.password) return;
 		loginPromise = new Promise(async (res, rej) => {
 			let bodyFormData = new FormData();
-			bodyFormData.append("username", userData.username);
-			bodyFormData.append("password", userData.password);
+			bodyFormData.append("username", userSettings.username);
+			bodyFormData.append("password", userSettings.password);
 			try {
 				let { data } = await axios.post(
 					// window.location.origin + "/token",
-					"https://foodsight.azurewebsites.net/token",
+					`${backendURL}/api/token`,
 					bodyFormData,
 					{
 						headers: {
@@ -53,12 +47,12 @@
 	>
 		<Textfield
 			variant="filled"
-			bind:value={userData.username}
+			bind:value={userSettings.username}
 			label="Benutzername"
 		/>
 		<Textfield
 			variant="filled"
-			bind:value={userData.password}
+			bind:value={userSettings.password}
 			type="password"
 			label="Passwort"
 		/>
