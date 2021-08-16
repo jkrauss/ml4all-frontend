@@ -10,13 +10,23 @@
 
 	let data = writable([]), //raw json data from source
 		keys = writable([]), //all data keys in json objects in data
-		blacklist = ["comment", "forecast", "date"], // colum blacklist
+		blacklist = [], // colum blacklist
+		blacklistFilter = [],
 		labels = [
+			{ key: "id", text: "ID" },
 			{ key: "product", text: "Produkt" },
-			{ key: "order_range", text: "Vorschlag" },
-			{ key: "order_qty", text: "Bestellen" },
+			{ key: "tomorrow_order_range", text: "Vorschlag Morgen" },
+			{ key: "tomorrow_order_qty", text: "Bestellung Morgen" },
+			{ key: "day_after_order_range", text: "Vorschlag Übermorgen" },
+			{ key: "day_after_order_qty", text: "Bestellung Übermorgen" },
+			{ key: "next7_order_range", text: "Vorschlag Woche" },
+			{ key: "next7_order_qty", text: "Bestellung Woche" },
 		], // coustom labels for colums filterd by colum key
-		dataTypes = [{ key: "order_qty", type: "number" }], // check if colum has a special type / is number input filterd by key
+		dataTypes = [
+			{ key: "day_after_order_qty", type: "number" },
+			{ key: "tomorrow_order_qty", type: "number" },
+			{ key: "next7_order_qty", type: "number" },
+		], // check if colum has a special type / is number input filterd by key
 		pageLength = $userSettings?.rows_per_page || 10, // pagination page length can be coustomized
 		currentPage = 1, // current Page from pagination
 		searchInput, // data in the search Field / search text
@@ -108,11 +118,45 @@
 	// runs if data in the function changes so resizing is dynamic and the displayed data is the searched data
 	$: {
 		displayData = searchResults ? searchResults : $data;
-		if (width < 768) {
-			blacklist = [...blacklist, "order_range"];
+
+		if (width < 800) {
+			blacklist = [
+				...blacklist,
+				"next7_order_qty",
+				"next7_order_range",
+				"day_after_order_range",
+				"tomorrow_order_range",
+			];
 		} else {
-			blacklist = blacklist.filter((item) => item != "order_range");
+			blacklist = blacklist.filter(
+				(item) =>
+					![
+						"next7_order_qty",
+						"next7_order_range",
+						"day_after_order_range",
+						"tomorrow_order_range",
+					].includes(item)
+			);
+			if ($userSettings?.next_seven_days) {
+				blacklistFilter = [...blacklistFilter, "next7_order_range"];
+			} else {
+				blacklist = [...blacklist, "next7_order_range"];
+			}
+			if ($userSettings?.tomorrow) {
+				blacklistFilter = [...blacklistFilter, "tomorrow_order_range"];
+			} else {
+				blacklist = [...blacklist, "tomorrow_order_range"];
+			}
+			if ($userSettings?.day_after_tomorrow) {
+				blacklistFilter = [...blacklistFilter, "day_after_order_range"];
+			} else {
+				blacklist = [...blacklist, "day_after_order_range"];
+			}
+			blacklist = blacklist.filter(
+				(item) => !blacklistFilter.includes(item)
+			);
 		}
+
 		if (styling.all.bg) {
 			styling.even.bg = styling.all.bg;
 			styling.odd.bg = styling.all.bg;

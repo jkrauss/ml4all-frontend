@@ -56,7 +56,7 @@ __(I will build out / adopt required endpoints in the next 3 days)__
 - [x] TODO: When the window is big enough the app should show username next to login/out-icon in the app-bar
   - When no user is logged in it should display "DEMO" instead
 - [ ] TODO: Read the url-part for reading data/token from backend from the "userSetting.json" that I put into /public folder
-- [ ] TODO: Build a settings-page that is shown, when clicking "Einstellungen" in the menu
+- [x] TODO: Build a settings-page that is shown, when clicking "Einstellungen" in the menu
   - Display some contents from "userSettings.json"
   - "logged_in_user" , display-name: "angemeldete/r BenutzerIn" // read and write the logged-in username
   - "register_plugin" , display-name: "Kassensystem"

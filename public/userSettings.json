@@ -1,17 +1,17 @@
 {
-    "register_plugin_name" : "ready2order",
-    "country" : "DE",
-    "state" : "HE",
-    "city" : "Wiesbaden",
-    "store_name" : "Kirchgasse",
-    "store" : 1,
-    "logged_in_user" : "johndoe@example.com",
-    "rows_per_page" : 10,
-    "tomorrow" : true,
-    "day_after_tomorrow" : false,
-    "next_seven_days" : false,
-    "token_url" : "/foobar",
-    "forecast_url" : "/barfoo",
-    "problem_url" : "/foofoo",
-    "settings_url" : "/barbar"
- }
+	"register_plugin_name": "ready2order",
+	"country": "DE",
+	"state": "HE",
+	"city": "Wiesbaden",
+	"store_name": "Kirchgasse",
+	"store": 1,
+	"logged_in_user": "johndoe@example.com",
+	"rows_per_page": 20,
+	"tomorrow": true,
+	"day_after_tomorrow": false,
+	"next_seven_days": false,
+	"token_url": "/foobar",
+	"forecast_url": "/barfoo",
+	"problem_url": "/foofoo",
+	"settings_url": "/barbar"
+}

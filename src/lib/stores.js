@@ -10,6 +10,7 @@ const userSettings = writable();
 const mainContent = writable(); // the main-content of our SPA, e.g. datatable or settings-page
 const screenShotMode = writable(false);
 const problemReport = writable({});
+const userSettingsInit = writable();
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
 	if (val && Object.keys(val).length != 0) {
@@ -33,5 +34,6 @@ export {
 	modal,
 	user,
 	userSettings,
+	userSettingsInit,
 	problemReport,
 };
