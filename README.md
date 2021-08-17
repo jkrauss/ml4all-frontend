@@ -43,19 +43,19 @@ If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommen
 __(I will build out / adopt required endpoints in the next 3 days)__
 
 - [x] TODO: BUG: On a small device like iPhone SE / when the table is longer than the page: no scrollbars are available to scroll the table
-- [ ] TODO: FIXME: When I click an entry in the main/burger-menu, the menu disappears and re-appears again. It should not re-appear.
+- [ x] TODO: FIXME: When I click an entry in the main/burger-menu, the menu disappears and re-appears again. It should not re-appear.
 - [x] TODO: BUG: I have introduced a "demo-mode" - when no-one is logged in the app is still functional and shows demo-data
   - However, after a login the DataTable doesn't update, neither does it after a logout. Same should happen to the user-settings.
   - On every logout the user-settings must be replaced by demo-settings. And on every login, the user-settings must be replaced with live-data
-- [ ] TODO: BUG: On first load on a small device e.g. IPhone in vertical mode "Vorschlag" is not shown - this is correct
+- [ ] ??? TODO: BUG: On first load on a small device e.g. IPhone in vertical mode "Vorschlag" is not shown - this is correct
   - When I switch to horizontal mode, "Vorschlag" disappears - but shouldn't
   - When I switch back to vertical mode, "Vorschlag" re-appears - but now it should actually disappear
 - [x] TODO: The app-name in the browser-tab must me "ml4all" not "Svelte App"
-- [ ] TODO: BUG: When the token of the user expires, the user should be logged off automatically.
+- [x] TODO: BUG: When the token of the user expires, the user should be logged off automatically.
   - (I have set token expiration-duration to two minutes on the backend to ease testing)
 - [x] TODO: When the window is big enough the app should show username next to login/out-icon in the app-bar
   - When no user is logged in it should display "DEMO" instead
-- [ ] TODO: Read the url-part for reading data/token from backend from the "userSetting.json" that I put into /public folder
+- [x] TODO: Read the url-part for reading data/token from backend from the "userSetting.json" that I put into /public folder
 - [x] TODO: Build a settings-page that is shown, when clicking "Einstellungen" in the menu
   - Display some contents from "userSettings.json"
   - "logged_in_user" , display-name: "angemeldete/r BenutzerIn" // read and write the logged-in username

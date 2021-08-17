@@ -11,7 +11,7 @@
 	"day_after_tomorrow": false,
 	"next_seven_days": false,
 	"token_url": "/foobar",
-	"forecast_url": "/barfoo",
+	"forecast_url": "/api/forecast/?store=1&days=1",
 	"problem_url": "/foofoo",
 	"settings_url": "/barbar"
 }

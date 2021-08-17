@@ -57,9 +57,9 @@
 
 		//determine where to get data - local demo or remote with token
 		let dataUrl;
-		if ($user && Object.keys($user).length) {
+		if ($user && Object.keys($user).length && $userSettings) {
 			// use window.location.origin , see https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc
-			dataUrl = `${backendURL}/api/forecast/?store=1&days=1`;
+			dataUrl = `${backendURL}${$userSettings.forecast_url}`;
 		} else {
 			//use for demo-mode
 			dataUrl = "tableData.json";

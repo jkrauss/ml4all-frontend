@@ -1,6 +1,8 @@
 import axios from "axios";
 import { writable } from "svelte/store";
-const backendURL = `https://foodsight.azurewebsites.net`;
+
+// var definition
+const backendURL = window.location.origin;
 // export const backendURL = `${window.location.origin}`;
 const modal = writable({}); // the modal that is either for login or for logout
 const user = writable(
@@ -11,6 +13,8 @@ const mainContent = writable(); // the main-content of our SPA, e.g. datatable o
 const screenShotMode = writable(false);
 const problemReport = writable({});
 const userSettingsInit = writable();
+
+// user subscribtioin to handle axios interceptor forauthentication
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
 	if (val && Object.keys(val).length != 0) {
@@ -27,6 +31,7 @@ user.subscribe((val) => {
 	}
 });
 
+// exports
 export {
 	backendURL,
 	mainContent,
