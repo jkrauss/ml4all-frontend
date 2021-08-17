@@ -2,7 +2,12 @@
 	import Button, { Label } from "@smui/button";
 	import html2canvas from "html2canvas";
 	import Textfield from "@smui/textfield";
-	import { backendURL, screenShotMode, problemReport } from "../stores";
+	import {
+		backendURL,
+		screenShotMode,
+		problemReport,
+		modal,
+	} from "../stores";
 	import axios from "axios";
 	$: if (!$problemReport || Object.keys($problemReport).length == 0) {
 		$problemReport.problem_text = "";
@@ -66,11 +71,14 @@
 			on:click={async () => {
 				console.log("send", $problemReport);
 				let { data } = await axios.post(
-					`${backendURL}/api/problem/`,
+					`${backendURL}/api/problem`,
 					$problemReport
 				);
 				$problemReport = { problem_text: "" };
 				console.log(data);
+				if (data) {
+					$modal = {};
+				}
 			}}
 		>
 			<Label>Melden</Label>

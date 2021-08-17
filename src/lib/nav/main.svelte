@@ -5,7 +5,7 @@
 	import IconButton from "@smui/icon-button";
 	import Img from "@smui/common/Img.svelte";
 	import Button, { Icon } from "@smui/button";
-	import Menu from "@smui/menu";
+	import Menu from "../components/Menu.svelte";
 	import List, { Item, Separator, Text } from "@smui/list";
 	import Login from "../auth/login.svelte";
 	import Wrapper from "@smui/tooltip/Wrapper.svelte";
@@ -14,7 +14,7 @@
 	let menu;
 	let burger;
 	let width;
-
+	let menuToggle = false;
 	function auth() {
 		if ($user && Object.keys($user).length) {
 			localStorage.removeItem("auth");
@@ -28,7 +28,6 @@
 		$mainContent = "table";
 	}
 	function settings() {
-		menu.setOpen(false);
 		$mainContent = "settings";
 	}
 	function reportProblem() {
@@ -71,42 +70,28 @@
 				<Wrapper>
 					<IconButton class="material-icons" on:click={auth}
 						>{#if $user && Object.keys($user).length}logout{:else}login{/if}
-						<!--
-						form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
-					-->
 					</IconButton>
 					<Tooltip
 						>{#if $user && Object.keys($user).length}Logout{:else}Login{/if}</Tooltip
 					>
 				</Wrapper>
-				<IconButton
-					class="material-icons"
-					on:click={() => menu.setOpen(true)}
-					bind:id={burger}
-					>menu
-					<Menu
-						bind:this={menu}
-						bind:anchorElement={burger}
-						anchorCorner="TOP_RIGHT"
-					>
-						<List>
-							<Item on:SMUI:action={auth}>
-								<Text
-									>{#if $user && Object.keys($user).length}Logout{:else}Login{/if}</Text
-								>
-								<!--
-									form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
-								-->
-							</Item>
-							<Item on:SMUI:action={settings}>
-								<Text>Einstellungen</Text>
-								<!--
-									form: login (if not logged in), logout (if logged in), forgot password (if not logged in)
-								-->
-							</Item>
-						</List>
+				<!-- wrapper to keep menu in place -->
+				<div class="relative">
+					<IconButton
+						class="material-icons"
+						on:click={() => (menuToggle = !menuToggle)}
+						bind:id={burger}
+						>menu
+					</IconButton>
+					<Menu bind:menuToggle>
+						<li on:click={auth} class="cursor-pointer p-2">
+							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
+						</li>
+						<li on:click={settings} class="cursor-pointer p-2">
+							Einstellungen
+						</li>
 					</Menu>
-				</IconButton>
+				</div>
 			</Section>
 		</Row>
 	</TopAppBar>
