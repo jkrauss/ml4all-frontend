@@ -1,4 +1,5 @@
 <script>
+	import Notification from "./lib/components/Notification.svelte";
 	import Settings from "./Settings.svelte";
 	import Modal from "./lib/Modal.svelte";
 	import Foodtable from "./Foodtable.svelte";
@@ -6,7 +7,7 @@
 	import Nav from "./lib/nav/main.svelte";
 	import Footer from "./lib/Footer.svelte";
 	import Backend from "./lib/BackendStores.svelte";
-	import { mainContent, user } from "./lib/stores";
+	import { mainContent, notification, user } from "./lib/stores";
 </script>
 
 <Backend />
@@ -33,6 +34,7 @@
 	<link rel="stylesheet" href="bare.css" />
 </svelte:head>
 <Tailwind />
+<Notification />
 <Modal />
 <main class="flex flex-col h-full">
 	<Nav />

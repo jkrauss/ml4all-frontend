@@ -7,11 +7,14 @@
 		screenShotMode,
 		problemReport,
 		modal,
+		notification,
 	} from "../stores";
 	import axios from "axios";
 	$: if (!$problemReport || Object.keys($problemReport).length == 0) {
 		$problemReport.problem_text = "";
 	}
+
+	let response;
 </script>
 
 <section
@@ -37,10 +40,10 @@
 						const base64image = canvas.toDataURL("image/png");
 						$problemReport.screenshot = base64image;
 					});
-				}, 200);
+				}, 500);
 				setTimeout(() => {
 					$screenShotMode = false;
-				}, 400);
+				}, 1000);
 			}}
 		>
 			<Label>Take Screenshot</Label>
@@ -55,16 +58,28 @@
 				$problemReport
 			);
 			$problemReport = { problem_text: "" };
-			console.log(data);
+			if (data) {
+				$notification = {
+					text: "Dankeschön, wir kümmern uns schnellstmöglich darum.",
+					bg: "var(--mdc-theme-primary);",
+					color: "var(--mdc-theme-on-primary);",
+				};
+				setTimeout(() => {
+					$notification = undefined;
+				}, 5000);
+				$modal = {};
+			}
 		}}
 	>
-		<Textfield
-			textarea
-			style="width: 100%;"
-			helperLine$style="width: 100%;"
+		<textarea
+			class="w-full"
 			bind:value={$problemReport.problem_text}
-			label="Problem Beschreibung"
+			name="problem_text"
+			rows="4"
+			cols="50"
+			placeholder="Problem Beschreibung"
 		/>
+
 		<Button
 			variant="raised"
 			class="w-full"
@@ -75,8 +90,15 @@
 					$problemReport
 				);
 				$problemReport = { problem_text: "" };
-				console.log(data);
 				if (data) {
+					$notification = {
+						text: "Dankeschön, wir kümmern uns schnellstmöglich darum.",
+						bg: "var(--mdc-theme-primary);",
+						color: "var(--mdc-theme-on-primary);",
+					};
+					setTimeout(() => {
+						$notification = undefined;
+					}, 5000);
 					$modal = {};
 				}
 			}}
@@ -85,3 +107,8 @@
 		</Button>
 	</from>
 </section>
+{#if response}
+	<div class="absolute top-60 w-full bg-green-500 text-white rounded">
+		{response}
+	</div>
+{/if}

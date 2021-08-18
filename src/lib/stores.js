@@ -2,8 +2,8 @@ import axios from "axios";
 import { writable } from "svelte/store";
 
 // var definition
-const backendURL = window.location.origin;
-// export const backendURL = `${window.location.origin}`;
+// const backendURL = window.location.origin;
+const backendURL = "https://foodsight.ml4all.com";
 const modal = writable({}); // the modal that is either for login or for logout
 const user = writable(
 	localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
@@ -13,7 +13,7 @@ const mainContent = writable(); // the main-content of our SPA, e.g. datatable o
 const screenShotMode = writable(false);
 const problemReport = writable({});
 const userSettingsInit = writable();
-
+const notification = writable();
 // user subscribtioin to handle axios interceptor forauthentication
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
@@ -41,4 +41,5 @@ export {
 	userSettings,
 	userSettingsInit,
 	problemReport,
+	notification,
 };
