@@ -53,6 +53,7 @@
 				window.location.origin + "/userSettings.json"
 			);
 			$userSettings = JSON.parse(JSON.stringify(data));
+			$userSettings.day_after_tomorrow;
 			$userSettingsInit = JSON.parse(JSON.stringify(data));
 		}
 	}
