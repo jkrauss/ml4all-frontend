@@ -46,7 +46,7 @@
 				}, 1000);
 			}}
 		>
-			<Label>Take Screenshot</Label>
+			<Label>Bidschirmfoto aufnehmen</Label>
 		</Button>
 	</div>
 	<from
