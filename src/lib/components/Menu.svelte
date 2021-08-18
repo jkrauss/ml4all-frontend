@@ -1,5 +1,6 @@
 <script>
 	import { fade } from "svelte/transition";
+	import { clickOutside } from "./clickOutside";
 	export let menuToggle;
 </script>
 
@@ -9,6 +10,10 @@
 		transition:fade
 		on:click={() => {
 			menuToggle = !menuToggle;
+		}}
+		use:clickOutside
+		on:click_outside={() => {
+			menuToggle = false;
 		}}
 	>
 		<ul>

@@ -5,7 +5,7 @@
 	import FormField from "@smui/form-field";
 </script>
 
-<section class="flex flex-col gap-4">
+<section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto p-2">
 	<h1 class="text-2xl my-6">Einstellungen</h1>
 	<div class="flex justify-between">
 		<h2>angemeldete/r Benutzer*In</h2>
@@ -56,7 +56,14 @@
 	<h2 class="text-xl my-6">Vorhersage anzeigen</h2>
 	<div>
 		<FormField>
-			<Switch color="primary" bind:checked={$userSettings.tomorrow} />
+			<Switch
+				color="primary"
+				bind:checked={$userSettings.tomorrow}
+				on:click={() => {
+					$userSettings.day_after_tomorrow = false;
+					$userSettings.next_seven_days = false;
+				}}
+			/>
 			<span slot="label">Morgen</span>
 		</FormField>
 	</div>
@@ -65,6 +72,10 @@
 			<Switch
 				color="primary"
 				bind:checked={$userSettings.day_after_tomorrow}
+				on:click={() => {
+					$userSettings.tomorrow = false;
+					$userSettings.next_seven_days = false;
+				}}
 			/>
 			<span slot="label">Übermorgen</span>
 		</FormField>
@@ -74,6 +85,10 @@
 			<Switch
 				color="primary"
 				bind:checked={$userSettings.next_seven_days}
+				on:click={() => {
+					$userSettings.tomorrow = false;
+					$userSettings.day_after_tomorrow = false;
+				}}
 			/>
 			<span slot="label">Nächste 7 Tage</span>
 		</FormField>

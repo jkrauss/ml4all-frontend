@@ -138,19 +138,43 @@
 					].includes(item)
 			);
 			if ($userSettings?.next_seven_days) {
-				blacklistFilter = [...blacklistFilter, "next7_order_range"];
+				blacklistFilter = [
+					...blacklistFilter,
+					"next7_order_range",
+					"next7_order_qty",
+				];
 			} else {
-				blacklist = [...blacklist, "next7_order_range"];
+				blacklist = [
+					...blacklist,
+					"next7_order_range",
+					"next7_order_qty",
+				];
 			}
 			if ($userSettings?.tomorrow) {
-				blacklistFilter = [...blacklistFilter, "tomorrow_order_range"];
+				blacklistFilter = [
+					...blacklistFilter,
+					"tomorrow_order_range",
+					"tomorrow_order_qty",
+				];
 			} else {
-				blacklist = [...blacklist, "tomorrow_order_range"];
+				blacklist = [
+					...blacklist,
+					"tomorrow_order_range",
+					"tomorrow_order_qty",
+				];
 			}
 			if ($userSettings?.day_after_tomorrow) {
-				blacklistFilter = [...blacklistFilter, "day_after_order_range"];
+				blacklistFilter = [
+					...blacklistFilter,
+					"day_after_order_range",
+					"day_after_order_qty",
+				];
 			} else {
-				blacklist = [...blacklist, "day_after_order_range"];
+				blacklist = [
+					...blacklist,
+					"day_after_order_range",
+					"day_after_order_qty",
+				];
 			}
 			blacklist = blacklist.filter(
 				(item) => !blacklistFilter.includes(item)

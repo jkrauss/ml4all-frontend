@@ -84,6 +84,14 @@
 						>menu
 					</IconButton>
 					<Menu bind:menuToggle>
+						<li
+							on:click={() => {
+								$mainContent = "";
+							}}
+							class="cursor-pointer p-2"
+						>
+							Vorhersage
+						</li>
 						<li on:click={auth} class="cursor-pointer p-2">
 							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
 						</li>
