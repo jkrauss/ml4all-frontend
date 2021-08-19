@@ -30,6 +30,9 @@
 	function settings() {
 		$mainContent = "settings";
 	}
+	function intro() {
+		$mainContent = "intro";
+	}
 	function reportProblem() {
 		$modal.title = "Idee oder Problem melden";
 		$modal.component = ReportProblem;
@@ -50,9 +53,10 @@
 						component={Img}
 						style="height: 48px; width: 48px;"
 						src="logo.png"
+						class="cursor-pointer p-2"
 					/>
 					<Title>foodsight</Title>
-					<Tooltip>Hauptseite</Tooltip>
+					<Tooltip>Vorhersage</Tooltip>
 				</Wrapper>
 			</Section>
 			<Section align="end">
@@ -86,6 +90,9 @@
 					<Menu bind:menuToggle>
 						<li on:click={auth} class="cursor-pointer p-2">
 							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
+						</li>
+						<li on:click={intro} class="cursor-pointer p-2">
+							Los gehts
 						</li>
 						<li
 							on:click={() => {

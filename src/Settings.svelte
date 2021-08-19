@@ -3,10 +3,14 @@
 	import Slider from "@smui/slider";
 	import Switch from "@smui/switch";
 	import FormField from "@smui/form-field";
+	import Paper, { Title, Content } from '@smui/paper';
 </script>
 
+
 <section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto p-2">
-	<h1 class="text-2xl my-6">Einstellungen</h1>
+	<Paper elevation={1}>
+		<Title><h1 class="text-2xl my-6">Einstellungen</h1></Title>
+		<Content>
 	<div class="flex justify-between">
 		<h2>angemeldete/r Benutzer*In</h2>
 		<p>{$userSettings?.username || "DEMO"}</p>
@@ -93,4 +97,6 @@
 			<span slot="label">Nächste 7 Tage</span>
 		</FormField>
 	</div>
+	</Content>
+	</Paper>
 </section>

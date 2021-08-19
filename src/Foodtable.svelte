@@ -5,6 +5,7 @@
 	import Textfield from "@smui/textfield";
 	import { user, backendURL, userSettings } from "./lib/stores.js";
 	import { writable } from "svelte/store";
+	import Paper, { Title, Content } from '@smui/paper';
 	//import HelperText from '@smui/textfield/helper-text/index';
 	// intitial variable declaration
 
@@ -222,6 +223,9 @@
 <section
 	class="flex flex-col gap-4 justify-center items-center md:w-10/12 w-full mx-auto"
 >
+<Paper elevation={1}>
+	<Title><h1 class="text-2xl my-6">Vorhersage und Planung</h1></Title>
+	<Content>
 	<!-- Search input field -->
 	<input
 		type="text"
@@ -387,6 +391,8 @@
 			{/if}
 		</div>
 	</div>
+	</Content>
+	</Paper>
 </section>
 
 <!-- some styling -->
