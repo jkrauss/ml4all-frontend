@@ -51,7 +51,7 @@
 						style="height: 48px; width: 48px;"
 						src="logo.png"
 					/>
-					<Title>ml4all</Title>
+					<Title>foodsight</Title>
 					<Tooltip>Hauptseite</Tooltip>
 				</Wrapper>
 			</Section>
