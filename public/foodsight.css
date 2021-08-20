@@ -4,7 +4,7 @@
     --mdc-theme-primary: #1D913A;
     --mdc-theme-secondary: #3d4a3d;
     --mdc-theme-background: #f1fcf1;
-    --mdc-theme-2nd-background: #cfcfbc; /* "private" customization*/
+    --mdc-theme-2nd-background: #fff; /* "private" customization*/
     --mdc-theme-surface: #f1fcf1;
     --mdc-theme-error: #e5625e;
     --mdc-theme-on-primary: #e2f1ff;

@@ -3,6 +3,7 @@
 	import Settings from "./Settings.svelte";
 	import Modal from "./lib/Modal.svelte";
 	import Foodtable from "./Foodtable.svelte";
+	import Intro from "./Intro.svelte";
 	import Tailwind from "./Tailwind.svelte";
 	import Nav from "./lib/nav/main.svelte";
 	import Footer from "./lib/Footer.svelte";
@@ -41,7 +42,9 @@
 
 	<div class="p-2 h-full overflow-y-auto">
 		{#if $mainContent === "settings"}
-			<Settings />
+			<Settings />		
+		{:else if $mainContent === "intro"}
+			<Intro />
 		{:else}
 			<Foodtable />
 		{/if}

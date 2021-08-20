@@ -46,7 +46,6 @@
 		<Row>
 			<Section
 				on:click={() => ($mainContent = "table")}
-				class="cursor-pointer"
 			>
 				<Wrapper>
 					<Icon
@@ -55,8 +54,8 @@
 						src="logo.png"
 						class="cursor-pointer p-2"
 					/>
-					<Title>foodsight</Title>
-					<Tooltip>Vorhersage</Tooltip>
+					<Title class="cursor-pointer p-2">foodsight</Title>
+					<Tooltip>Planung</Tooltip>
 				</Wrapper>
 			</Section>
 			<Section align="end">
@@ -100,7 +99,7 @@
 							}}
 							class="cursor-pointer p-2"
 						>
-							Vorhersage
+							Planung
 						</li>
 						<li on:click={settings} class="cursor-pointer p-2">
 							Einstellungen
