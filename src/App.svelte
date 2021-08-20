@@ -43,10 +43,10 @@
 	<div class="p-2 h-full overflow-y-auto">
 		{#if $mainContent === "settings"}
 			<Settings />		
-		{:else if $mainContent === "intro"}
-			<Intro />
-		{:else}
+		{:else if $mainContent === "table"}
 			<Foodtable />
+		{:else}
+			<Intro />
 		{/if}
 	</div>
 	<Footer />

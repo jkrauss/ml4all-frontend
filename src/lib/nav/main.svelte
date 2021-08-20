@@ -25,7 +25,7 @@
 		}
 		// after every login or logout set the main content to show the table
 		// "https://raw.githubusercontent.com/hperrin/svelte-material-ui/master/site/static/logo.png"
-		$mainContent = "table";
+		$mainContent = "intro";
 	}
 	function settings() {
 		$mainContent = "settings";
@@ -95,7 +95,7 @@
 						</li>
 						<li
 							on:click={() => {
-								$mainContent = "";
+								$mainContent = "table";
 							}}
 							class="cursor-pointer p-2"
 						>
