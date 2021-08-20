@@ -5,7 +5,7 @@
 	import Textfield from "@smui/textfield";
 	import { user, backendURL, userSettings } from "./lib/stores.js";
 	import { writable } from "svelte/store";
-	import Paper, { Title, Content } from '@smui/paper';
+	import Paper, { Title, Content } from "@smui/paper";
 	//import HelperText from '@smui/textfield/helper-text/index';
 	// intitial variable declaration
 
@@ -223,175 +223,179 @@
 <section
 	class="flex flex-col gap-4 justify-center items-center md:w-10/12 w-full mx-auto"
 >
-<Paper elevation={1}>
-	<Title><h1 class="text-2xl my-6">Vorhersage und Planung</h1></Title>
-	<Content>
-	<!-- Search input field -->
-	<input
-		type="text"
-		bind:value={searchInput}
-		placeholder="Suche..."
-		class="p-2 rounded-md w-full"
-		use:searchF={searchInput}
-	/>
-	<!-- table itself defined in Datatable.svelte could be changed so its one file. exists because original plan was diferent -->
-	<Datatable>
-		<!-- Table header  -->
-		<tr slot="head">
-			<!-- checks every key in keys -->
-			{#each $keys as key}
-				<!-- checks if its blacklisted thus not displayed -->
-				{#if !blacklist.includes(key)}
-					<!-- th with onclick sort -->
-					<th
-						on:click={sort(key)}
-						class=""
-						style={`background: ${styling.head.bg};
+	<Paper elevation={1}>
+		<Title><h1 class="text-2xl my-6">Vorhersage und Planung</h1></Title>
+		<Content>
+			<!-- Search input field -->
+			<input
+				type="text"
+				bind:value={searchInput}
+				placeholder="Suche..."
+				class="p-2 rounded-md w-full"
+				use:searchF={searchInput}
+			/>
+			<!-- table itself defined in Datatable.svelte could be changed so its one file. exists because original plan was diferent -->
+			<Datatable>
+				<!-- Table header  -->
+				<tr slot="head">
+					<!-- checks every key in keys -->
+					{#each $keys as key}
+						<!-- checks if its blacklisted thus not displayed -->
+						{#if !blacklist.includes(key)}
+							<!-- th with onclick sort -->
+							<th
+								on:click={sort(key)}
+								class=""
+								style={`background: ${styling.head.bg};
 						color:${styling.head.text};`}
-					>
-						<!-- div relative because arrow drop up from material ui are absolute relative to this div -->
-						<div class="relative">
-							<!-- check if column is renamed else key is displayed -->
-							{labels.find((item) => item.key === key)?.text ||
-								key}
-							<!-- sorting arrows each is checking if ith activated or not and styled acordingly -->
-							<div class="absolute right-0 top-0 bottom-0">
-								<span
-									class={`material-icons absolute right-0 -top-1 `}
-									class:text-gray-200={sortBy.col == key &&
-										!sortBy.ascending}
-									class:text-gray-500={sortBy.col != key ||
-										sortBy.ascending}
+							>
+								<!-- div relative because arrow drop up from material ui are absolute relative to this div -->
+								<div
+									class="relative h-10 flex justify-center items-center"
 								>
-									arrow_drop_up
-								</span>
-								<span
-									class="material-icons absolute right-0 -bottom-1"
-									class:text-gray-200={sortBy.col == key &&
-										sortBy.ascending}
-									class:text-gray-500={sortBy.col != key ||
-										!sortBy.ascending}
-								>
-									arrow_drop_down
-								</span>
-							</div>
-						</div>
-					</th>
-				{/if}
-			{/each}
-		</tr>
+									<!-- check if column is renamed else key is displayed -->
+									{labels.find((item) => item.key === key)
+										?.text || key}
+									<!-- sorting arrows each is checking if ith activated or not and styled acordingly -->
+									<div
+										class="absolute -right-1 top-0 bottom-0"
+									>
+										<span
+											class={`material-icons absolute right-0 top-0 `}
+											class:text-gray-200={sortBy.col ==
+												key && !sortBy.ascending}
+											class:text-gray-500={sortBy.col !=
+												key || sortBy.ascending}
+										>
+											arrow_drop_up
+										</span>
+										<span
+											class="material-icons absolute right-0 bottom-0"
+											class:text-gray-200={sortBy.col ==
+												key && sortBy.ascending}
+											class:text-gray-500={sortBy.col !=
+												key || !sortBy.ascending}
+										>
+											arrow_drop_down
+										</span>
+									</div>
+								</div>
+							</th>
+						{/if}
+					{/each}
+				</tr>
 
-		<!-- table body in default slot every json object in filterd and sorted array is displayed, index is defined to check pagination  -->
-		{#each displayData as dataRow, i}
-			<!-- check if item is displayed on curent page -->
-			{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
-				<!-- creating new row -->
-				<tr
-					style={`background: ${
-						i % 2 ? styling.even?.bg : styling.odd?.bg
-					};
+				<!-- table body in default slot every json object in filterd and sorted array is displayed, index is defined to check pagination  -->
+				{#each displayData as dataRow, i}
+					<!-- check if item is displayed on curent page -->
+					{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
+						<!-- creating new row -->
+						<tr
+							style={`background: ${
+								i % 2 ? styling.even?.bg : styling.odd?.bg
+							};
 					color:${i % 2 ? styling.even?.text : styling.odd?.text};
 					`}
-				>
-					<!-- getting keys from json object -->
-					{#each Object.keys(dataRow) as key}
-						<!-- checking if key is blacklisted -->
-						{#if !blacklist.includes(key)}
-							<!-- creating cell -->
-							<td>
-								<!-- checking if dataType is special can be edited to display difrent datatypes-->
-								{#if dataTypes.find((item) => item.key === key)}
-									{#if dataTypes.find((item) => item.key === key).type == "number"}
-										<!-- displaying number datatypes as input field 
+						>
+							<!-- getting keys from json object -->
+							{#each Object.keys(dataRow) as key}
+								<!-- checking if key is blacklisted -->
+								{#if !blacklist.includes(key)}
+									<!-- creating cell -->
+									<td>
+										<!-- checking if dataType is special can be edited to display difrent datatypes-->
+										{#if dataTypes.find((item) => item.key === key)}
+											{#if dataTypes.find((item) => item.key === key).type == "number"}
+												<!-- displaying number datatypes as input field 
 										<input
 											type="number"
 											bind:value={dataRow[key]}
 											class="min-w-24 w-24"
 										/> -->
-										<Textfield
-											class="shaped-outlined"
-											variant="outlined"
-											type="number"
-											bind:value={dataRow[key]}
-										/>
-									{/if}
-								{:else}
-									<!-- just displying data -->
-									{dataRow[key]}
+												<Textfield
+													class="shaped-outlined"
+													variant="outlined"
+													type="number"
+													bind:value={dataRow[key]}
+												/>
+											{/if}
+										{:else}
+											<!-- just displying data -->
+											{dataRow[key]}
+										{/if}
+									</td>
 								{/if}
-							</td>
-						{/if}
-					{/each}
-				</tr>
-			{/if}
-		{/each}
-	</Datatable>
-	<!-- pagination stuff -->
-	<div class="w-full flex">
-		<!-- container to make it align right -->
-		<div class="ml-auto rounded-lg overflow-hidden flex ">
-			<!-- checking if page is first page and if not diplaying previous page button -->
-			{#if currentPage > 1}
-				<div
-					style="background: #1d913a;"
-					class="px-4 py-2 h-full m-0 text-white"
-					on:click={() => {
-						currentPage--;
-					}}
-				>
-					<span class="material-icons text-sm">
-						arrow_back_ios_new
-					</span>
+							{/each}
+						</tr>
+					{/if}
+				{/each}
+			</Datatable>
+			<!-- pagination stuff -->
+			<div class="w-full flex">
+				<!-- container to make it align right -->
+				<div class="ml-auto rounded-lg overflow-hidden flex ">
+					<!-- checking if page is first page and if not diplaying previous page button -->
+					{#if currentPage > 1}
+						<div
+							style="background: #1d913a;"
+							class="px-4 py-2 h-full m-0 text-white"
+							on:click={() => {
+								currentPage--;
+							}}
+						>
+							<span class="material-icons text-sm">
+								arrow_back_ios_new
+							</span>
+						</div>
+					{/if}
+					<!-- checking and displaying previous page with number -->
+					{#if currentPage - 1 > 0}
+						<div
+							style="background: #1d913a;"
+							class="px-4 py-2 m-0 h-full text-white"
+							on:click={() => {
+								currentPage = currentPage - 1;
+							}}
+						>
+							{currentPage - 1}
+						</div>
+					{/if}
+					<!-- curent pagenumber -->
+					<div
+						class="px-4 py-2 m-0 h-full text-white"
+						style="background: #1d913a;"
+					>
+						{currentPage}
+					</div>
+					<!-- next pagenumber -->
+					{#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}
+						<div
+							style="background: #1d913a;"
+							class="px-4 py-2 m-0 h-full text-white"
+							on:click={() => {
+								currentPage = currentPage + 1;
+							}}
+						>
+							{currentPage + 1}
+						</div>
+					{/if}
+					<!-- next button -->
+					{#if displayData.length > pageLength * currentPage}
+						<div
+							style="background: #1d913a;"
+							class="px-4 py-2 m-0 h-full text-white"
+							on:click={() => {
+								currentPage++;
+							}}
+						>
+							<span class="material-icons m-0 p-0 text-sm">
+								arrow_forward_ios
+							</span>
+						</div>
+					{/if}
 				</div>
-			{/if}
-			<!-- checking and displaying previous page with number -->
-			{#if currentPage - 1 > 0}
-				<div
-					style="background: #1d913a;"
-					class="px-4 py-2 m-0 h-full text-white"
-					on:click={() => {
-						currentPage = currentPage - 1;
-					}}
-				>
-					{currentPage - 1}
-				</div>
-			{/if}
-			<!-- curent pagenumber -->
-			<div
-				class="px-4 py-2 m-0 h-full text-white"
-				style="background: #1d913a;"
-			>
-				{currentPage}
 			</div>
-			<!-- next pagenumber -->
-			{#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}
-				<div
-					style="background: #1d913a;"
-					class="px-4 py-2 m-0 h-full text-white"
-					on:click={() => {
-						currentPage = currentPage + 1;
-					}}
-				>
-					{currentPage + 1}
-				</div>
-			{/if}
-			<!-- next button -->
-			{#if displayData.length > pageLength * currentPage}
-				<div
-					style="background: #1d913a;"
-					class="px-4 py-2 m-0 h-full text-white"
-					on:click={() => {
-						currentPage++;
-					}}
-				>
-					<span class="material-icons m-0 p-0 text-sm">
-						arrow_forward_ios
-					</span>
-				</div>
-			{/if}
-		</div>
-	</div>
-	</Content>
+		</Content>
 	</Paper>
 </section>
 
