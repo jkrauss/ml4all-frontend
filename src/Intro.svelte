@@ -23,7 +23,7 @@
             <li>
                 • Planung
                 <p style="margin-left: 50px">
-                    Schau die den erwarteten Absatz an und plane Deine Bestellmengen.<br />
+                    Schau dir den erwarteten Absatz an und plane Deine Bestellmengen.<br />
                     Du bekommst einen Bereich von-bis angezeigt, in dem Dein Absatz liegen wird. Der eingetragene Bestellvorschlag ist der wahrscheinlichste Wert. <br />
                     Mit dieser Information kannst Du ganz einfach Deine Einkaufsplanung erstellen.<br />
                     Wenn Du fertig bist, klicke unten auf "Bestellen". Du kannst Deine Bestell-Liste in drei Formaten abrufen - als Excel, csv oder pdf.
