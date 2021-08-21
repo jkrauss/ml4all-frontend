@@ -57,7 +57,7 @@
 		</div>
 	{/if}
 
-	<h2 class="text-xl my-6">Vorhersage anzeigen</h2>
+	<h2 class="text-xl my-6">Vorhersage und Planung</h2>
 	<div>
 		<FormField>
 			<Switch

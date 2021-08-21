@@ -6,6 +6,33 @@
 	import { user, backendURL, userSettings } from "./lib/stores.js";
 	import { writable } from "svelte/store";
 	import Paper, { Title, Content } from "@smui/paper";
+
+	// Send Order / "Bestellen" - button
+	import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
+	import Menu from '@smui/menu';
+	import List, { Item, Separator, Text } from '@smui/list';
+
+	let orderMenu
+
+	async function order(option){
+		console.log(option);
+		console.log(`${backendURL}${$userSettings.order_url}`);
+		let orderUrl = `${backendURL}${$userSettings.order_url}`;
+		axios({
+			url: orderUrl,
+			method: 'POST',
+			responseType: 'text', // important, 'blob' for excel and pdf I assume
+			data: {"option": option, "data": $data} // TODO: FIXME: currently only the originally retrieved data is posted back, but should be the user-modified data
+			}).then((response) => {
+				const url = window.URL.createObjectURL(new Blob([response.data]));
+				const link = document.createElement('a');
+				link.href = url;
+				link.setAttribute('download', `Foodsight_Bestellung.${option}`);
+				document.body.appendChild(link);
+				link.click();
+			});
+	}
+
 	//import HelperText from '@smui/textfield/helper-text/index';
 	// intitial variable declaration
 
@@ -394,6 +421,41 @@
 						</div>
 					{/if}
 				</div>
+			</div>
+
+
+			<!-- Send Order / "Bestellen" - button -->
+			<div class="w-full flex">
+				<Group variant="raised">
+					<Button on:click={()=>order("xlsx")} variant="raised">
+					  <Label>Bestellung abschließen</Label>
+					</Button>
+					<div use:GroupItem>
+					  <Button
+						on:click={() => orderMenu.setOpen(true)}
+						variant="raised"
+						style="padding: 0; min-width: 36px;"
+					  >
+						<Icon class="material-icons" style="margin: 0;">arrow_drop_down</Icon>
+					  </Button>
+					  <Menu bind:this={orderMenu} anchorCorner="TOP_LEFT">
+						<List>
+						<!--
+						  <Item on:SMUI:action={()=>order("pdf")}>
+							<Text>pdf</Text>
+						  </Item>
+						  <Separator />
+						-->
+						  <Item on:SMUI:action={()=>order("xlsx")}>
+							<Text>excel</Text>
+						  </Item>
+						  <Item on:SMUI:action={()=>order("csv")}>
+							<Text>csv</Text>
+						  </Item>
+						</List>
+					  </Menu>
+					</div>
+				  </Group>
 			</div>
 		</Content>
 	</Paper>
