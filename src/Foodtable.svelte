@@ -18,19 +18,40 @@
 		console.log(option);
 		console.log(`${backendURL}${$userSettings.order_url}`);
 		let orderUrl = `${backendURL}${$userSettings.order_url}`;
+		let resType;
+		let filename = `Foodsight_Bestellung.${option}`
+		// depending on option (csv or ecel for now) request different type of content
+		if(option==="xlsx"){
+			resType = "arraybuffer"
+		}
+		else if(option==="csv"){
+			resType = "text"
+		}
+		// depending on what kind of forecast / order-planning is currently being done request differrent numbers
+		let orderOption;
+		if ($userSettings?.tomorrow) {
+			orderOption = "tomorrow"
+		}
+		else if ($userSettings?.day_after_tomorrow) {
+			orderOption = "day_after_tomorrow"
+		}
+		else if ($userSettings?.next_seven_days) {
+			orderOption = "next_seven_days"
+		}
 		axios({
 			url: orderUrl,
 			method: 'POST',
-			responseType: 'text', // important, 'blob' for excel and pdf I assume
-			data: {"option": option, "data": $data} // TODO: FIXME: currently only the originally retrieved data is posted back, but should be the user-modified data
+			responseType: resType, // important, 'blob' for excel and pdf I assume
+			data: {"option": option, "order_option": orderOption, "data": $data} // TODO: FIXME: currently only the originally retrieved data is posted back, but should be the user-modified data
 			}).then((response) => {
 				const url = window.URL.createObjectURL(new Blob([response.data]));
 				const link = document.createElement('a');
 				link.href = url;
-				link.setAttribute('download', `Foodsight_Bestellung.${option}`);
+				link.setAttribute('download', filename);
 				document.body.appendChild(link);
 				link.click();
 			});
+
 	}
 
 	//import HelperText from '@smui/textfield/helper-text/index';
