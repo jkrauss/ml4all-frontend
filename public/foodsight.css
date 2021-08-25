@@ -1,7 +1,7 @@
 /* Theme colors. */
 /* pick from https://mycolor.space/?hex=%231D913A&sub=1 */
 :root {
-    --mdc-theme-primary: #00998E;
+    --mdc-theme-primary: #528b7b;
     --mdc-theme-secondary: #3f4a3c;
     --mdc-theme-background: #ddf8d6;
     --mdc-theme-2nd-background: #fff; /* "private" customization*/
