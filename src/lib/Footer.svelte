@@ -8,7 +8,7 @@
 
 <style>
 	footer {
-		background-color: #3d4a3d;
+		background-color: #3f4a3c;
 	}
 	.copyright {
 		color: #aaa;

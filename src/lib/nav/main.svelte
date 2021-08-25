@@ -48,12 +48,13 @@
 				on:click={() => ($mainContent = "table")}
 			>
 				<Wrapper>
+					<!--
 					<Icon
 						component={Img}
 						style="height: 48px; width: 48px;"
 						src="logo.png"
 						class="cursor-pointer p-2"
-					/>
+					/> -->
 					<Title class="cursor-pointer p-2">foodsight</Title>
 					<Tooltip>Planung</Tooltip>
 				</Wrapper>

@@ -1,15 +1,15 @@
 /* Theme colors. */
 /* pick from https://mycolor.space/?hex=%231D913A&sub=1 */
 :root {
-    --mdc-theme-primary: #1D913A;
-    --mdc-theme-secondary: #3d4a3d;
-    --mdc-theme-background: #f1fcf1;
+    --mdc-theme-primary: #00998E;
+    --mdc-theme-secondary: #3f4a3c;
+    --mdc-theme-background: #ddf8d6;
     --mdc-theme-2nd-background: #fff; /* "private" customization*/
-    --mdc-theme-surface: #f1fcf1;
-    --mdc-theme-error: #e5625e;
-    --mdc-theme-on-primary: #e2f1ff;
-    --mdc-theme-on-secondary: #e2f1ff;
-    --mdc-theme-on-surface: #3d4a3d;
+    --mdc-theme-surface: #ddf8d6;
+    --mdc-theme-error: #E48B5C;
+    --mdc-theme-on-primary: #fff;
+    --mdc-theme-on-secondary: #fff;
+    --mdc-theme-on-surface: #3f4a3c;
     --mdc-theme-on-error: #fff;
     --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
     --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);

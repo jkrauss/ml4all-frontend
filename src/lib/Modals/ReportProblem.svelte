@@ -30,13 +30,12 @@
 				/>
 			{/if}
 		</div>
-
 		<Button
 			class="whitespace-nowrap w-full"
 			on:click={() => {
 				$screenShotMode = true;
 				setTimeout(() => {
-					html2canvas(document.body).then((canvas) => {
+					html2canvas(document.body, {logging:true}).then((canvas) => {
 						const base64image = canvas.toDataURL("image/png");
 						$problemReport.screenshot = base64image;
 					});

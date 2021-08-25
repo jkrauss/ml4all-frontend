@@ -385,7 +385,7 @@
 					<!-- checking if page is first page and if not diplaying previous page button -->
 					{#if currentPage > 1}
 						<div
-							style="background: #1d913a;"
+							style="background: {"var(--mdc-theme-primary)"}"
 							class="px-4 py-2 h-full m-0 text-white"
 							on:click={() => {
 								currentPage--;
@@ -399,7 +399,7 @@
 					<!-- checking and displaying previous page with number -->
 					{#if currentPage - 1 > 0}
 						<div
-							style="background: #1d913a;"
+							style="background: {"var(--mdc-theme-primary)"}"
 							class="px-4 py-2 m-0 h-full text-white"
 							on:click={() => {
 								currentPage = currentPage - 1;
@@ -411,14 +411,14 @@
 					<!-- curent pagenumber -->
 					<div
 						class="px-4 py-2 m-0 h-full text-white"
-						style="background: #1d913a;"
+						style="background: {"var(--mdc-theme-primary)"}"
 					>
 						{currentPage}
 					</div>
 					<!-- next pagenumber -->
 					{#if currentPage + 1 <= Math.floor(displayData.length / pageLength) + 1}
 						<div
-							style="background: #1d913a;"
+							style="background: {"var(--mdc-theme-primary)"}"
 							class="px-4 py-2 m-0 h-full text-white"
 							on:click={() => {
 								currentPage = currentPage + 1;
@@ -430,7 +430,7 @@
 					<!-- next button -->
 					{#if displayData.length > pageLength * currentPage}
 						<div
-							style="background: #1d913a;"
+							style="background: {"var(--mdc-theme-primary)"}"
 							class="px-4 py-2 m-0 h-full text-white"
 							on:click={() => {
 								currentPage++;
