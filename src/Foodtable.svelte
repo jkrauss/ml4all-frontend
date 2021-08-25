@@ -8,56 +8,56 @@
 	import Paper, { Title, Content } from "@smui/paper";
 
 	// Send Order / "Bestellen" - button
-	import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
-	import Menu from '@smui/menu';
-	import List, { Item, Separator, Text } from '@smui/list';
+	import Button, { Group, GroupItem, Label, Icon } from "@smui/button";
+	import Menu from "@smui/menu";
+	import List, { Item, Separator, Text } from "@smui/list";
+	import { beforeUpdate } from "svelte";
+	let orderMenu;
 
-	let orderMenu
-
-	async function order(option){
+	async function order(option) {
 		console.log(option);
 		console.log(`${backendURL}${$userSettings.order_url}`);
 		let orderUrl = `${backendURL}${$userSettings.order_url}`;
 		let resType;
-		let filename = `Foodsight_Bestellung.${option}`
+		let filename = `Foodsight_Bestellung.${option}`;
 		// depending on option (csv or ecel for now) request different type of content
-		if(option==="xlsx"){
-			resType = "arraybuffer"
-		}
-		else if(option==="csv"){
-			resType = "text"
+		if (option === "xlsx") {
+			resType = "arraybuffer";
+		} else if (option === "csv") {
+			resType = "text";
 		}
 		// depending on what kind of forecast / order-planning is currently being done request differrent numbers
 		let orderOption;
 		if ($userSettings?.tomorrow) {
-			orderOption = "tomorrow"
-		}
-		else if ($userSettings?.day_after_tomorrow) {
-			orderOption = "day_after_tomorrow"
-		}
-		else if ($userSettings?.next_seven_days) {
-			orderOption = "next_seven_days"
+			orderOption = "tomorrow";
+		} else if ($userSettings?.day_after_tomorrow) {
+			orderOption = "day_after_tomorrow";
+		} else if ($userSettings?.next_seven_days) {
+			orderOption = "next_seven_days";
 		}
 		axios({
 			url: orderUrl,
-			method: 'POST',
+			method: "POST",
 			responseType: resType, // important, 'blob' for excel and pdf I assume
-			data: {"option": option, "order_option": orderOption, "data": $data} // TODO: FIXME: currently only the originally retrieved data is posted back, but should be the user-modified data
-			}).then((response) => {
-				const url = window.URL.createObjectURL(new Blob([response.data]));
-				const link = document.createElement('a');
-				link.href = url;
-				link.setAttribute('download', filename);
-				document.body.appendChild(link);
-				link.click();
-			});
-
+			data: { option: option, order_option: orderOption, data: $data }, // TODO: FIXME: currently only the originally retrieved data is posted back, but should be the user-modified data
+		}).then((response) => {
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement("a");
+			link.href = url;
+			link.setAttribute("download", filename);
+			document.body.appendChild(link);
+			link.click();
+		});
 	}
 
 	//import HelperText from '@smui/textfield/helper-text/index';
 	// intitial variable declaration
 
-	let data = writable([]), //raw json data from source
+	let data = writable(
+			localStorage.getItem("orderDataCache")
+				? JSON.parse(localStorage.getItem("orderDataCache"))
+				: []
+		), //raw json data from source
 		keys = writable([]), //all data keys in json objects in data
 		blacklist = [], // colum blacklist
 		blacklistFilter = [],
@@ -100,15 +100,26 @@
 			}, // var(--VARNAME) can be used to use the vars from foodsight.css
 		}; // a bit less horrible styling ;)
 
+	//saving data in localstorage with current user so if the user changes the data can get fetched if user is the same the same data will be used could be done with date to check isf the date changes.
+	beforeUpdate(() => {
+		localStorage.setItem("orderDataCache", JSON.stringify($data));
+		localStorage.setItem("orderCacheUser", JSON.stringify($user));
+	});
+
 	// geting data from backend / .json file
 	async function getData() {
 		if (typeof window === "undefined") return;
-
+		//dont ask why it works it works
+		if (
+			JSON.stringify(
+				JSON.parse(localStorage.getItem("orderCacheUser"))
+			) === JSON.stringify($user)
+		)
+			return;
 		//determine where to get data - local demo or remote with token
 		let dataUrl;
 
 		if ($user && Object.keys($user).length && $userSettings) {
-			console.log($userSettings);
 			// use window.location.origin , see https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc
 			dataUrl = `${backendURL}${$userSettings.forecast_url}/?store=${$userSettings.store}`;
 		} else {
@@ -133,17 +144,6 @@
 		});
 		return keys;
 	}
-	// function getKeys(data) {
-	// 	return data.reduce((ac, cu) => {
-	// 		console.log(ac);
-	// 		let temp = ac;
-	// 		Object.keys(cu).forEach((val) => {
-	// 			if (!ac.includes(val)) {
-	// 				ac.push(val);
-	// 			}
-	// 		});
-	// 	}, []);
-	// }
 
 	userSettings.subscribe(() => {
 		getData();
@@ -444,39 +444,40 @@
 				</div>
 			</div>
 
-
 			<!-- Send Order / "Bestellen" - button -->
 			<div class="w-full flex">
 				<Group variant="raised">
-					<Button on:click={()=>order("xlsx")} variant="raised">
-					  <Label>Bestellung abschließen</Label>
+					<Button on:click={() => order("xlsx")} variant="raised">
+						<Label>Bestellung abschließen</Label>
 					</Button>
 					<div use:GroupItem>
-					  <Button
-						on:click={() => orderMenu.setOpen(true)}
-						variant="raised"
-						style="padding: 0; min-width: 36px;"
-					  >
-						<Icon class="material-icons" style="margin: 0;">arrow_drop_down</Icon>
-					  </Button>
-					  <Menu bind:this={orderMenu} anchorCorner="TOP_LEFT">
-						<List>
-						<!--
+						<Button
+							on:click={() => orderMenu.setOpen(true)}
+							variant="raised"
+							style="padding: 0; min-width: 36px;"
+						>
+							<Icon class="material-icons" style="margin: 0;"
+								>arrow_drop_down</Icon
+							>
+						</Button>
+						<Menu bind:this={orderMenu} anchorCorner="TOP_LEFT">
+							<List>
+								<!--
 						  <Item on:SMUI:action={()=>order("pdf")}>
 							<Text>pdf</Text>
 						  </Item>
 						  <Separator />
 						-->
-						  <Item on:SMUI:action={()=>order("xlsx")}>
-							<Text>excel</Text>
-						  </Item>
-						  <Item on:SMUI:action={()=>order("csv")}>
-							<Text>csv</Text>
-						  </Item>
-						</List>
-					  </Menu>
+								<Item on:SMUI:action={() => order("xlsx")}>
+									<Text>excel</Text>
+								</Item>
+								<Item on:SMUI:action={() => order("csv")}>
+									<Text>csv</Text>
+								</Item>
+							</List>
+						</Menu>
 					</div>
-				  </Group>
+				</Group>
 			</div>
 		</Content>
 	</Paper>
