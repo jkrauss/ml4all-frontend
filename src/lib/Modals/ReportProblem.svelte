@@ -92,7 +92,7 @@
 				if (data) {
 					$notification = {
 						text: "Dankeschön, wir kümmern uns schnellstmöglich darum.",
-						bg: "var(--mdc-theme-primary);",
+						bg: "var(--mdc-theme-callout);",
 						color: "var(--mdc-theme-on-primary);",
 					};
 					setTimeout(() => {
