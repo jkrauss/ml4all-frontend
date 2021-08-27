@@ -52,7 +52,7 @@
 						<Icon
 							component={Img}
 							src="logo_pretzel.png"
-							style="width:480px; valign:left;"
+							style="width:480px;"
 						/> 
 					</Title>
 					<Tooltip>Planung</Tooltip>
