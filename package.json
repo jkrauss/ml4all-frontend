@@ -40,9 +40,11 @@
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
+		"bcryptjs": "^2.4.3",
 		"html2canvas": "^1.2.1",
 		"npm": "^7.21.0",
 		"postcss": "^8.3.5",
+		"require": "^0.4.4",
 		"sirv-cli": "^1.0.0",
 		"ss-search": "^1.6.1",
 		"svelte-material-ui": "^4.2.0"

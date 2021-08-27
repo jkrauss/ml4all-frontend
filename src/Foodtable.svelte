@@ -88,11 +88,11 @@
 			all: { bg: "", text: "" }, // overwirtes even and odd
 			even: {
 				bg: "var(--mdc-theme-2nd-background)",
-				text: "var(--mdc-theme-secondary)",
+				text: "var(--mdc-theme-text-primary-on-background)",
 			}, //defines colors for even rows
 			odd: {
 				bg: "var(--mdc-theme-background)",
-				text: "var(--mdc-theme-secondary)",
+				text: "var(--mdc-theme-text-primary-on-background)",
 			}, // var(--VARNAME) can be used to use the vars from foodsight.css
 			head: {
 				bg: "var(--mdc-theme-primary)",
@@ -447,14 +447,18 @@
 			<!-- Send Order / "Bestellen" - button -->
 			<div class="w-full flex">
 				<Group variant="raised">
-					<Button on:click={() => order("xlsx")} variant="raised">
+					<Button 
+						on:click={() => order("xlsx")} 
+						variant="raised"
+						style="background: {"var(--mdc-theme-callout)"}"
+					>
 						<Label>Bestellung abschließen</Label>
 					</Button>
 					<div use:GroupItem>
 						<Button
 							on:click={() => orderMenu.setOpen(true)}
 							variant="raised"
-							style="padding: 0; min-width: 36px;"
+							style="padding: 0; min-width: 36px; background: {"var(--mdc-theme-callout)"}"
 						>
 							<Icon class="material-icons" style="margin: 0;"
 								>arrow_drop_down</Icon

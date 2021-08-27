@@ -2,14 +2,16 @@
 /* pick from https://mycolor.space/?hex=%231D913A&sub=1 */
 :root {
     --mdc-theme-primary: #528b7b;
-    --mdc-theme-secondary: #3f4a3c;
+    --mdc-theme-secondary: #009FFD;
     --mdc-theme-background: #ddf8d6;
     --mdc-theme-2nd-background: #fff; /* "private" customization*/
     --mdc-theme-surface: #ddf8d6;
-    --mdc-theme-error: #E48B5C;
+    --mdc-theme-error: #FFA400;
+    --mdc-theme-callout: #FFA400; /* "private" customization */
+    --mdc-theme-footer: #4f615d; /* "private" customization */
     --mdc-theme-on-primary: #fff;
     --mdc-theme-on-secondary: #fff;
-    --mdc-theme-on-surface: #3f4a3c;
+    --mdc-theme-on-surface: #4f615d;
     --mdc-theme-on-error: #fff;
     --mdc-theme-text-primary-on-background: rgba(0, 0, 0, 0.87);
     --mdc-theme-text-secondary-on-background: rgba(0, 0, 0, 0.54);

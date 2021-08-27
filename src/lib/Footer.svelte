@@ -8,7 +8,7 @@
 
 <style>
 	footer {
-		background-color: #3f4a3c;
+		background-color: var(--mdc-theme-footer);
 	}
 	.copyright {
 		color: #aaa;

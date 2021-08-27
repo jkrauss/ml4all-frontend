@@ -7,6 +7,7 @@
 	import Tailwind from "./Tailwind.svelte";
 	import Nav from "./lib/nav/main.svelte";
 	import Footer from "./lib/Footer.svelte";
+	import Signup from "./lib/Signup.svelte";
 	import Backend from "./lib/BackendStores.svelte";
 	import { mainContent, notification, user } from "./lib/stores";
 </script>
@@ -44,7 +45,9 @@
 		{#if $mainContent === "settings"}
 			<Settings />		
 		{:else if $mainContent === "table"}
-			<Foodtable />
+			<Foodtable />		
+		{:else if $mainContent === "signup"}
+			<Signup />
 		{:else}
 			<Intro />
 		{/if}

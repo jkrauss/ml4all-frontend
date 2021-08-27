@@ -1,5 +1,12 @@
 <script>
 	import Paper, { Title, Content } from '@smui/paper';
+    import Button, { Label, Icon } from "@smui/button";
+    import {mainContent} from "./lib/stores";
+
+    function signup(){
+        console.log("Signup!");
+        $mainContent="signup"
+    }
 </script>
 
 <Paper elevation={1}>
@@ -7,7 +14,15 @@
 	<Content>
         Willkommen bei foodsight - der App die es ganz leicht macht, den Einkauf perfekt zu planen. <br />
         Foodsight sagt genau voraus, wieviel von welchem Produkt Du verkaufen wirst - morgen, übermorgen und in den nächsten 7 Tagen. <br />
-        <br /><br />
+        <br />
+        <Button 
+            variant="raised"
+            style="background: {"var(--mdc-theme-callout)"}"  
+            on:click={() => signup()}   
+        >
+            <Label>Jetzt registrieren</Label>
+        </Button>
+        <br />
 
         <h2 class="text-xl my-6">Funktionen</h2>
         Im Menü rechts oben findest Du folgende Optionen:<br /><br />
@@ -44,6 +59,15 @@
                     Absenden - wir kümmern uns darum.
                 </p>
             </li><br />
+            <li>
+                <Button 
+                    variant="raised"
+                    style="background: {"var(--mdc-theme-callout)"}"   
+                    on:click={() => signup()}    
+                >
+                    <Label>Jetzt registrieren</Label>
+                </Button>
+            </li>
         </ul>
 
     </Content>
