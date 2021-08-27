@@ -22,27 +22,33 @@
 	let register = '';
 	let agree = null
 
-	function sendSignup(){
+	async function sendSignup(){
 		let payload = {
 			"name":name,
 			"email":email,
 			"phone":phone,
 			"password":password,
 			"location":location,
-			"register":register,
+			"register_type":register,
 			"agree":agree
 		}
-		console.log(payload);
-		$notification = {
-						text: "Danke! Ihre Registrierung ist eingegangen. Wir melden uns in Kürze bei Ihnen.",
-						bg: "var(--mdc-theme-callout);",
-						color: "var(--mdc-theme-on-primary);",
-					};
-					setTimeout(() => {
-						$notification = undefined;
-					}, 5000);
-					$mainContent = "settings";
-	}
+		let { data } = await axios.post(
+				`${backendURL}/api/signup`,
+				payload
+			);
+			if (data) {
+				console.log(payload);
+				$notification = {
+								text: "Danke! Ihre Registrierung ist eingegangen. Wir melden uns in Kürze bei Ihnen.",
+								bg: "var(--mdc-theme-callout);",
+								color: "var(--mdc-theme-on-primary);",
+							};
+							setTimeout(() => {
+								$notification = undefined;
+							}, 5000);
+							$mainContent = "settings";
+			}
+		}
 
 	let pwdIcon = "visibility";
 	let pwdType = "password";
