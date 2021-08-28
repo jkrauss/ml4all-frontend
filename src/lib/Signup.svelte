@@ -32,11 +32,11 @@
 			"register_type":register,
 			"agree":agree
 		}
-		let { data } = await axios.post(
+		axios.post(
 				`${backendURL}/api/signup`,
 				payload
-			);
-			if (data) {
+			).then(
+				(response) =>{
 				console.log(payload);
 				$notification = {
 								text: "Danke! Ihre Registrierung ist eingegangen. Wir melden uns in Kürze bei Ihnen.",
@@ -45,9 +45,19 @@
 							};
 							setTimeout(() => {
 								$notification = undefined;
+								$mainContent = "table";
 							}, 5000);
-							$mainContent = "settings";
-			}
+			},()=>{
+				console.log(payload);
+				$notification = {
+								text: "Leider ist etwas schiefgegangen. Bitte kontaktieren Sie uns unter support@ml4all.com",
+								bg: "var(--mdc-theme-callout);",
+								color: "var(--mdc-theme-on-primary);",
+							};
+							setTimeout(() => {
+								$notification = undefined;
+							}, 5000);
+			});
 		}
 
 	let pwdIcon = "visibility";
