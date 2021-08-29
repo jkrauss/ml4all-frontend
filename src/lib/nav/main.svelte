@@ -18,6 +18,7 @@
 	function auth() {
 		if ($user && Object.keys($user).length) {
 			localStorage.removeItem("auth");
+			//localStorage.removeItem("orderDataCache");
 			$user = {};
 		} else {
 			$modal.title = "Login";

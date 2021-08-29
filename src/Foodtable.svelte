@@ -15,8 +15,8 @@
 	let orderMenu;
 
 	async function order(option) {
-		console.log(option);
-		console.log(`${backendURL}${$userSettings.order_url}`);
+		//console.log(option);
+		//console.log(`${backendURL}${$userSettings.order_url}`);
 		let orderUrl = `${backendURL}${$userSettings.order_url}`;
 		let resType;
 		let filename = `Foodsight_Bestellung.${option}`;
@@ -124,7 +124,15 @@
 			dataUrl = `${backendURL}${$userSettings.forecast_url}/?store=${$userSettings.store}`;
 		} else {
 			//use for demo-mode
-			dataUrl = "tableData.json";
+			if ($userSettings.store===1) {
+				dataUrl = "tableDataStore1.json";
+			}
+			else if ($userSettings.store===2) {
+				dataUrl = "tableDataStore2.json";
+			}
+			else if ($userSettings.store===3) {
+				dataUrl = "tableDataStore3.json";
+			}
 		}
 
 		//actually retrieve data
