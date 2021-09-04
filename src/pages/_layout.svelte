@@ -4,6 +4,7 @@
 	import Nav from "../components/nav/main.svelte";
 	import Footer from "../components/Footer.svelte";
 	import Backend from "../components/BackendStores.svelte";
+	import { svelteRenderParent } from "../components/stores";
 </script>
 
 <Backend />
@@ -32,7 +33,7 @@
 <Notification />
 <Modal />
 
-<main class="flex flex-col h-screen">
+<main class="flex flex-col h-screen" bind:this={$svelteRenderParent}>
 	<Nav />
 	<div class="p-2 h-full overflow-y-auto">
 		<slot />

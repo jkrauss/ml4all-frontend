@@ -14,6 +14,8 @@ const screenShotMode = writable(false);
 const problemReport = writable({});
 const userSettingsInit = writable();
 const notification = writable();
+
+const svelteRenderParent = writable();
 // user subscribtioin to handle axios interceptor forauthentication
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
@@ -42,4 +44,5 @@ export {
 	userSettingsInit,
 	problemReport,
 	notification,
+	svelteRenderParent,
 };

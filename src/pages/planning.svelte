@@ -1,17 +1,16 @@
 <script>
 	import axios from "axios";
-	import Datatable from "../components/Datatable.svelte";
 	import { search } from "ss-search";
 	import Textfield from "@smui/textfield";
 	import { user, backendURL, userSettings } from "../components/stores.js";
 	import { writable } from "svelte/store";
 	import Paper, { Title, Content } from "@smui/paper";
-
 	// Send Order / "Bestellen" - button
 	import Button, { Group, GroupItem, Label, Icon } from "@smui/button";
 	import Menu from "@smui/menu";
 	import List, { Item, Separator, Text } from "@smui/list";
 	import { beforeUpdate, onMount } from "svelte";
+
 	let orderMenu;
 
 	async function order(option) {
@@ -100,39 +99,36 @@
 			}, // var(--VARNAME) can be used to use the vars from foodsight.css
 		}; // a bit less horrible styling ;)
 
-	//saving data in localstorage with current user so if the user changes the data can get fetched if user is the same the same data will be used could be done with date to check isf the date changes.
-	beforeUpdate(() => {
-		localStorage.setItem("orderDataCache", JSON.stringify($data));
-		localStorage.setItem("orderCacheUser", JSON.stringify($user));
-	});
-
 	// geting data from backend / .json file
 	async function getData() {
 		// if (typeof window === "undefined") return;
 		// //dont ask why it works it works
-		// if (
-		// 	JSON.stringify(
-		// 		JSON.parse(localStorage.getItem("orderCacheUser"))
-		// 	) === JSON.stringify($user)
-		// )
-		// 	return;
+
+		console.log(
+			JSON.stringify(JSON.parse(localStorage.getItem("orderCacheUser"))),
+			JSON.stringify($user),
+			JSON.stringify(
+				JSON.parse(localStorage.getItem("orderCacheUser"))
+			) === JSON.stringify($user)
+		);
+		if (
+			JSON.stringify(
+				JSON.parse(localStorage.getItem("orderCacheUser"))
+			) === JSON.stringify($user)
+		)
+			return;
+
+		if (!$userSettings || !Object.keys($userSettings).length) return;
+
 		//determine where to get data - local demo or remote with token
 		let dataUrl;
 
-		if ($user && Object.keys($user).length && $userSettings) {
-			// use window.location.origin , see https://stackoverflow.com/questions/11401897/get-the-current-domain-name-with-javascript-not-the-path-etc
+		if ($user && Object.keys($user).length) {
 			dataUrl = `${backendURL}${$userSettings.forecast_url}/?store=${$userSettings.store}`;
 		} else {
 			//use for demo-mode
-			if ($userSettings.store === 1) {
-				dataUrl = "tableDataStore1.json";
-			} else if ($userSettings.store === 2) {
-				dataUrl = "tableDataStore2.json";
-			} else if ($userSettings.store === 3) {
-				dataUrl = "tableDataStore3.json";
-			}
+			dataUrl = `tableDataStore${$userSettings.store}.json`;
 		}
-		console.log(dataURL);
 
 		//actually retrieve data
 		let request = await axios.get(dataUrl);
@@ -152,17 +148,6 @@
 		return keys;
 	}
 
-	userSettings.subscribe(() => {
-		getData();
-	});
-
-	onMount(() => {
-		getData();
-	});
-
-	data.subscribe((val) => {
-		$keys = getKeys();
-	});
 	//search if the search field is changed so it live reloads (svelte:use)
 	function searchF(node, searchInput) {
 		return {
@@ -274,6 +259,24 @@
 
 		displayData = displayData.sort(sort);
 	};
+
+	user.subscribe(() => {
+		getData();
+	});
+
+	onMount(() => {
+		getData();
+	});
+
+	data.subscribe((val) => {
+		$keys = getKeys();
+	});
+
+	//saving data in localstorage with current user so if the user changes the data can get fetched if user is the same the same data will be used could be done with date to check isf the date changes.
+	beforeUpdate(() => {
+		localStorage.setItem("orderDataCache", JSON.stringify($data));
+		localStorage.setItem("orderCacheUser", JSON.stringify($user));
+	});
 </script>
 
 <!-- Getting window width -->
@@ -285,7 +288,7 @@
 	<Paper elevation={1}>
 		<Title><h1 class="text-2xl my-6">Vorhersage und Planung</h1></Title>
 		<Content>
-			<div>
+			<div class="flex flex-col gap-4">
 				<!-- complete foodtable -->
 				<!-- Search input field -->
 				<input
@@ -296,9 +299,9 @@
 					use:searchF={searchInput}
 				/>
 				<!-- table itself defined in Datatable.svelte could be changed so its one file. exists because original plan was diferent -->
-				<Datatable>
+				<table class="w-full">
 					<!-- Table header  -->
-					<tr slot="head">
+					<thead class="border-b border-black">
 						<!-- checks every key in keys -->
 						{#each $keys as key}
 							<!-- checks if its blacklisted thus not displayed -->
@@ -344,55 +347,58 @@
 								</th>
 							{/if}
 						{/each}
-					</tr>
-
-					<!-- table body in default slot every json object in filterd and sorted array is displayed, index is defined to check pagination  -->
-					{#each displayData as dataRow, i}
-						<!-- check if item is displayed on curent page -->
-						{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
-							<!-- creating new row -->
-							<tr
-								style={`background: ${
-									i % 2 ? styling.even?.bg : styling.odd?.bg
-								};
+					</thead>
+					<tbody>
+						<!-- table body in default slot every json object in filterd and sorted array is displayed, index is defined to check pagination  -->
+						{#each displayData as dataRow, i}
+							<!-- check if item is displayed on curent page -->
+							{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
+								<!-- creating new row -->
+								<tr
+									style={`background: ${
+										i % 2
+											? styling.even?.bg
+											: styling.odd?.bg
+									};
 						color:${i % 2 ? styling.even?.text : styling.odd?.text};
 						`}
-							>
-								<!-- getting keys from json object -->
-								{#each Object.keys(dataRow) as key}
-									<!-- checking if key is blacklisted -->
-									{#if !blacklist.includes(key)}
-										<!-- creating cell -->
-										<td>
-											<!-- checking if dataType is special can be edited to display difrent datatypes-->
-											{#if dataTypes.find((item) => item.key === key)}
-												{#if dataTypes.find((item) => item.key === key).type == "number"}
-													<!-- displaying number datatypes as input field 
+								>
+									<!-- getting keys from json object -->
+									{#each Object.keys(dataRow) as key}
+										<!-- checking if key is blacklisted -->
+										{#if !blacklist.includes(key)}
+											<!-- creating cell -->
+											<td>
+												<!-- checking if dataType is special can be edited to display difrent datatypes-->
+												{#if dataTypes.find((item) => item.key === key)}
+													{#if dataTypes.find((item) => item.key === key).type == "number"}
+														<!-- displaying number datatypes as input field 
 											<input
 												type="number"
 												bind:value={dataRow[key]}
 												class="min-w-24 w-24"
 											/> -->
-													<Textfield
-														class="shaped-outlined"
-														variant="outlined"
-														type="number"
-														bind:value={dataRow[
-															key
-														]}
-													/>
+														<Textfield
+															class="shaped-outlined"
+															variant="outlined"
+															type="number"
+															bind:value={dataRow[
+																key
+															]}
+														/>
+													{/if}
+												{:else}
+													<!-- just displying data -->
+													{dataRow[key]}
 												{/if}
-											{:else}
-												<!-- just displying data -->
-												{dataRow[key]}
-											{/if}
-										</td>
-									{/if}
-								{/each}
-							</tr>
-						{/if}
-					{/each}
-				</Datatable>
+											</td>
+										{/if}
+									{/each}
+								</tr>
+							{/if}
+						{/each}
+					</tbody>
+				</table>
 				<!-- pagination stuff -->
 				<div class="w-full flex">
 					<!-- container to make it align right -->

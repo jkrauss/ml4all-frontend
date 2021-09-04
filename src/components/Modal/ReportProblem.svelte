@@ -8,6 +8,7 @@
 		problemReport,
 		modal,
 		notification,
+		svelteRenderParent,
 	} from "../stores";
 	import axios from "axios";
 	$: if (!$problemReport || Object.keys($problemReport).length == 0) {
@@ -33,18 +34,10 @@
 		<Button
 			class="whitespace-nowrap w-full"
 			on:click={() => {
-				$screenShotMode = true;
-				setTimeout(() => {
-					html2canvas(document.body, { logging: true }).then(
-						(canvas) => {
-							const base64image = canvas.toDataURL("image/png");
-							$problemReport.screenshot = base64image;
-						}
-					);
-				}, 500);
-				setTimeout(() => {
-					$screenShotMode = false;
-				}, 1000);
+				html2canvas($svelteRenderParent).then((canvas) => {
+					const base64image = canvas.toDataURL("image/png");
+					$problemReport.screenshot = base64image;
+				});
 			}}
 		>
 			<Label>Bidschirmfoto aufnehmen</Label>
