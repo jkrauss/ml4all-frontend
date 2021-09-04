@@ -1,78 +1,103 @@
-import svelte from 'rollup-plugin-svelte';
-import commonjs from '@rollup/plugin-commonjs';
-import resolve from '@rollup/plugin-node-resolve';
-import livereload from 'rollup-plugin-livereload';
-import { terser } from 'rollup-plugin-terser';
-import css from 'rollup-plugin-css-only';
-import preprocess from 'svelte-preprocess';
+import svelte from "rollup-plugin-svelte-hot";
+import Hmr from "rollup-plugin-hot";
+import resolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
+import livereload from "rollup-plugin-livereload";
+import { terser } from "rollup-plugin-terser";
+import { copySync, removeSync } from "fs-extra";
+import { spassr } from "spassr";
+import getConfig from "@roxi/routify/lib/utils/config";
+import autoPreprocess from "svelte-preprocess";
+import { injectManifest } from "rollup-plugin-workbox";
 
+const { distDir } = getConfig(); // use Routify's distDir for SSOT
+const assetsDir = "assets";
+const buildDir = `${distDir}/build`;
+const isNollup = !!process.env.NOLLUP;
 const production = !process.env.ROLLUP_WATCH;
+process.env.NODE_ENV = production ? "production" : "development";
 
-function serve() {
-	let server;
+// clear previous builds
+removeSync(distDir);
+removeSync(buildDir);
 
-	function toExit() {
-		if (server) server.kill(0);
-	}
-
-	return {
-		writeBundle() {
-			if (server) return;
-			server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-				stdio: ['ignore', 'inherit', 'inherit'],
-				shell: true
-			});
-
-			process.on('SIGTERM', toExit);
-			process.on('exit', toExit);
-		}
-	};
-}
+const serve = () => ({
+	writeBundle: async () => {
+		const options = {
+			assetsDir: [assetsDir, distDir],
+			entrypoint: `${assetsDir}/__app.html`,
+			script: `${buildDir}/main.js`,
+		};
+		spassr({ ...options, port: 5000 });
+		spassr({
+			...options,
+			ssr: true,
+			port: 5005,
+			ssrOptions: { inlineDynamicImports: true, dev: true },
+		});
+	},
+});
+const copyToDist = () => ({
+	writeBundle() {
+		copySync(assetsDir, distDir);
+	},
+});
 
 export default {
-	input: 'src/main.js',
+	preserveEntrySignatures: false,
+	input: [`src/main.js`],
 	output: {
 		sourcemap: true,
-		format: 'iife',
-		name: 'app',
-		file: 'public/build/bundle.js'
+		format: "esm",
+		dir: buildDir,
+		// for performance, disabling filename hashing in development
+		chunkFileNames: `[name]${(production && "-[hash]") || ""}.js`,
 	},
 	plugins: [
 		svelte({
-			compilerOptions: {
-				// enable run-time checks when not in production
-				dev: !production
-			},
-			preprocess: preprocess({ postcss: true })
+			emitCss: false,
+			hot: isNollup,
+			preprocess: [
+				autoPreprocess({
+					postcss: require("./postcss.config.js"),
+					defaults: { style: "postcss" },
+				}),
+			],
 		}),
-		// we'll extract any component CSS out into
-		// a separate file - better for performance
-		css({ output: 'bundle.css' }),
 
-		// If you have external dependencies installed from
-		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration -
-		// consult the documentation for details:
-		// https://github.com/rollup/plugins/tree/master/packages/commonjs
+		// resolve matching modules from current working directory
 		resolve({
 			browser: true,
-			dedupe: ['svelte']
+			dedupe: (importee) => !!importee.match(/svelte(\/|$)/),
 		}),
 		commonjs(),
 
-		// In dev mode, call `npm run start` once
-		// the bundle has been generated
-		!production && serve(),
-
-		// Watch the `public` directory and refresh the
-		// browser on changes when not in production
-		!production && livereload('public'),
-
-		// If we're building for production (npm run build
-		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+		!production && !isNollup && serve(),
+		!production && !isNollup && livereload(distDir), // refresh entire window when code is updated
+		!production && isNollup && Hmr({ inMemory: true, public: assetsDir }), // refresh only updated code
+		{
+			// provide node environment on the client
+			transform: (code) => ({
+				code: code.replace(
+					/process\.env\.NODE_ENV/g,
+					`"${process.env.NODE_ENV}"`
+				),
+				map: { mappings: "" },
+			}),
+		},
+		injectManifest({
+			globDirectory: assetsDir,
+			globPatterns: ["**/*.{js,css,svg}", "__app.html"],
+			swSrc: `src/sw.js`,
+			swDest: `${distDir}/serviceworker.js`,
+			maximumFileSizeToCacheInBytes: 10000000, // 10 MB,
+			mode: "production",
+		}),
+		production && copyToDist(),
 	],
 	watch: {
-		clearScreen: false
-	}
+		clearScreen: false,
+		buildDelay: 100,
+	},
 };

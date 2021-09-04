@@ -1,9 +1,9 @@
 <style global>
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+	@tailwind base;
+	@tailwind components;
+	@tailwind utilities;
 
-  input {
-    @apply w-auto;
-  }
+	input {
+		@apply w-auto;
+	}
 </style>
