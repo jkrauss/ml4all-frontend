@@ -1,6 +1,6 @@
 <script>
 	import Paper, { Title, Content } from "@smui/paper";
-	import Button, { Label, Icon } from "@smui/button";
+	import Button, { Label } from "@smui/button";
 	import { goto } from "@roxi/routify";
 </script>
 
@@ -14,7 +14,7 @@
 		<br />
 		<Button
 			variant="raised"
-			style="background: {'var(--mdc-theme-callout)'}"
+			style="background: var(--mdc-theme-callout)"
 			on:click={() => $goto("/signup")}
 		>
 			<Label>Jetzt registrieren</Label>
@@ -80,7 +80,7 @@
 			<li>
 				<Button
 					variant="raised"
-					style="background: {'var(--mdc-theme-callout)'}"
+					style="background: var(--mdc-theme-callout)"
 					on:click={() => $goto("/signup")}
 				>
 					<Label>Jetzt registrieren</Label>

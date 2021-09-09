@@ -9,7 +9,7 @@
 	import { blur, fade } from "svelte/transition";
 	import Textfield from "@smui/textfield/Textfield.svelte";
 
-	let data = {};
+	let data = { body: [], head: [] };
 	let orderMenu;
 	let searchInputText;
 	let tableWhitelist = ["id", "product"]; // whitelist for table columns

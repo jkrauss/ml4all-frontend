@@ -7,8 +7,6 @@
 	import Select, { Option } from "@smui/select";
 	import List, { Item, Separator, Subheader } from "@smui/list";
 
-	//let selectedStore = $userSettings?.store;
-
 	function changeStore(storeObject) {
 		//$userSettings.store = storeObject.store;
 		$userSettings.state = storeObject.state;

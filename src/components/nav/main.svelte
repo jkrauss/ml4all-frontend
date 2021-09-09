@@ -1,12 +1,11 @@
 <script>
 	import ReportProblem from "./../Modal/ReportProblem.svelte";
-	import { modal, user, mainContent, userSettings } from "../stores.js";
+	import { modal, user, userSettings } from "../stores.js";
 	import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
 	import IconButton from "@smui/icon-button";
 	import Img from "@smui/common/Img.svelte";
-	import Button, { Icon } from "@smui/button";
+	import { Icon } from "@smui/button";
 	import Menu from "../components/Menu.svelte";
-	import List, { Item, Separator, Text } from "@smui/list";
 	import Login from "../auth/login.svelte";
 	import Wrapper from "@smui/tooltip/Wrapper.svelte";
 	import Tooltip from "@smui/tooltip/Tooltip.svelte";
@@ -27,13 +26,7 @@
 		}
 		// after every login or logout set the main content to show the table
 		// "https://raw.githubusercontent.com/hperrin/svelte-material-ui/master/site/static/logo.png"
-		$mainContent = "intro";
-	}
-	function settings() {
-		$mainContent = "settings";
-	}
-	function intro() {
-		$mainContent = "intro";
+		$goto("/");
 	}
 	function reportProblem() {
 		$modal.title = "Idee oder Problem melden";
@@ -51,7 +44,7 @@
 					<Title class="cursor-pointer p-2">
 						<Icon
 							component={Img}
-							src="logo_pretzel.png"
+							src="/logo_pretzel.png"
 							style="width:180px;"
 						/>
 					</Title>

@@ -8,12 +8,11 @@ const modal = writable({}); // the modal that is either for login or for logout
 const user = writable(
 	localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {}
 ); // the user - if logged in, otherwise run in demo-mode
-const userSettings = writable();
-const mainContent = writable(); // the main-content of our SPA, e.g. datatable or settings-page
+const userSettings = writable({});
 const screenShotMode = writable(false);
 const problemReport = writable({});
-const userSettingsInit = writable();
-const notification = writable();
+const userSettingsInit = writable({});
+const notification = writable({});
 
 const svelteRenderParent = writable();
 // user subscribtioin to handle axios interceptor forauthentication
@@ -36,7 +35,6 @@ user.subscribe((val) => {
 // exports
 export {
 	backendURL,
-	mainContent,
 	screenShotMode,
 	modal,
 	user,

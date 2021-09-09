@@ -4,7 +4,7 @@
 	import { quintOut } from "svelte/easing";
 </script>
 
-{#if $notification}
+{#if Object.keys($notification).length}
 	<div
 		class="fixed right-8 bottom-20 bg-green-500 rounded px-8 py-4"
 		style={`background: ${$notification.bg}; color: ${$notification.color}`}

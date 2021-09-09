@@ -27,8 +27,8 @@
 	/>
 
 	<!-- SMUI -->
-	<link rel="stylesheet" href="foodsight.css" />
-	<link rel="stylesheet" href="bare.css" />
+	<link rel="stylesheet" href="/foodsight.css" />
+	<link rel="stylesheet" href="/bare.css" />
 </svelte:head>
 <Notification />
 <Modal />

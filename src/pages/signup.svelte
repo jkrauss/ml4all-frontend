@@ -6,13 +6,9 @@
 
 	import FormField from "@smui/form-field";
 	import Checkbox from "@smui/checkbox";
-	import {
-		backendURL,
-		mainContent,
-		modal,
-		notification,
-	} from "../components/stores";
-	import axios from "axios";
+	import { backendURL, modal, notification } from "../components/stores";
+	import * as axios from "axios";
+	import { goto } from "@roxi/routify";
 
 	let name = "";
 	let email = "";
@@ -42,7 +38,7 @@
 				};
 				setTimeout(() => {
 					$notification = undefined;
-					$mainContent = "table";
+					$goto("planning");
 				}, 5000);
 			},
 			() => {
