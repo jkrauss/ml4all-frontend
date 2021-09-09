@@ -33,9 +33,9 @@
 <Notification />
 <Modal />
 
-<main class="flex flex-col h-screen" bind:this={$svelteRenderParent}>
+<main class="flex flex-col h-screen " bind:this={$svelteRenderParent}>
 	<Nav />
-	<div class="p-2 h-full overflow-y-auto">
+	<div class="p-2 h-full overflow-y-auto ">
 		<slot />
 	</div>
 	<Footer />

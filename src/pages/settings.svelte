@@ -15,7 +15,6 @@
 		$userSettings.city = storeObject.city;
 		$userSettings.store_name = storeObject.store_name;
 	}
-	console.log("$userSettings.store:", $userSettings.store);
 </script>
 
 <section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto ">

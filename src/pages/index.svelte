@@ -4,7 +4,7 @@
 	import { goto } from "@roxi/routify";
 </script>
 
-<Paper elevation={1}>
+<Paper elevation={1} class="md:w-10/12 w-full mx-auto">
 	<Title><h1 class="text-2xl my-6">Los gehts!</h1></Title>
 	<Content>
 		Willkommen bei foodsight - der App die es ganz leicht macht, den Einkauf

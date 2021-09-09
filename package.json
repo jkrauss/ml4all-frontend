@@ -24,6 +24,9 @@
 		"routify": "routify"
 	},
 	"devDependencies": {
+		"@rollup/plugin-commonjs": "^19.0.0",
+		"@rollup/plugin-node-resolve": "^13.0.0",
+		"@roxi/routify": "^2.18.1",
 		"@smui/button": "^4.2.0",
 		"@smui/card": "latest",
 		"@smui/circular-progress": "^4.2.0",
@@ -35,9 +38,6 @@
 		"@smui/textfield": "^4.2.0",
 		"@smui/tooltip": "^4.2.0",
 		"@smui/top-app-bar": "latest",
-		"@rollup/plugin-commonjs": "^19.0.0",
-		"@rollup/plugin-node-resolve": "^13.0.0",
-		"@roxi/routify": "^2.18.1",
 		"autoprefixer": "^10.3.3",
 		"cross-env": "^7.0.3",
 		"cssnano": "^5.0.8",
