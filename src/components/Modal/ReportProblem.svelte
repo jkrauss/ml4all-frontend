@@ -77,7 +77,6 @@
 			variant="raised"
 			class="w-full"
 			on:click={async () => {
-				console.log("send", $problemReport);
 				let { data } = await axios.post(
 					`${backendURL}/api/problem`,
 					$problemReport

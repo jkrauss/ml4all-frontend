@@ -30,7 +30,6 @@
 		};
 		axios.post(`${backendURL}/api/signup`, payload).then(
 			(response) => {
-				console.log(payload);
 				$notification = {
 					text: "Danke! Ihre Registrierung ist eingegangen. Wir melden uns in Kürze bei Ihnen.",
 					bg: "var(--mdc-theme-callout);",
@@ -42,7 +41,6 @@
 				}, 5000);
 			},
 			() => {
-				console.log(payload);
 				$notification = {
 					text: "Leider ist etwas schiefgegangen. Bitte kontaktieren Sie uns unter support@ml4all.com",
 					bg: "var(--mdc-theme-callout);",

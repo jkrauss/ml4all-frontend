@@ -87,6 +87,7 @@
 				} else {
 					dataUrl = `tableDataStore${$userSettings.store}.json`;
 				}
+				
 				localStorage.setItem(
 					dataUrl,
 					JSON.stringify({
@@ -103,8 +104,13 @@
 
 	//setting dataPromise on dependencie change. gets cached data if it exists otherwise gets the data from the endpoint.
 	$: dataPromise = new Promise(async (res, rej) => {
-		if (!$userSettings || Object.keys($userSettings).length == 0) {
+		if (
+			!$userSettings ||
+			!Object.keys($userSettings).length ||
+			!$userSettings.store
+		) {
 			rej("userSettings Not Defined");
+			return;
 		}
 		let dataUrl;
 		let keys = [];
@@ -120,7 +126,10 @@
 				localStorage.getItem(dataUrl) &&
 				JSON.stringify(
 					JSON.parse(localStorage.getItem(dataUrl)).user
-				) === JSON.stringify($user)
+				) === JSON.stringify($user) &&
+				new Date(
+					JSON.parse(localStorage.getItem(dataUrl)).data.timestamp
+				).getUTCDate() === new Date().getUTCDate()
 			) {
 				let searchedData = search(
 					JSON.parse(localStorage.getItem(dataUrl)).data.body,
@@ -130,9 +139,12 @@
 				res({
 					body: searchedData,
 					head: JSON.parse(localStorage.getItem(dataUrl)).data.head,
+					timestamp: JSON.parse(localStorage.getItem(dataUrl)).data
+						.timestamp,
 				});
 			} else {
 				result = await axios.get(dataUrl);
+			
 				result.data.forEach((val) => {
 					Object.keys(val).forEach((ob) => {
 						if (!keys.includes(ob)) {
@@ -144,7 +156,11 @@
 					dataUrl,
 					JSON.stringify({
 						user: $user,
-						data: { body: result.data, head: keys },
+						data: {
+							body: result.data,
+							head: keys,
+							timestamp: Date.now(),
+						},
 					})
 				);
 				let cachedStores =
@@ -158,7 +174,7 @@
 					["id", "product"],
 					searchInputText
 				);
-				res({ body: searchedData, head: keys });
+				res({ body: searchedData, head: keys, timestamp: Date.now() });
 			}
 		} catch (er) {
 			console.log(er);
