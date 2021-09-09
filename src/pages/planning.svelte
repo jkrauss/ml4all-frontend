@@ -9,9 +9,10 @@
 	import { blur, fade } from "svelte/transition";
 	import Textfield from "@smui/textfield/Textfield.svelte";
 
+	let data = {};
 	let orderMenu;
 	let searchInputText;
-	let tableWhitelist = ["id", "product"];
+	let tableWhitelist = ["id", "product"]; // whitelist for table columns
 	let labels = [
 		{ key: "id", text: "ID" },
 		{ key: "product", text: "Produkt" },
@@ -21,27 +22,30 @@
 		{ key: "day_after_order_qty", text: "Bestellung Übermorgen" },
 		{ key: "next7_order_range", text: "Vorschlag Woche" },
 		{ key: "next7_order_qty", text: "Bestellung Woche" },
-	];
+	]; // labels for the table columns
 	let dataTypes = [
 		{ key: "day_after_order_qty", type: "number" },
 		{ key: "tomorrow_order_qty", type: "number" },
 		{ key: "next7_order_qty", type: "number" },
-	];
-	let dataPromise = new Promise(() => {});
-	let sortBy = { col: "id", ascending: true };
+	]; // deffines spection data types/input types
+	let dataPromise = new Promise(() => {}); // empty Promise will change on dependency change/ on Mount
+	let sortBy = { col: "id", ascending: true }; //sorting stuff
 	let currentPage = 1;
 
+	// Submiting the Order
 	async function order(option, data) {
 		let orderUrl = `${backendURL}${$userSettings.order_url}`;
 		let resType;
 		let filename = `Foodsight_Bestellung.${option}`;
 
+		//setting type of returned file
 		if (option === "xlsx") {
 			resType = "arraybuffer";
 		} else if (option === "csv") {
 			resType = "text";
 		}
 
+		// setting order options
 		let orderOption;
 		if ($userSettings?.tomorrow) {
 			orderOption = "tomorrow";
@@ -50,6 +54,8 @@
 		} else if ($userSettings?.next_seven_days) {
 			orderOption = "next_seven_days";
 		}
+
+		// getting file and open download link/ download item
 		axios({
 			url: orderUrl,
 			method: "POST",
@@ -63,6 +69,33 @@
 			document.body.appendChild(link);
 			link.click();
 		});
+	}
+
+	// changes the returned data from dataPromise into data var because otherwise bindings wouldnt work.
+	function dataChanger(node, returnVal) {
+		data = returnVal;
+	}
+
+	// caching data on change
+	function autoCache(node, data) {
+		return {
+			update(data) {
+				if (!Object.keys($userSettings)) return;
+				let dataUrl;
+				if ($user && Object.keys($user).length) {
+					dataUrl = `${backendURL}${$userSettings.forecast_url}/?store=${$userSettings.store}`;
+				} else {
+					dataUrl = `tableDataStore${$userSettings.store}.json`;
+				}
+				localStorage.setItem(
+					dataUrl,
+					JSON.stringify({
+						user: $user,
+						data: data,
+					})
+				);
+			},
+		};
 	}
 
 	$: pageLength = $userSettings?.rows_per_page || 10;
@@ -112,6 +145,12 @@
 						data: { body: result.data, head: keys },
 					})
 				);
+				let cachedStores =
+					JSON.parse(localStorage.getItem("cachedStores")) || [];
+				localStorage.setItem(
+					"cachedStores",
+					JSON.stringify([...cachedStores, dataUrl])
+				);
 				let searchedData = search(
 					result.data,
 					["id", "product"],
@@ -123,6 +162,26 @@
 			console.log(er);
 		}
 	});
+
+	$: {
+		let cachedStores =
+			JSON.parse(localStorage.getItem("cachedStores")) || [];
+		if (cachedStores.length) {
+			cachedStores.forEach((key) => {
+				let item = JSON.parse(localStorage.getItem(key));
+				if (JSON.stringify(item?.user) != JSON.stringify($user)) {
+					localStorage.removeItem(key);
+					cachedStores = cachedStores.filter((item) => {
+						return item != key;
+					});
+				}
+			});
+			localStorage.setItem(
+				"cachedStores",
+				JSON.stringify([...new Set(cachedStores)])
+			);
+		}
+	}
 
 	$: if ($userSettings?.next_seven_days) {
 		tableWhitelist = [
@@ -198,208 +257,220 @@
 							autorenew
 						</span> Loading
 					</div>
-				{:then data}
-					<table class="w-full" in:blur>
-						<thead class="border-b border-black">
-							{#each data.head as col}
-								{#if tableWhitelist.includes(col)}
-									<th
-										on:click={() => {
-											data.body = sort(data.body, col);
-										}}
-										style="background: var(--table-head-bg); color: var(--table-head-color)"
-									>
-										<div
-											class="relative h-10 flex justify-center items-center"
+				{:then returnVal}
+					<div use:dataChanger={returnVal} use:autoCache={data} />
+					{#if Object.keys(data).length}
+						<table class="w-full" in:blur>
+							<thead class="border-b border-black">
+								{#each data.head as col}
+									{#if tableWhitelist.includes(col)}
+										<th
+											on:click={() => {
+												data.body = sort(
+													data.body,
+													col
+												);
+											}}
+											style="background: var(--table-head-bg); color: var(--table-head-color)"
 										>
-											{labels.find(
-												(item) => item.key === col
-											)?.text || col}
 											<div
-												class="absolute -right-1 top-0 bottom-0"
+												class="relative h-10 flex justify-center items-center"
 											>
-												<span
-													class={`material-icons absolute right-0 top-0 `}
-													class:text-gray-200={sortBy.col ==
-														col &&
-														!sortBy.ascending}
-													class:text-gray-500={sortBy.col !=
-														col || sortBy.ascending}
+												{labels.find(
+													(item) => item.key === col
+												)?.text || col}
+												<div
+													class="absolute -right-1 top-0 bottom-0"
 												>
-													arrow_drop_up
-												</span>
-												<span
-													class="material-icons absolute right-0 bottom-0"
-													class:text-gray-200={sortBy.col ==
-														col && sortBy.ascending}
-													class:text-gray-500={sortBy.col !=
-														col ||
-														!sortBy.ascending}
-												>
-													arrow_drop_down
-												</span>
+													<span
+														class={`material-icons absolute right-0 top-0 `}
+														class:text-gray-200={sortBy.col ==
+															col &&
+															!sortBy.ascending}
+														class:text-gray-500={sortBy.col !=
+															col ||
+															sortBy.ascending}
+													>
+														arrow_drop_up
+													</span>
+													<span
+														class="material-icons absolute right-0 bottom-0"
+														class:text-gray-200={sortBy.col ==
+															col &&
+															sortBy.ascending}
+														class:text-gray-500={sortBy.col !=
+															col ||
+															!sortBy.ascending}
+													>
+														arrow_drop_down
+													</span>
+												</div>
 											</div>
-										</div>
-									</th>
-								{/if}
-							{/each}
-						</thead>
+										</th>
+									{/if}
+								{/each}
+							</thead>
 
-						<tbody>
-							{#each data.body as item, i}
-								{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
-									<tr
-										style={`background: ${
-											i % 2
-												? "var(--table-body-odd-bg)"
-												: "var(--table-body-even-bg)"
-										};
+							<tbody>
+								{#each data.body as item, i}
+									{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
+										<tr
+											style={`background: ${
+												i % 2
+													? "var(--table-body-odd-bg)"
+													: "var(--table-body-even-bg)"
+											};
 									color: ${
 										i % 2
 											? "var(--table-body-odd-color)"
 											: "var(--table-body-even-color)"
 									}`}
-									>
-										{#each Object.keys(item) as field}
-											{#if tableWhitelist.includes(field)}
-												<td>
-													<!-- checking if dataType is special can be edited to display difrent datatypes-->
-													{#if dataTypes.find((item) => item.key === field)}
-														{#if dataTypes.find((item) => item.key === field).type == "number"}
-															<!-- displaying number datatypes as input field 
+										>
+											{#each Object.keys(item) as field}
+												{#if tableWhitelist.includes(field)}
+													<td>
+														<!-- checking if dataType is special can be edited to display difrent datatypes-->
+														{#if dataTypes.find((item) => item.key === field)}
+															{#if dataTypes.find((item) => item.key === field).type == "number"}
+																<!-- displaying number datatypes as input field 
 											<input
 												type="number"
 												bind:value={dataRow[key]}
 												class="min-w-24 w-24"
 											/> -->
-															<Textfield
-																class="shaped-outlined"
-																variant="outlined"
-																type="number"
-																bind:value={item[
-																	field
-																]}
-															/>
-														{/if}
-													{:else}
-														<!-- just displying data -->
-														{item[field]}
-													{/if}</td
-												>
-											{/if}
-										{/each}
-									</tr>
-								{/if}
-							{:else}
-								<div class="h-96 relative">
-									<div
-										class="absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"
-									>
-										Keine Daten zum Suchbegriff "{searchInputText}"
-										gefunden
+																<Textfield
+																	class="shaped-outlined"
+																	variant="outlined"
+																	type="number"
+																	bind:value={item[
+																		field
+																	]}
+																/>
+															{/if}
+														{:else}
+															<!-- just displying data -->
+															{item[field]}
+														{/if}</td
+													>
+												{/if}
+											{/each}
+										</tr>
+									{/if}
+								{:else}
+									<div class="h-96 relative">
+										<div
+											class="absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"
+										>
+											Keine Daten zum Suchbegriff "{searchInputText}"
+											gefunden
+										</div>
 									</div>
-								</div>
-							{/each}
-						</tbody>
-					</table>
+								{/each}
+							</tbody>
+						</table>
 
-					<div class="w-full flex" in:fade>
-						<Group>
-							<Button
-								on:click={() => order("xlsx", data.body)}
-								variant="raised"
-								style="background: {'var(--mdc-theme-callout)'}"
-							>
-								<Label>Bestellung abschliessen</Label>
-							</Button>
-							<div use:GroupItem>
+						<div class="w-full flex" in:fade>
+							<Group>
 								<Button
-									on:click={() => orderMenu.setOpen(true)}
+									on:click={() => order("xlsx", data.body)}
 									variant="raised"
-									style="padding: 0; min-width: 36px; background: {'var(--mdc-theme-callout)'}"
+									style="background: {'var(--mdc-theme-callout)'}"
 								>
-									<Icon
-										class="material-icons"
-										style="margin: 0;">arrow_drop_down</Icon
-									>
+									<Label>Bestellung abschliessen</Label>
 								</Button>
-								<Menu
-									bind:this={orderMenu}
-									anchorCorner="TOP_LEFT"
-								>
-									<List>
-										<Item
-											on:SMUI:action={() =>
-												order("xlsx", data.body)}
-										>
-											<Text>excel</Text>
-										</Item>
-										<Item
-											on:SMUI:action={() =>
-												order("csv", data.body)}
-										>
-											<Text>csv</Text>
-										</Item>
-									</List>
-								</Menu>
-							</div>
-						</Group>
-						<div class="ml-auto ">
-							<Group variant="raised">
-								{#if currentPage > 1}
+								<div use:GroupItem>
 									<Button
-										on:click={() => currentPage--}
+										on:click={() => orderMenu.setOpen(true)}
 										variant="raised"
+										style="padding: 0; min-width: 36px; background: {'var(--mdc-theme-callout)'}"
 									>
-										<Label
-											><span
-												class="material-icons text-sm"
+										<Icon
+											class="material-icons"
+											style="margin: 0;"
+											>arrow_drop_down</Icon
+										>
+									</Button>
+									<Menu
+										bind:this={orderMenu}
+										anchorCorner="TOP_LEFT"
+									>
+										<List>
+											<Item
+												on:SMUI:action={() =>
+													order("xlsx", data.body)}
 											>
-												arrow_back_ios_new
-											</span></Label
-										>
-									</Button>
-								{/if}
-								{#if currentPage - 1 > 0}
-									<Button
-										on:click={() =>
-											(currentPage = currentPage - 1)}
-										variant="raised"
-									>
-										<Label>{currentPage - 1}</Label>
-									</Button>
-								{/if}
-
-								<Button on:click={() => {}} variant="raised">
-									<Label>{currentPage}</Label>
-								</Button>
-								{#if currentPage + 1 <= Math.floor(data.body.length / pageLength) + 1}
-									<Button
-										on:click={() => {
-											currentPage = currentPage + 1;
-										}}
-										variant="raised"
-									>
-										<Label>{currentPage + 1}</Label>
-									</Button>
-								{/if}
-								{#if data.body.length > pageLength * currentPage}<Button
-										on:click={() => {
-											currentPage++;
-										}}
-										variant="raised"
-									>
-										<Label
-											><span
-												class="material-icons p-0 text-sm flex justify-center item"
+												<Text>excel</Text>
+											</Item>
+											<Item
+												on:SMUI:action={() =>
+													order("csv", data.body)}
 											>
-												arrow_forward_ios
-											</span></Label
-										>
-									</Button>{/if}
+												<Text>csv</Text>
+											</Item>
+										</List>
+									</Menu>
+								</div>
 							</Group>
+							<div class="ml-auto ">
+								<Group variant="raised">
+									{#if currentPage > 1}
+										<Button
+											on:click={() => currentPage--}
+											variant="raised"
+										>
+											<Label
+												><span
+													class="material-icons text-sm"
+												>
+													arrow_back_ios_new
+												</span></Label
+											>
+										</Button>
+									{/if}
+									{#if currentPage - 1 > 0}
+										<Button
+											on:click={() =>
+												(currentPage = currentPage - 1)}
+											variant="raised"
+										>
+											<Label>{currentPage - 1}</Label>
+										</Button>
+									{/if}
+
+									<Button
+										on:click={() => {}}
+										variant="raised"
+									>
+										<Label>{currentPage}</Label>
+									</Button>
+									{#if currentPage + 1 <= Math.floor(data.body.length / pageLength) + 1}
+										<Button
+											on:click={() => {
+												currentPage = currentPage + 1;
+											}}
+											variant="raised"
+										>
+											<Label>{currentPage + 1}</Label>
+										</Button>
+									{/if}
+									{#if data.body.length > pageLength * currentPage}<Button
+											on:click={() => {
+												currentPage++;
+											}}
+											variant="raised"
+										>
+											<Label
+												><span
+													class="material-icons p-0 text-sm flex justify-center item"
+												>
+													arrow_forward_ios
+												</span></Label
+											>
+										</Button>{/if}
+								</Group>
+							</div>
 						</div>
-					</div>
+					{/if}
 				{:catch error}{error}{/await}
 			</div>
 		</Content>
