@@ -98,8 +98,10 @@
 		};
 	}
 
+	//getting PageLength
 	$: pageLength = $userSettings?.rows_per_page || 10;
 
+	//setting dataPromise on dependencie change. gets cached data if it exists otherwise gets the data from the endpoint.
 	$: dataPromise = new Promise(async (res, rej) => {
 		if (!$userSettings || Object.keys($userSettings).length == 0) {
 			rej("userSettings Not Defined");
@@ -163,6 +165,7 @@
 		}
 	});
 
+	// checks if the chached stores are assosiated with the current user and if there are no duplicates
 	$: {
 		let cachedStores =
 			JSON.parse(localStorage.getItem("cachedStores")) || [];
@@ -183,6 +186,7 @@
 		}
 	}
 
+	// setting the whitelist acording to the settings
 	$: if ($userSettings?.next_seven_days) {
 		tableWhitelist = [
 			...tableWhitelist,
@@ -219,6 +223,7 @@
 		);
 	}
 
+	//soring the data acording to the parameters
 	$: sort = (data, column) => {
 		if (sortBy.col == column) {
 			sortBy.ascending = !sortBy.ascending;
@@ -233,7 +238,6 @@
 				: a[column] > b[column]
 				? 1 * sortModifier
 				: 0;
-
 		return data.sort(sort);
 	};
 </script>
@@ -249,7 +253,9 @@
 					placeholder="Suche..."
 					class="p-2 rounded-md w-full"
 				/>
+				<!-- getting the data -->
 				{#await dataPromise}
+					<!-- on load -->
 					<div
 						class="w-full flex flex-col justify-center items-center h-96"
 					>
@@ -258,10 +264,14 @@
 						</span> Loading
 					</div>
 				{:then returnVal}
+					<!-- getting the data and caching it -->
 					<div use:dataChanger={returnVal} use:autoCache={data} />
+
+					<!-- checks if data is defined -->
 					{#if Object.keys(data).length}
 						<section class=" overscroll-contain overflow-auto">
 							<table class="w-full" in:blur>
+								<!-- table header -->
 								<thead class="border-b border-black">
 									{#each data.head as col}
 										{#if tableWhitelist.includes(col)}
@@ -313,8 +323,10 @@
 									{/each}
 								</thead>
 
+								<!-- table body -->
 								<tbody>
 									{#each data.body as item, i}
+										<!-- checks if item is on the page -->
 										{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
 											<tr
 												style={`background: ${
@@ -329,9 +341,11 @@
 									}`}
 											>
 												{#each Object.keys(item) as field}
+													<!-- checks if field is whitelisted -->
 													{#if tableWhitelist.includes(field)}
 														<td>
 															<!-- checking if dataType is special can be edited to display difrent datatypes-->
+
 															{#if dataTypes.find((item) => item.key === field)}
 																{#if dataTypes.find((item) => item.key === field).type == "number"}
 																	<!-- displaying number datatypes as input field 
@@ -359,6 +373,7 @@
 											</tr>
 										{/if}
 									{:else}
+										<!-- Promise Fallback -->
 										<div class="h-96 relative">
 											<div
 												class="absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"
@@ -372,6 +387,7 @@
 							</table>
 						</section>
 						<div class="w-full flex" in:fade>
+							<!-- export stuff-->
 							<Group>
 								<Button
 									on:click={() => order("xlsx", data.body)}
@@ -413,6 +429,7 @@
 									</Menu>
 								</div>
 							</Group>
+							<!-- pagination stuff -->
 							<div class="ml-auto ">
 								<Group variant="raised">
 									{#if currentPage > 1}
