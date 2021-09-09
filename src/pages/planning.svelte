@@ -260,115 +260,117 @@
 				{:then returnVal}
 					<div use:dataChanger={returnVal} use:autoCache={data} />
 					{#if Object.keys(data).length}
-						<table class="w-full" in:blur>
-							<thead class="border-b border-black">
-								{#each data.head as col}
-									{#if tableWhitelist.includes(col)}
-										<th
-											on:click={() => {
-												data.body = sort(
-													data.body,
-													col
-												);
-											}}
-											style="background: var(--table-head-bg); color: var(--table-head-color)"
-										>
-											<div
-												class="relative h-10 flex justify-center items-center"
+						<section class=" overscroll-contain overflow-auto">
+							<table class="w-full" in:blur>
+								<thead class="border-b border-black">
+									{#each data.head as col}
+										{#if tableWhitelist.includes(col)}
+											<th
+												on:click={() => {
+													data.body = sort(
+														data.body,
+														col
+													);
+												}}
+												style="background: var(--table-head-bg); color: var(--table-head-color)"
 											>
-												{labels.find(
-													(item) => item.key === col
-												)?.text || col}
 												<div
-													class="absolute -right-1 top-0 bottom-0"
+													class="relative h-10 flex justify-center items-center px-6 whitespace-nowrap"
 												>
-													<span
-														class={`material-icons absolute right-0 top-0 `}
-														class:text-gray-200={sortBy.col ==
-															col &&
-															!sortBy.ascending}
-														class:text-gray-500={sortBy.col !=
-															col ||
-															sortBy.ascending}
+													{labels.find(
+														(item) =>
+															item.key === col
+													)?.text || col}
+													<div
+														class="absolute -right-1 top-0 bottom-0"
 													>
-														arrow_drop_up
-													</span>
-													<span
-														class="material-icons absolute right-0 bottom-0"
-														class:text-gray-200={sortBy.col ==
-															col &&
-															sortBy.ascending}
-														class:text-gray-500={sortBy.col !=
-															col ||
-															!sortBy.ascending}
-													>
-														arrow_drop_down
-													</span>
+														<span
+															class={`material-icons absolute right-0 top-0 `}
+															class:text-gray-200={sortBy.col ==
+																col &&
+																!sortBy.ascending}
+															class:text-gray-500={sortBy.col !=
+																col ||
+																sortBy.ascending}
+														>
+															arrow_drop_up
+														</span>
+														<span
+															class="material-icons absolute right-0 bottom-0"
+															class:text-gray-200={sortBy.col ==
+																col &&
+																sortBy.ascending}
+															class:text-gray-500={sortBy.col !=
+																col ||
+																!sortBy.ascending}
+														>
+															arrow_drop_down
+														</span>
+													</div>
 												</div>
-											</div>
-										</th>
-									{/if}
-								{/each}
-							</thead>
+											</th>
+										{/if}
+									{/each}
+								</thead>
 
-							<tbody>
-								{#each data.body as item, i}
-									{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
-										<tr
-											style={`background: ${
-												i % 2
-													? "var(--table-body-odd-bg)"
-													: "var(--table-body-even-bg)"
-											};
+								<tbody>
+									{#each data.body as item, i}
+										{#if i < pageLength * currentPage && i >= pageLength * (currentPage - 1)}
+											<tr
+												style={`background: ${
+													i % 2
+														? "var(--table-body-odd-bg)"
+														: "var(--table-body-even-bg)"
+												};
 									color: ${
 										i % 2
 											? "var(--table-body-odd-color)"
 											: "var(--table-body-even-color)"
 									}`}
-										>
-											{#each Object.keys(item) as field}
-												{#if tableWhitelist.includes(field)}
-													<td>
-														<!-- checking if dataType is special can be edited to display difrent datatypes-->
-														{#if dataTypes.find((item) => item.key === field)}
-															{#if dataTypes.find((item) => item.key === field).type == "number"}
-																<!-- displaying number datatypes as input field 
+											>
+												{#each Object.keys(item) as field}
+													{#if tableWhitelist.includes(field)}
+														<td>
+															<!-- checking if dataType is special can be edited to display difrent datatypes-->
+															{#if dataTypes.find((item) => item.key === field)}
+																{#if dataTypes.find((item) => item.key === field).type == "number"}
+																	<!-- displaying number datatypes as input field 
 											<input
 												type="number"
 												bind:value={dataRow[key]}
 												class="min-w-24 w-24"
 											/> -->
-																<Textfield
-																	class="shaped-outlined"
-																	variant="outlined"
-																	type="number"
-																	bind:value={item[
-																		field
-																	]}
-																/>
-															{/if}
-														{:else}
-															<!-- just displying data -->
-															{item[field]}
-														{/if}</td
-													>
-												{/if}
-											{/each}
-										</tr>
-									{/if}
-								{:else}
-									<div class="h-96 relative">
-										<div
-											class="absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"
-										>
-											Keine Daten zum Suchbegriff "{searchInputText}"
-											gefunden
+																	<Textfield
+																		class="shaped-outlined"
+																		variant="outlined"
+																		type="number"
+																		bind:value={item[
+																			field
+																		]}
+																	/>
+																{/if}
+															{:else}
+																<!-- just displying data -->
+																{item[field]}
+															{/if}</td
+														>
+													{/if}
+												{/each}
+											</tr>
+										{/if}
+									{:else}
+										<div class="h-96 relative">
+											<div
+												class="absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"
+											>
+												Keine Daten zum Suchbegriff "{searchInputText}"
+												gefunden
+											</div>
 										</div>
-									</div>
-								{/each}
-							</tbody>
-						</table>
-
+									{/each}
+								</tbody>
+							</table>
+						</section>
 						<div class="w-full flex" in:fade>
 							<Group>
 								<Button

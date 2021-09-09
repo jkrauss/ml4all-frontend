@@ -73,10 +73,6 @@
 						<Switch
 							color="primary"
 							bind:checked={$userSettings.tomorrow}
-							on:click={() => {
-								$userSettings.day_after_tomorrow = false;
-								$userSettings.next_seven_days = false;
-							}}
 						/>
 						<span slot="label">Morgen</span>
 					</FormField>
@@ -86,10 +82,6 @@
 						<Switch
 							color="primary"
 							bind:checked={$userSettings.day_after_tomorrow}
-							on:click={() => {
-								$userSettings.tomorrow = false;
-								$userSettings.next_seven_days = false;
-							}}
 						/>
 						<span slot="label">Übermorgen</span>
 					</FormField>
@@ -99,10 +91,6 @@
 						<Switch
 							color="primary"
 							bind:checked={$userSettings.next_seven_days}
-							on:click={() => {
-								$userSettings.tomorrow = false;
-								$userSettings.day_after_tomorrow = false;
-							}}
 						/>
 						<span slot="label">Nächste 7 Tage</span>
 					</FormField>
