@@ -7,7 +7,7 @@
 	import FormField from "@smui/form-field";
 	import Checkbox from "@smui/checkbox";
 	import { backendURL, modal, notification } from "../components/stores";
-	import * as axios from "axios";
+	import axios from "axios";
 	import { goto } from "@roxi/routify";
 
 	let name = "";
@@ -37,7 +37,8 @@
 				};
 				setTimeout(() => {
 					$notification = undefined;
-					$goto("planning");
+					$modal = {};
+					$goto("/");
 				}, 5000);
 			},
 			() => {
@@ -48,6 +49,7 @@
 				};
 				setTimeout(() => {
 					$notification = undefined;
+					$modal = {};
 				}, 5000);
 			}
 		);

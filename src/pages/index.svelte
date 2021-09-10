@@ -2,6 +2,7 @@
 	import Paper, { Title, Content } from "@smui/paper";
 	import Button, { Label } from "@smui/button";
 	import { goto } from "@roxi/routify";
+	import {user} from "../components/stores.js";
 </script>
 
 <Paper elevation={1} class="md:w-10/12 w-full mx-auto">
@@ -12,6 +13,7 @@
 		Foodsight sagt genau voraus, wieviel von welchem Produkt Du verkaufen wirst
 		- morgen, übermorgen und in den nächsten 7 Tagen. <br />
 		<br />
+		{#if !($user && Object.keys($user).length)}
 		<Button
 			variant="raised"
 			style="background: var(--mdc-theme-callout)"
@@ -20,7 +22,7 @@
 			<Label>Jetzt registrieren</Label>
 		</Button>
 		<br />
-
+		{/if}
 		<h2 class="text-xl my-6">Funktionen</h2>
 		Im Menü rechts oben findest Du folgende Optionen:<br /><br />
 		<ul>
@@ -77,15 +79,6 @@
 				</p>
 			</li>
 			<br />
-			<li>
-				<Button
-					variant="raised"
-					style="background: var(--mdc-theme-callout)"
-					on:click={() => $goto("/signup")}
-				>
-					<Label>Jetzt registrieren</Label>
-				</Button>
-			</li>
 		</ul>
 	</Content>
 </Paper>
