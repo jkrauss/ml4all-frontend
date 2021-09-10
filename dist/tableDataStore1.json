@@ -1,0 +1,122 @@
+[
+	{
+		"id": 1,
+		"product": "Brötchen",
+		"tomorrow_order_range": "72-94",
+		"tomorrow_order_qty": 83,
+		"day_after_order_range": "89-105",
+		"day_after_order_qty": 94,
+		"next7_order_range": "533-643",
+		"next7_order_qty": 594
+	},
+	{
+		"id": 2,
+		"product": "Croissants",
+		"tomorrow_order_range": "36-48",
+		"tomorrow_order_qty": 42,
+		"day_after_order_range": "32-44",
+		"day_after_order_qty": 38,
+		"next7_order_range": "246-312",
+		"next7_order_qty": 276
+	},
+	{
+		"id": 3,
+		"product": "Rheingauer",
+		"tomorrow_order_range": "11-16",
+		"tomorrow_order_qty": 13,
+		"day_after_order_range": "12-19",
+		"day_after_order_qty": 15,
+		"next7_order_range": "89-123",
+		"next7_order_qty": 107
+	},
+	{
+		"id": 4,
+		"product": "Meisterkruste",
+		"tomorrow_order_range": "20-25",
+		"tomorrow_order_qty": 23,
+		"day_after_order_range": "17-24",
+		"day_after_order_qty": 21,
+		"next7_order_range": "129-168",
+		"next7_order_qty": 147
+	},
+	{
+		"id": 5,
+		"product": "Kürbis-Brötchen",
+		"tomorrow_order_range": "72-94",
+		"tomorrow_order_qty": 83,
+		"day_after_order_range": "89-105",
+		"day_after_order_qty": 94,
+		"next7_order_range": "533-643",
+		"next7_order_qty": 594
+	},
+	{
+		"id": 6,
+		"product": "Mohn-Brötchen",
+		"tomorrow_order_range": "36-48",
+		"tomorrow_order_qty": 42,
+		"day_after_order_range": "32-44",
+		"day_after_order_qty": 38,
+		"next7_order_range": "246-312",
+		"next7_order_qty": 276
+	},
+	{
+		"id": 7,
+		"product": "Sesam-Brötchen",
+		"tomorrow_order_range": "11-16",
+		"tomorrow_order_qty": 13,
+		"day_after_order_range": "12-19",
+		"day_after_order_qty": 15,
+		"next7_order_range": "89-123",
+		"next7_order_qty": 107
+	},
+	{
+		"id": 8,
+		"product": "Wasserweck",
+		"tomorrow_order_range": "20-25",
+		"tomorrow_order_qty": 23,
+		"day_after_order_range": "17-24",
+		"day_after_order_qty": 21,
+		"next7_order_range": "129-168",
+		"next7_order_qty": 147
+	},
+	{
+		"id": 9,
+		"product": "Schrippen",
+		"tomorrow_order_range": "72-94",
+		"tomorrow_order_qty": 83,
+		"day_after_order_range": "89-105",
+		"day_after_order_qty": 94,
+		"next7_order_range": "533-643",
+		"next7_order_qty": 594
+	},
+	{
+		"id": 10,
+		"product": "Milchkaffee",
+		"tomorrow_order_range": "36-48",
+		"tomorrow_order_qty": 42,
+		"day_after_order_range": "32-44",
+		"day_after_order_qty": 38,
+		"next7_order_range": "246-312",
+		"next7_order_qty": 276
+	},
+	{
+		"id": 11,
+		"product": "Latte Macchiato",
+		"tomorrow_order_range": "11-16",
+		"tomorrow_order_qty": 13,
+		"day_after_order_range": "12-19",
+		"day_after_order_qty": 15,
+		"next7_order_range": "89-123",
+		"next7_order_qty": 107
+	},
+	{
+		"id": 12,
+		"product": "Cappuchino",
+		"tomorrow_order_range": "20-25",
+		"tomorrow_order_qty": 23,
+		"day_after_order_range": "17-24",
+		"day_after_order_qty": 21,
+		"next7_order_range": "129-168",
+		"next7_order_qty": 147
+	}
+]
