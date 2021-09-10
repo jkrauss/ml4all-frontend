@@ -7,6 +7,7 @@
 	import Select, { Option } from "@smui/select";
 	import List, { Item, Separator, Subheader } from "@smui/list";
 	import axios from "axios";
+	import { fade } from "svelte/transition";
 
 	function changeStore(storeObject) {
 		$userSettings.state = storeObject.state;
@@ -87,7 +88,7 @@
 		transition: transform .2s ease-out;
 	}
 </style>
-<section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto ">
+<section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto " in:fade>
 	<Paper elevation={1}>
 		<Title><h1 class="text-2xl my-6">Einstellungen</h1></Title>
 		<Content>

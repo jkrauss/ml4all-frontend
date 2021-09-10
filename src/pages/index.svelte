@@ -3,8 +3,10 @@
 	import Button, { Label } from "@smui/button";
 	import { goto } from "@roxi/routify";
 	import {user} from "../components/stores.js";
+	import { fade } from "svelte/transition";
 </script>
 
+<div in:fade>
 <Paper elevation={1} class="md:w-10/12 w-full mx-auto">
 	<Title><h1 class="text-2xl my-6">Los gehts!</h1></Title>
 	<Content>
@@ -82,3 +84,4 @@
 		</ul>
 	</Content>
 </Paper>
+</div>

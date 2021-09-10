@@ -9,6 +9,7 @@
 	import { backendURL, modal, notification } from "../components/stores";
 	import axios from "axios";
 	import { goto } from "@roxi/routify";
+	import { fade } from "svelte/transition";
 
 	let name = "";
 	let email = "";
@@ -70,6 +71,7 @@
 	let pattern = ".{12,}";
 </script>
 
+<div in:fade>
 <Paper elevation={1}>
 	<Title><h1 class="text-2xl my-6">Registrieren</h1></Title>
 	<Content>
@@ -132,3 +134,4 @@
 		</form>
 	</Content>
 </Paper>
+</div>
