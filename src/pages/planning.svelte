@@ -32,6 +32,8 @@
 	let sortBy = { col: "id", ascending: true }; //sorting stuff
 	let currentPage = 1;
 
+	let section;
+
 	// Submiting the Order
 	async function order(option, data) {
 		let orderUrl = `${backendURL}${$userSettings.order_url}`;
@@ -87,7 +89,7 @@
 				} else {
 					dataUrl = `tableDataStore${$userSettings.store}.json`;
 				}
-				
+
 				localStorage.setItem(
 					dataUrl,
 					JSON.stringify({
@@ -144,7 +146,7 @@
 				});
 			} else {
 				result = await axios.get(dataUrl);
-			
+
 				result.data.forEach((val) => {
 					Object.keys(val).forEach((ob) => {
 						if (!keys.includes(ob)) {
@@ -285,7 +287,10 @@
 
 					<!-- checks if data is defined -->
 					{#if Object.keys(data).length}
-						<section class=" overscroll-contain overflow-auto">
+						<section
+							class="overflow-y-auto p-2"
+							bind:this={section}
+						>
 							<table class="w-full" in:blur>
 								<!-- table header -->
 								<thead class="border-b border-black">
@@ -301,7 +306,7 @@
 												style="background: var(--table-head-bg); color: var(--table-head-color)"
 											>
 												<div
-													class="relative h-10 flex justify-center items-center px-6 whitespace-nowrap"
+													class="relative h-10 flex justify-center items-center px-[1.25rem] whitespace-nowrap"
 												>
 													{labels.find(
 														(item) =>
@@ -359,7 +364,9 @@
 												{#each Object.keys(item) as field}
 													<!-- checks if field is whitelisted -->
 													{#if tableWhitelist.includes(field)}
-														<td>
+														<td
+															class="whitespace-nowrap"
+														>
 															<!-- checking if dataType is special can be edited to display difrent datatypes-->
 
 															{#if dataTypes.find((item) => item.key === field)}
@@ -402,13 +409,17 @@
 								</tbody>
 							</table>
 						</section>
-						<div class="w-full flex" in:fade>
+						<div
+							class="w-full flex flex-col md:flex-row gap-2"
+							in:fade
+						>
 							<!-- export stuff-->
 							<Group>
 								<Button
 									on:click={() => order("xlsx", data.body)}
 									variant="raised"
 									style="background: {'var(--mdc-theme-callout)'}"
+									class="whitespace-nowrap"
 								>
 									<Label>Bestellung abschliessen</Label>
 								</Button>
@@ -446,7 +457,7 @@
 								</div>
 							</Group>
 							<!-- pagination stuff -->
-							<div class="ml-auto ">
+							<div class="md:ml-auto ">
 								<Group variant="raised">
 									{#if currentPage > 1}
 										<Button

@@ -1,10 +1,8 @@
 <script>
 	import Button, { Label } from "@smui/button";
 	import html2canvas from "html2canvas";
-	import Textfield from "@smui/textfield";
 	import {
 		backendURL,
-		screenShotMode,
 		problemReport,
 		modal,
 		notification,
