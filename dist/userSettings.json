@@ -1,0 +1,38 @@
+{
+	"register_plugin_name": "ready2order",
+	"country": "DE",
+	"state": "HE",
+	"city": "Wiesbaden",
+	"store_name": "Kirchgasse",
+	"store": 1,
+	"logged_in_user": "",
+	"rows_per_page": 10,
+	"tomorrow": true,
+	"day_after_tomorrow": false,
+	"next_seven_days": false,
+	"token_url": "/api/token",
+	"forecast_url": "/api/forecast",
+	"problem_url": "/api/problem",
+	"settings_url": "/api/usersettings",
+	"order_url": "/api/order",
+	"stores": [
+		{
+			"store": 1,
+			"state": "HE",
+			"city": "Wiesbaden",
+			"store_name": "Kirchgasse"
+		},
+		{
+			"store": 2,
+			"state": "RP",
+			"city": "Mainz",
+			"store_name": "Am Brand"
+		},
+		{
+			"store": 3,
+			"state": "HE",
+			"city": "Taunusstein",
+			"store_name": "Zentrum"
+		}
+	]
+}
