@@ -7,8 +7,9 @@
 	import FormField from "@smui/form-field";
 	import Checkbox from "@smui/checkbox";
 	import { backendURL, modal, notification } from "../components/stores";
-	import * as axios from "axios";
+	import axios from "axios";
 	import { goto } from "@roxi/routify";
+	import { fade } from "svelte/transition";
 
 	let name = "";
 	let email = "";
@@ -37,7 +38,8 @@
 				};
 				setTimeout(() => {
 					$notification = undefined;
-					$goto("planning");
+					$modal = {};
+					$goto("/");
 				}, 5000);
 			},
 			() => {
@@ -48,6 +50,7 @@
 				};
 				setTimeout(() => {
 					$notification = undefined;
+					$modal = {};
 				}, 5000);
 			}
 		);
@@ -68,6 +71,7 @@
 	let pattern = ".{12,}";
 </script>
 
+<div in:fade>
 <Paper elevation={1}>
 	<Title><h1 class="text-2xl my-6">Registrieren</h1></Title>
 	<Content>
@@ -130,3 +134,4 @@
 		</form>
 	</Content>
 </Paper>
+</div>
