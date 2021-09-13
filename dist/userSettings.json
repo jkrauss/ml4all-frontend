@@ -10,11 +10,6 @@
 	"tomorrow": true,
 	"day_after_tomorrow": false,
 	"next_seven_days": false,
-	"token_url": "/api/token",
-	"forecast_url": "/api/forecast",
-	"problem_url": "/api/problem",
-	"settings_url": "/api/usersettings",
-	"order_url": "/api/order",
 	"stores": [
 		{
 			"store": 1,

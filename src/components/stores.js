@@ -15,7 +15,7 @@ const userSettingsInit = writable({});
 const notification = writable({});
 
 const svelteRenderParent = writable();
-// user subscribtioin to handle axios interceptor forauthentication
+// user subscribtioin to handle axios interceptor for authentication
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
 	if (val && Object.keys(val).length != 0) {

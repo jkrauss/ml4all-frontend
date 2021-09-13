@@ -1,6 +1,6 @@
 <script>
 	import ReportProblem from "./../Modal/ReportProblem.svelte";
-	import { modal, user, userSettings } from "../stores.js";
+	import { modal, user, userSettings, userSettingsInit } from "../stores.js";
 	import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
 	import IconButton from "@smui/icon-button";
 	import Img from "@smui/common/Img.svelte";
@@ -17,15 +17,18 @@
 	let menuToggle = false;
 	function auth() {
 		if ($user && Object.keys($user).length) {
-			localStorage.removeItem("auth");
+			//localStorage.removeItem("auth");
 			//localStorage.removeItem("orderDataCache");
+			localStorage.clear()
 			$user = {};
+			$userSettings = {};
+			$userSettingsInit = {};
+			//PURGECACHE
 		} else {
 			$modal.title = "Login";
 			$modal.component = Login;
 		}
-		// after every login or logout set the main content to show the table
-		// "https://raw.githubusercontent.com/hperrin/svelte-material-ui/master/site/static/logo.png"
+		// after every login or logout set the main content to show the homepage
 		$goto("/");
 	}
 	function reportProblem() {

@@ -214,8 +214,8 @@
     }
   });
 
-  // dist/build/_fallback-5efe72f4.js
-  var require_fallback_5efe72f4 = __commonJS((exports) => {
+  // dist/build/_fallback-84266bc8.js
+  var require_fallback_84266bc8 = __commonJS((exports) => {
     __markAsModule(exports);
     __export(exports, {
       default: () => h2
@@ -246,8 +246,8 @@
     };
   });
 
-  // dist/build/index-4786a04d.js
-  var require_index_4786a04d = __commonJS((exports) => {
+  // dist/build/index-3f9730fe.js
+  var require_index_3f9730fe = __commonJS((exports) => {
     __markAsModule(exports);
     __export(exports, {
       default: () => S4
@@ -307,11 +307,11 @@
       }};
     }
     function C4(t4) {
-      let e4, n2, r2, i2, o2, m2, d2, $2, f2, w2, k6, D3, y3, v2, B7, z6 = !(t4[0] && Object.keys(t4[0]).length), j4 = z6 && A2(t4);
+      let e4, n2, r2, a2, o2, m2, d2, $2, f2, w2, k6, D3, y3, v2, B7, z6 = !(t4[0] && Object.keys(t4[0]).length), j4 = z6 && A2(t4);
       return {c() {
-        e4 = C2("Willkommen bei foodsight - der App die es ganz leicht macht, den Einkauf\n		perfekt zu planen. "), n2 = T("br"), r2 = C2("\n		Foodsight sagt genau voraus, wieviel von welchem Produkt Du verkaufen wirst\n		- morgen, \xFCbermorgen und in den n\xE4chsten 7 Tagen. "), i2 = T("br"), o2 = F3(), m2 = T("br"), d2 = F3(), j4 && j4.c(), $2 = F3(), f2 = T("h2"), f2.textContent = "Funktionen", w2 = C2("\n		Im Men\xFC rechts oben findest Du folgende Optionen:"), k6 = T("br"), D3 = T("br"), y3 = F3(), v2 = T("ul"), v2.innerHTML = '<li>\u2022 Login / Logout\n				<p style="margin-left: 50px">Solange Du nicht angemeldet bist, l\xE4uft die App im\n					Demo-Modus mit Beispieldaten</p></li> \n			<br/> \n			<li>\u2022 Los gehts<br/> \n				<p style="margin-left: 50px">Diese Einf\xFChrung</p></li> \n			<br/> \n			<li>\u2022 Planung\n				<p style="margin-left: 50px">Schau dir den erwarteten Absatz an und plane Deine\n					Bestellmengen.<br/>\n					Du bekommst einen Bereich von-bis angezeigt, in dem Dein Absatz\n					liegen wird. Der eingetragene Bestellvorschlag ist der wahrscheinlichste\n					Wert. <br/>\n					Mit dieser Information kannst Du ganz einfach Deine Einkaufsplanung\n					erstellen.<br/>\n					Wenn Du fertig bist, klicke unten auf &quot;Bestellen&quot;. Du kannst\n					Deine Bestell-Liste in drei Formaten abrufen - als Excel, csv\n					oder pdf.</p></li> \n			<br/> \n			<li>\u2022 Einstellungen\n				<p style="margin-left: 50px">Im oberen Teil siehst Du auf welcher Basis Deine Abs\xE4tze\n					vorhergesagt werden. Bitte lass uns wissen, wenn etwas nicht\n					stimmt.<br/>\n					Unten kannst Du einstellen, welche Planung Du gerade machen m\xF6chtest:\n					Morgen, \xFCbermorgen oder n\xE4chste 7 Tage.</p></li> \n			<br/> \n			<li>\u2022 Idee/Problem\n				<p style="margin-left: 50px">Foodsight ist ganz neu. Wenn Dir irgendwas auff\xE4llt, was\n					besser sein k\xF6nnte oder Du Ideen hast - bitte lass es uns\n					wissen!<br/>\n					Du kannst auf jeder Seite den Briefumschlag oben im Men\xFC dr\xFCcken,\n					ein Bildschirmfoto machen und Dein Anliegen beschreiben.\n					<br/>\n					Absenden - wir k\xFCmmern uns darum.</p></li> \n			<br/>', H2(f2, "class", "text-xl my-6");
+        e4 = C2("Willkommen bei foodsight - der App die es ganz leicht macht, den Einkauf\n		perfekt zu planen. "), n2 = T("br"), r2 = C2("\n		Foodsight sagt genau voraus, wieviel von welchem Produkt Du verkaufen wirst\n		- morgen, \xFCbermorgen und in den n\xE4chsten 7 Tagen. "), a2 = T("br"), o2 = F3(), m2 = T("br"), d2 = F3(), j4 && j4.c(), $2 = F3(), f2 = T("h2"), f2.textContent = "Funktionen", w2 = C2("\n		Im Men\xFC rechts oben findest Du folgende Optionen:"), k6 = T("br"), D3 = T("br"), y3 = F3(), v2 = T("ul"), v2.innerHTML = '<li>\u2022 Login / Logout\n				<p style="margin-left: 50px">Solange Du nicht angemeldet bist, l\xE4uft die App im\n					Demo-Modus mit Beispieldaten</p></li> \n			<br/> \n			<li>\u2022 Los gehts<br/> \n				<p style="margin-left: 50px">Diese Einf\xFChrung</p></li> \n			<br/> \n			<li>\u2022 Planung\n				<p style="margin-left: 50px">Schau dir den erwarteten Absatz an und plane Deine\n					Bestellmengen.<br/>\n					Du bekommst einen Bereich von-bis angezeigt, in dem Dein Absatz\n					liegen wird. Der eingetragene Bestellvorschlag ist der wahrscheinlichste\n					Wert. <br/>\n					Mit dieser Information kannst Du ganz einfach Deine Einkaufsplanung\n					erstellen.<br/>\n					Wenn Du fertig bist, klicke unten auf &quot;Bestellen&quot;. Du kannst\n					Deine Bestell-Liste in drei Formaten abrufen - als Excel, csv\n					oder pdf.</p></li> \n			<br/> \n			<li>\u2022 Einstellungen\n				<p style="margin-left: 50px">Im oberen Teil siehst Du auf welcher Basis Deine Abs\xE4tze\n					vorhergesagt werden. Bitte lass uns wissen, wenn etwas nicht\n					stimmt.<br/>\n					Unten kannst Du einstellen, welche Planung Du gerade machen m\xF6chtest:\n					Morgen, \xFCbermorgen oder n\xE4chste 7 Tage.</p></li> \n			<br/> \n			<li>\u2022 Idee/Problem\n				<p style="margin-left: 50px">Foodsight ist ganz neu. Wenn Dir irgendwas auff\xE4llt, was\n					besser sein k\xF6nnte oder Du Ideen hast - bitte lass es uns\n					wissen!<br/>\n					Du kannst auf jeder Seite den Briefumschlag oben im Men\xFC dr\xFCcken,\n					ein Bildschirmfoto machen und Dein Anliegen beschreiben.\n					<br/>\n					Absenden - wir k\xFCmmern uns darum.</p></li> \n			<br/>', H2(f2, "class", "text-xl my-6");
       }, m(t5, s2) {
-        N(t5, e4, s2), N(t5, n2, s2), N(t5, r2, s2), N(t5, i2, s2), N(t5, o2, s2), N(t5, m2, s2), N(t5, d2, s2), j4 && j4.m(t5, s2), N(t5, $2, s2), N(t5, f2, s2), N(t5, w2, s2), N(t5, k6, s2), N(t5, D3, s2), N(t5, y3, s2), N(t5, v2, s2), B7 = true;
+        N(t5, e4, s2), N(t5, n2, s2), N(t5, r2, s2), N(t5, a2, s2), N(t5, o2, s2), N(t5, m2, s2), N(t5, d2, s2), j4 && j4.m(t5, s2), N(t5, $2, s2), N(t5, f2, s2), N(t5, w2, s2), N(t5, k6, s2), N(t5, D3, s2), N(t5, y3, s2), N(t5, v2, s2), B7 = true;
       }, p(t5, e5) {
         1 & e5 && (z6 = !(t5[0] && Object.keys(t5[0]).length)), z6 ? j4 ? (j4.p(t5, e5), 1 & e5 && It(j4, 1)) : (j4 = A2(t5), j4.c(), It(j4, 1), j4.m($2.parentNode, $2)) : j4 && (Ot(), Lt(j4, 1, 1, () => {
           j4 = null;
@@ -321,7 +321,7 @@
       }, o(t5) {
         Lt(j4), B7 = false;
       }, d(t5) {
-        t5 && R(e4), t5 && R(n2), t5 && R(r2), t5 && R(i2), t5 && R(o2), t5 && R(m2), t5 && R(d2), j4 && j4.d(t5), t5 && R($2), t5 && R(f2), t5 && R(w2), t5 && R(k6), t5 && R(D3), t5 && R(y3), t5 && R(v2);
+        t5 && R(e4), t5 && R(n2), t5 && R(r2), t5 && R(a2), t5 && R(o2), t5 && R(m2), t5 && R(d2), j4 && j4.d(t5), t5 && R($2), t5 && R(f2), t5 && R(w2), t5 && R(k6), t5 && R(D3), t5 && R(y3), t5 && R(v2);
       }};
     }
     function E2(t4) {
@@ -333,8 +333,8 @@
       }, p(t5, n3) {
         const r2 = {};
         8 & n3 && (r2.$$scope = {dirty: n3, ctx: t5}), e4.$set(r2);
-        const a2 = {};
-        11 & n3 && (a2.$$scope = {dirty: n3, ctx: t5}), s2.$set(a2);
+        const i2 = {};
+        11 & n3 && (i2.$$scope = {dirty: n3, ctx: t5}), s2.$set(i2);
       }, i(t5) {
         o2 || (It(e4.$$.fragment, t5), It(s2.$$.fragment, t5), o2 = true);
       }, o(t5) {
@@ -374,8 +374,8 @@
     };
   });
 
-  // dist/build/planning-4d468ee8.js
-  var require_planning_4d468ee8 = __commonJS((exports) => {
+  // dist/build/planning-900c6abe.js
+  var require_planning_900c6abe = __commonJS((exports) => {
     __markAsModule(exports);
     __export(exports, {
       default: () => Zn
@@ -423,14 +423,14 @@
     }
     function bt4(t4, e4, n2) {
       const r2 = ["use", "class", "variant", "getElement"];
-      let a2 = y(e4, r2), {$$slots: s2 = {}, $$scope: c2} = e4;
+      let a2 = y(e4, r2), {$$slots: c2 = {}, $$scope: s2} = e4;
       const l2 = L3(rt());
       let i2, {use: u2 = []} = e4, {class: d2 = ""} = e4, {variant: f2 = "text"} = e4;
       return t4.$$set = (t5) => {
-        e4 = n(n({}, e4), w(t5)), n2(5, a2 = y(e4, r2)), "use" in t5 && n2(0, u2 = t5.use), "class" in t5 && n2(1, d2 = t5.class), "variant" in t5 && n2(2, f2 = t5.variant), "$$scope" in t5 && n2(7, c2 = t5.$$scope);
+        e4 = n(n({}, e4), w(t5)), n2(5, a2 = y(e4, r2)), "use" in t5 && n2(0, u2 = t5.use), "class" in t5 && n2(1, d2 = t5.class), "variant" in t5 && n2(2, f2 = t5.variant), "$$scope" in t5 && n2(7, s2 = t5.$$scope);
       }, [u2, d2, f2, i2, l2, a2, function() {
         return i2;
-      }, c2, s2, function(t5) {
+      }, s2, c2, function(t5) {
         dt[t5 ? "unshift" : "push"](() => {
           i2 = t5, n2(3, i2);
         });
@@ -471,14 +471,14 @@
     }
     function St5(t4, e4, n2) {
       const r2 = ["use", "class", "getElement"];
-      let a2 = y(e4, r2), {$$slots: s2 = {}, $$scope: c2} = e4;
+      let a2 = y(e4, r2), {$$slots: c2 = {}, $$scope: s2} = e4;
       const l2 = ee3(rt());
       let i2, {use: u2 = []} = e4, {class: d2 = ""} = e4, f2 = ct("SMUI:list:graphic:menu-selection-group");
       return t4.$$set = (t5) => {
-        e4 = n(n({}, e4), w(t5)), n2(5, a2 = y(e4, r2)), "use" in t5 && n2(0, u2 = t5.use), "class" in t5 && n2(1, d2 = t5.class), "$$scope" in t5 && n2(7, c2 = t5.$$scope);
+        e4 = n(n({}, e4), w(t5)), n2(5, a2 = y(e4, r2)), "use" in t5 && n2(0, u2 = t5.use), "class" in t5 && n2(1, d2 = t5.class), "$$scope" in t5 && n2(7, s2 = t5.$$scope);
       }, [u2, d2, i2, l2, f2, a2, function() {
         return i2;
-      }, c2, s2, function(t5) {
+      }, s2, c2, function(t5) {
         dt[t5 ? "unshift" : "push"](() => {
           i2 = t5, n2(2, i2);
         });
@@ -569,8 +569,8 @@
     var re7 = Function.prototype;
     var oe8 = Object.prototype;
     var ae7 = re7.toString;
-    var se8 = oe8.hasOwnProperty;
-    var ce7 = RegExp("^" + ae7.call(se8).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
+    var ce7 = oe8.hasOwnProperty;
+    var se8 = RegExp("^" + ae7.call(ce7).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
     var le7 = function(t4) {
       return !(!Qt4(t4) || function(t5) {
         return !!te7 && te7 in t5;
@@ -579,7 +579,7 @@
           return false;
         var e4 = Mt4(t5);
         return e4 == "[object Function]" || e4 == "[object GeneratorFunction]" || e4 == "[object AsyncFunction]" || e4 == "[object Proxy]";
-      }(t4) ? ce7 : ne7).test(function(t5) {
+      }(t4) ? se8 : ne7).test(function(t5) {
         if (t5 != null) {
           try {
             return ee7.call(t5);
@@ -697,8 +697,8 @@
         var r2 = arguments, o2 = e4 ? e4.apply(this, r2) : r2[0], a2 = n2.cache;
         if (a2.has(o2))
           return a2.get(o2);
-        var s2 = t4.apply(this, r2);
-        return n2.cache = a2.set(o2, s2) || a2, s2;
+        var c2 = t4.apply(this, r2);
+        return n2.cache = a2.set(o2, c2) || a2, c2;
       };
       return n2.cache = new (Se5.Cache || we5)(), n2;
     }
@@ -849,13 +849,13 @@
       }};
     }
     function rn3(t4) {
-      let e4, n2, r2, o2, s2, i2, u2, d2, f2 = Object.keys(t4[0]).length, y3 = f2 && on2(t4);
+      let e4, n2, r2, o2, c2, i2, u2, d2, f2 = Object.keys(t4[0]).length, y3 = f2 && on2(t4);
       return {c() {
-        e4 = T("div"), o2 = F3(), y3 && y3.c(), s2 = U();
+        e4 = T("div"), o2 = F3(), y3 && y3.c(), c2 = U();
       }, m(a2, f3) {
-        N(a2, e4, f3), N(a2, o2, f3), y3 && y3.m(a2, f3), N(a2, s2, f3), i2 = true, u2 || (d2 = [v(n2 = t4[13].call(null, e4, t4[33])), v(r2 = t4[14].call(null, e4, t4[0]))], u2 = true);
+        N(a2, e4, f3), N(a2, o2, f3), y3 && y3.m(a2, f3), N(a2, c2, f3), i2 = true, u2 || (d2 = [v(n2 = t4[13].call(null, e4, t4[33])), v(r2 = t4[14].call(null, e4, t4[0]))], u2 = true);
       }, p(e5, o3) {
-        t4 = e5, n2 && a(n2.update) && 64 & o3[0] && n2.update.call(null, t4[33]), r2 && a(r2.update) && 1 & o3[0] && r2.update.call(null, t4[0]), 1 & o3[0] && (f2 = Object.keys(t4[0]).length), f2 ? y3 ? (y3.p(t4, o3), 1 & o3[0] && It(y3, 1)) : (y3 = on2(t4), y3.c(), It(y3, 1), y3.m(s2.parentNode, s2)) : y3 && (Ot(), Lt(y3, 1, 1, () => {
+        t4 = e5, n2 && a(n2.update) && 64 & o3[0] && n2.update.call(null, t4[33]), r2 && a(r2.update) && 1 & o3[0] && r2.update.call(null, t4[0]), 1 & o3[0] && (f2 = Object.keys(t4[0]).length), f2 ? y3 ? (y3.p(t4, o3), 1 & o3[0] && It(y3, 1)) : (y3 = on2(t4), y3.c(), It(y3, 1), y3.m(c2.parentNode, c2)) : y3 && (Ot(), Lt(y3, 1, 1, () => {
           y3 = null;
         }), zt());
       }, i(t5) {
@@ -863,13 +863,13 @@
       }, o(t5) {
         Lt(y3), i2 = false;
       }, d(t5) {
-        t5 && R(e4), t5 && R(o2), y3 && y3.d(t5), t5 && R(s2), u2 = false, i(d2);
+        t5 && R(e4), t5 && R(o2), y3 && y3.d(t5), t5 && R(c2), u2 = false, i(d2);
       }};
     }
     function on2(t4) {
-      let e4, n2, r2, o2, s2, l2, i2, u2, d2, f2, p2, h2, y3, _4, b2 = t4[0].head, x3 = [];
+      let e4, n2, r2, o2, c2, l2, i2, u2, d2, f2, p2, h2, y3, _4, b2 = t4[0].head, x3 = [];
       for (let e5 = 0; e5 < b2.length; e5 += 1)
-        x3[e5] = sn2(tn3(t4, b2, e5));
+        x3[e5] = cn2(tn3(t4, b2, e5));
       let v2 = t4[0].body, w2 = [];
       for (let e5 = 0; e5 < v2.length; e5 += 1)
         w2[e5] = mn2(Qe5(t4, v2, e5));
@@ -877,11 +877,11 @@
         w2[t5] = null;
       });
       let E2 = null;
-      return v2.length || (E2 = cn2(t4)), d2 = new xt5({props: {$$slots: {default: [kn2]}, $$scope: {ctx: t4}}}), h2 = new xt5({props: {variant: "raised", $$slots: {default: [Mn]}, $$scope: {ctx: t4}}}), {c() {
+      return v2.length || (E2 = sn2(t4)), d2 = new xt5({props: {$$slots: {default: [kn2]}, $$scope: {ctx: t4}}}), h2 = new xt5({props: {variant: "raised", $$slots: {default: [Mn]}, $$scope: {ctx: t4}}}), {c() {
         e4 = T("section"), n2 = T("table"), r2 = T("thead");
         for (let t5 = 0; t5 < x3.length; t5 += 1)
           x3[t5].c();
-        o2 = F3(), s2 = T("tbody");
+        o2 = F3(), c2 = T("tbody");
         for (let t5 = 0; t5 < w2.length; t5 += 1)
           w2[t5].c();
         E2 && E2.c(), i2 = F3(), u2 = T("div"), Wt(d2.$$.fragment), f2 = F3(), p2 = T("div"), Wt(h2.$$.fragment), H2(r2, "class", "border-b border-black"), H2(n2, "class", "w-full"), H2(e4, "class", "overflow-y-auto p-2"), H2(p2, "class", "md:ml-auto "), H2(u2, "class", "w-full flex flex-col md:flex-row gap-2");
@@ -889,16 +889,16 @@
         N(a2, e4, l3), O(e4, n2), O(n2, r2);
         for (let t5 = 0; t5 < x3.length; t5 += 1)
           x3[t5].m(r2, null);
-        O(n2, o2), O(n2, s2);
+        O(n2, o2), O(n2, c2);
         for (let t5 = 0; t5 < w2.length; t5 += 1)
-          w2[t5].m(s2, null);
-        E2 && E2.m(s2, null), t4[23](e4), N(a2, i2, l3), N(a2, u2, l3), Jt(d2, u2, null), O(u2, f2), O(u2, p2), Jt(h2, p2, null), _4 = true;
+          w2[t5].m(c2, null);
+        E2 && E2.m(c2, null), t4[23](e4), N(a2, i2, l3), N(a2, u2, l3), Jt(d2, u2, null), O(u2, f2), O(u2, p2), Jt(h2, p2, null), _4 = true;
       }, p(t5, e5) {
         if (1053 & e5[0]) {
           let n4;
           for (b2 = t5[0].head, n4 = 0; n4 < b2.length; n4 += 1) {
             const o4 = tn3(t5, b2, n4);
-            x3[n4] ? x3[n4].p(o4, e5) : (x3[n4] = sn2(o4), x3[n4].c(), x3[n4].m(r2, null));
+            x3[n4] ? x3[n4].p(o4, e5) : (x3[n4] = cn2(o4), x3[n4].c(), x3[n4].m(r2, null));
           }
           for (; n4 < x3.length; n4 += 1)
             x3[n4].d(1);
@@ -908,11 +908,11 @@
           let n4;
           for (v2 = t5[0].body, n4 = 0; n4 < v2.length; n4 += 1) {
             const r3 = Qe5(t5, v2, n4);
-            w2[n4] ? (w2[n4].p(r3, e5), It(w2[n4], 1)) : (w2[n4] = mn2(r3), w2[n4].c(), It(w2[n4], 1), w2[n4].m(s2, null));
+            w2[n4] ? (w2[n4].p(r3, e5), It(w2[n4], 1)) : (w2[n4] = mn2(r3), w2[n4].c(), It(w2[n4], 1), w2[n4].m(c2, null));
           }
           for (Ot(), n4 = v2.length; n4 < w2.length; n4 += 1)
             N3(n4);
-          zt(), !v2.length && E2 ? E2.p(t5, e5) : v2.length ? E2 && (E2.d(1), E2 = null) : (E2 = cn2(t5), E2.c(), E2.m(s2, null));
+          zt(), !v2.length && E2 ? E2.p(t5, e5) : v2.length ? E2 && (E2.d(1), E2 = null) : (E2 = sn2(t5), E2.c(), E2.m(c2, null));
         }
         const n3 = {};
         33 & e5[0] | 8192 & e5[1] && (n3.$$scope = {dirty: e5, ctx: t5}), d2.$set(n3);
@@ -938,7 +938,7 @@
       }};
     }
     function an2(t4) {
-      let e4, n2, r2, o2, s2, l2, i2, u2, d2, f2, p2, $2, m2 = (t4[10].find(h2)?.text || t4[40]) + "";
+      let e4, n2, r2, o2, c2, l2, i2, u2, d2, f2, p2, $2, m2 = (t4[10].find(h2)?.text || t4[40]) + "";
       function h2(...e5) {
         return t4[20](t4[40], ...e5);
       }
@@ -946,16 +946,16 @@
         return t4[21](t4[40]);
       }
       return {c() {
-        e4 = T("th"), n2 = T("div"), r2 = C2(m2), o2 = F3(), s2 = T("div"), l2 = T("span"), l2.textContent = "arrow_drop_up", u2 = F3(), d2 = T("span"), d2.textContent = "arrow_drop_down", f2 = F3(), H2(l2, "class", i2 = "material-icons absolute right-0 top-0 "), Q6(l2, "text-gray-200", t4[3].col == t4[40] && !t4[3].ascending), Q6(l2, "text-gray-500", t4[3].col != t4[40] || t4[3].ascending), H2(d2, "class", "material-icons absolute right-0 bottom-0"), Q6(d2, "text-gray-200", t4[3].col == t4[40] && t4[3].ascending), Q6(d2, "text-gray-500", t4[3].col != t4[40] || !t4[3].ascending), H2(s2, "class", "absolute -right-1 top-0 bottom-0"), H2(n2, "class", "relative h-10 flex justify-center items-center px-[1.25rem] whitespace-nowrap"), G6(e4, "background", "var(--table-head-bg)"), G6(e4, "color", "var(--table-head-color)");
+        e4 = T("th"), n2 = T("div"), r2 = C2(m2), o2 = F3(), c2 = T("div"), l2 = T("span"), l2.textContent = "arrow_drop_up", u2 = F3(), d2 = T("span"), d2.textContent = "arrow_drop_down", f2 = F3(), H2(l2, "class", i2 = "material-icons absolute right-0 top-0 "), Q6(l2, "text-gray-200", t4[3].col == t4[40] && !t4[3].ascending), Q6(l2, "text-gray-500", t4[3].col != t4[40] || t4[3].ascending), H2(d2, "class", "material-icons absolute right-0 bottom-0"), Q6(d2, "text-gray-200", t4[3].col == t4[40] && t4[3].ascending), Q6(d2, "text-gray-500", t4[3].col != t4[40] || !t4[3].ascending), H2(c2, "class", "absolute -right-1 top-0 bottom-0"), H2(n2, "class", "relative h-10 flex justify-center items-center px-[1.25rem] whitespace-nowrap"), G6(e4, "background", "var(--table-head-bg)"), G6(e4, "color", "var(--table-head-color)");
       }, m(t5, a2) {
-        N(t5, e4, a2), O(e4, n2), O(n2, r2), O(n2, o2), O(n2, s2), O(s2, l2), O(s2, u2), O(s2, d2), O(e4, f2), p2 || ($2 = q(e4, "click", y3), p2 = true);
+        N(t5, e4, a2), O(e4, n2), O(n2, r2), O(n2, o2), O(n2, c2), O(c2, l2), O(c2, u2), O(c2, d2), O(e4, f2), p2 || ($2 = q(e4, "click", y3), p2 = true);
       }, p(e5, n3) {
         t4 = e5, 1 & n3[0] && m2 !== (m2 = (t4[10].find(h2)?.text || t4[40]) + "") && X6(r2, m2), 9 & n3[0] && Q6(l2, "text-gray-200", t4[3].col == t4[40] && !t4[3].ascending), 9 & n3[0] && Q6(l2, "text-gray-500", t4[3].col != t4[40] || t4[3].ascending), 9 & n3[0] && Q6(d2, "text-gray-200", t4[3].col == t4[40] && t4[3].ascending), 9 & n3[0] && Q6(d2, "text-gray-500", t4[3].col != t4[40] || !t4[3].ascending);
       }, d(t5) {
         t5 && R(e4), p2 = false, $2();
       }};
     }
-    function sn2(t4) {
+    function cn2(t4) {
       let e4, n2 = t4[2].includes(t4[40]), r2 = n2 && an2(t4);
       return {c() {
         r2 && r2.c(), e4 = U();
@@ -967,12 +967,12 @@
         r2 && r2.d(t5), t5 && R(e4);
       }};
     }
-    function cn2(t4) {
-      let e4, n2, r2, o2, s2, l2;
+    function sn2(t4) {
+      let e4, n2, r2, o2, c2, l2;
       return {c() {
-        e4 = T("div"), n2 = T("div"), r2 = C2('Keine Daten zum Suchbegriff "'), o2 = C2(t4[1]), s2 = C2('"\n												gefunden'), l2 = F3(), H2(n2, "class", "absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"), H2(e4, "class", "h-96 relative");
+        e4 = T("div"), n2 = T("div"), r2 = C2('Keine Daten zum Suchbegriff "'), o2 = C2(t4[1]), c2 = C2('"\n												gefunden'), l2 = F3(), H2(n2, "class", "absolute top-0 left-0 -right-full bottom-0 flex justify-center items-center"), H2(e4, "class", "h-96 relative");
       }, m(t5, a2) {
-        N(t5, e4, a2), O(e4, n2), O(n2, r2), O(n2, o2), O(n2, s2), O(e4, l2);
+        N(t5, e4, a2), O(e4, n2), O(n2, r2), O(n2, o2), O(n2, c2), O(e4, l2);
       }, p(t5, e5) {
         2 & e5[0] && X6(o2, t5[1]);
       }, d(t5) {
@@ -980,51 +980,51 @@
       }};
     }
     function ln2(t4) {
-      let e4, n2, r2, o2 = Object.keys(t4[34]), s2 = [];
+      let e4, n2, r2, o2 = Object.keys(t4[34]), c2 = [];
       for (let e5 = 0; e5 < o2.length; e5 += 1)
-        s2[e5] = $n2(Xe5(t4, o2, e5));
-      const l2 = (t5) => Lt(s2[t5], 1, 1, () => {
-        s2[t5] = null;
+        c2[e5] = $n2(Xe5(t4, o2, e5));
+      const l2 = (t5) => Lt(c2[t5], 1, 1, () => {
+        c2[t5] = null;
       });
       return {c() {
         e4 = T("tr");
-        for (let t5 = 0; t5 < s2.length; t5 += 1)
-          s2[t5].c();
+        for (let t5 = 0; t5 < c2.length; t5 += 1)
+          c2[t5].c();
         n2 = F3(), H2(e4, "style", `background: ${t4[36] % 2 ? "var(--table-body-odd-bg)" : "var(--table-body-even-bg)"};
 									color: ${t4[36] % 2 ? "var(--table-body-odd-color)" : "var(--table-body-even-color)"}`);
       }, m(t5, o3) {
         N(t5, e4, o3);
-        for (let t6 = 0; t6 < s2.length; t6 += 1)
-          s2[t6].m(e4, null);
+        for (let t6 = 0; t6 < c2.length; t6 += 1)
+          c2[t6].m(e4, null);
         O(e4, n2), r2 = true;
       }, p(t5, r3) {
         if (2053 & r3[0]) {
           let a2;
           for (o2 = Object.keys(t5[34]), a2 = 0; a2 < o2.length; a2 += 1) {
-            const c2 = Xe5(t5, o2, a2);
-            s2[a2] ? (s2[a2].p(c2, r3), It(s2[a2], 1)) : (s2[a2] = $n2(c2), s2[a2].c(), It(s2[a2], 1), s2[a2].m(e4, n2));
+            const s2 = Xe5(t5, o2, a2);
+            c2[a2] ? (c2[a2].p(s2, r3), It(c2[a2], 1)) : (c2[a2] = $n2(s2), c2[a2].c(), It(c2[a2], 1), c2[a2].m(e4, n2));
           }
-          for (Ot(), a2 = o2.length; a2 < s2.length; a2 += 1)
+          for (Ot(), a2 = o2.length; a2 < c2.length; a2 += 1)
             l2(a2);
           zt();
         }
       }, i(t5) {
         if (!r2) {
           for (let t6 = 0; t6 < o2.length; t6 += 1)
-            It(s2[t6]);
+            It(c2[t6]);
           r2 = true;
         }
       }, o(t5) {
-        s2 = s2.filter(Boolean);
-        for (let t6 = 0; t6 < s2.length; t6 += 1)
-          Lt(s2[t6]);
+        c2 = c2.filter(Boolean);
+        for (let t6 = 0; t6 < c2.length; t6 += 1)
+          Lt(c2[t6]);
         r2 = false;
       }, d(t5) {
-        t5 && R(e4), M4(s2, t5);
+        t5 && R(e4), M4(c2, t5);
       }};
     }
     function un2(t4) {
-      let e4, n2, r2, o2, s2;
+      let e4, n2, r2, o2, c2;
       function l2(...e5) {
         return t4[17](t4[37], ...e5);
       }
@@ -1035,16 +1035,16 @@
       return r2 = d2(t4, [-1, -1]), o2 = u2[r2] = i2[r2](t4), {c() {
         e4 = T("td"), o2.c(), H2(e4, "class", "whitespace-nowrap");
       }, m(t5, n3) {
-        N(t5, e4, n3), u2[r2].m(e4, null), s2 = true;
+        N(t5, e4, n3), u2[r2].m(e4, null), c2 = true;
       }, p(n3, a2) {
-        let s3 = r2;
-        r2 = d2(t4 = n3, a2), r2 === s3 ? u2[r2].p(t4, a2) : (Ot(), Lt(u2[s3], 1, 1, () => {
-          u2[s3] = null;
+        let c3 = r2;
+        r2 = d2(t4 = n3, a2), r2 === c3 ? u2[r2].p(t4, a2) : (Ot(), Lt(u2[c3], 1, 1, () => {
+          u2[c3] = null;
         }), zt(), o2 = u2[r2], o2 ? o2.p(t4, a2) : (o2 = u2[r2] = i2[r2](t4), o2.c()), It(o2, 1), o2.m(e4, null));
       }, i(t5) {
-        s2 || (It(o2), s2 = true);
+        c2 || (It(o2), c2 = true);
       }, o(t5) {
-        Lt(o2), s2 = false;
+        Lt(o2), c2 = false;
       }, d(t5) {
         t5 && R(e4), u2[r2].d();
       }};
@@ -1071,8 +1071,8 @@
         a2 && a2.c(), e4 = U();
       }, m(t5, r3) {
         a2 && a2.m(t5, r3), N(t5, e4, r3), n2 = true;
-      }, p(n3, s2) {
-        t4 = n3, 1 & s2[0] && (r2 = t4[11].find(o2).type == "number"), r2 ? a2 ? (a2.p(t4, s2), 1 & s2[0] && It(a2, 1)) : (a2 = pn2(t4), a2.c(), It(a2, 1), a2.m(e4.parentNode, e4)) : a2 && (Ot(), Lt(a2, 1, 1, () => {
+      }, p(n3, c2) {
+        t4 = n3, 1 & c2[0] && (r2 = t4[11].find(o2).type == "number"), r2 ? a2 ? (a2.p(t4, c2), 1 & c2[0] && It(a2, 1)) : (a2 = pn2(t4), a2.c(), It(a2, 1), a2.m(e4.parentNode, e4)) : a2 && (Ot(), Lt(a2, 1, 1, () => {
           a2 = null;
         }), zt());
       }, i(t5) {
@@ -1286,18 +1286,18 @@
       }};
     }
     function kn2(t4) {
-      let e4, n2, r2, o2, s2, i2, u2, d2, f2;
+      let e4, n2, r2, o2, c2, i2, u2, d2, f2;
       return e4 = new nt2({props: {variant: "raised", style: "background: var(--mdc-theme-callout)", class: "whitespace-nowrap", $$slots: {default: [hn2]}, $$scope: {ctx: t4}}}), e4.$on("click", t4[24]), o2 = new nt2({props: {variant: "raised", style: "padding: 0; min-width: 36px; background: var(--mdc-theme-callout)", $$slots: {default: [_n2]}, $$scope: {ctx: t4}}}), o2.$on("click", t4[25]), i2 = new Ze2({props: {anchorCorner: "TOP_LEFT", $$slots: {default: [On2]}, $$scope: {ctx: t4}}}), t4[28](i2), {c() {
-        Wt(e4.$$.fragment), n2 = F3(), r2 = T("div"), Wt(o2.$$.fragment), s2 = F3(), Wt(i2.$$.fragment);
+        Wt(e4.$$.fragment), n2 = F3(), r2 = T("div"), Wt(o2.$$.fragment), c2 = F3(), Wt(i2.$$.fragment);
       }, m(t5, a2) {
-        Jt(e4, t5, a2), N(t5, n2, a2), N(t5, r2, a2), Jt(o2, r2, null), O(r2, s2), Jt(i2, r2, null), u2 = true, d2 || (f2 = v(vt4.call(null, r2)), d2 = true);
+        Jt(e4, t5, a2), N(t5, n2, a2), N(t5, r2, a2), Jt(o2, r2, null), O(r2, c2), Jt(i2, r2, null), u2 = true, d2 || (f2 = v(vt4.call(null, r2)), d2 = true);
       }, p(t5, n3) {
         const r3 = {};
         8192 & n3[1] && (r3.$$scope = {dirty: n3, ctx: t5}), e4.$set(r3);
         const a2 = {};
         8192 & n3[1] && (a2.$$scope = {dirty: n3, ctx: t5}), o2.$set(a2);
-        const s3 = {};
-        1 & n3[0] | 8192 & n3[1] && (s3.$$scope = {dirty: n3, ctx: t5}), i2.$set(s3);
+        const c3 = {};
+        1 & n3[0] | 8192 & n3[1] && (c3.$$scope = {dirty: n3, ctx: t5}), i2.$set(c3);
       }, i(t5) {
         u2 || (It(e4.$$.fragment, t5), It(o2.$$.fragment, t5), It(i2.$$.fragment, t5), u2 = true);
       }, o(t5) {
@@ -1516,23 +1516,23 @@
       }};
     }
     function Mn(t4) {
-      let e4, n2, r2, o2, a2, s2, l2, i2 = t4[7] + 1 <= Math.floor(t4[0].body.length / t4[9]) + 1, u2 = t4[7] > 1 && jn2(t4), d2 = t4[7] - 1 > 0 && En2(t4);
+      let e4, n2, r2, o2, a2, c2, l2, i2 = t4[7] + 1 <= Math.floor(t4[0].body.length / t4[9]) + 1, u2 = t4[7] > 1 && jn2(t4), d2 = t4[7] - 1 > 0 && En2(t4);
       r2 = new nt2({props: {variant: "raised", $$slots: {default: [Jn]}, $$scope: {ctx: t4}}}), r2.$on("click", Yn);
       let f2 = i2 && Ln(t4), p2 = t4[0].body.length > t4[9] * t4[7] && Pn2(t4);
       return {c() {
-        u2 && u2.c(), e4 = F3(), d2 && d2.c(), n2 = F3(), Wt(r2.$$.fragment), o2 = F3(), f2 && f2.c(), a2 = F3(), p2 && p2.c(), s2 = U();
+        u2 && u2.c(), e4 = F3(), d2 && d2.c(), n2 = F3(), Wt(r2.$$.fragment), o2 = F3(), f2 && f2.c(), a2 = F3(), p2 && p2.c(), c2 = U();
       }, m(t5, i3) {
-        u2 && u2.m(t5, i3), N(t5, e4, i3), d2 && d2.m(t5, i3), N(t5, n2, i3), Jt(r2, t5, i3), N(t5, o2, i3), f2 && f2.m(t5, i3), N(t5, a2, i3), p2 && p2.m(t5, i3), N(t5, s2, i3), l2 = true;
+        u2 && u2.m(t5, i3), N(t5, e4, i3), d2 && d2.m(t5, i3), N(t5, n2, i3), Jt(r2, t5, i3), N(t5, o2, i3), f2 && f2.m(t5, i3), N(t5, a2, i3), p2 && p2.m(t5, i3), N(t5, c2, i3), l2 = true;
       }, p(t5, o3) {
         t5[7] > 1 ? u2 ? (u2.p(t5, o3), 128 & o3[0] && It(u2, 1)) : (u2 = jn2(t5), u2.c(), It(u2, 1), u2.m(e4.parentNode, e4)) : u2 && (Ot(), Lt(u2, 1, 1, () => {
           u2 = null;
         }), zt()), t5[7] - 1 > 0 ? d2 ? (d2.p(t5, o3), 128 & o3[0] && It(d2, 1)) : (d2 = En2(t5), d2.c(), It(d2, 1), d2.m(n2.parentNode, n2)) : d2 && (Ot(), Lt(d2, 1, 1, () => {
           d2 = null;
         }), zt());
-        const c2 = {};
-        128 & o3[0] | 8192 & o3[1] && (c2.$$scope = {dirty: o3, ctx: t5}), r2.$set(c2), 641 & o3[0] && (i2 = t5[7] + 1 <= Math.floor(t5[0].body.length / t5[9]) + 1), i2 ? f2 ? (f2.p(t5, o3), 641 & o3[0] && It(f2, 1)) : (f2 = Ln(t5), f2.c(), It(f2, 1), f2.m(a2.parentNode, a2)) : f2 && (Ot(), Lt(f2, 1, 1, () => {
+        const s2 = {};
+        128 & o3[0] | 8192 & o3[1] && (s2.$$scope = {dirty: o3, ctx: t5}), r2.$set(s2), 641 & o3[0] && (i2 = t5[7] + 1 <= Math.floor(t5[0].body.length / t5[9]) + 1), i2 ? f2 ? (f2.p(t5, o3), 641 & o3[0] && It(f2, 1)) : (f2 = Ln(t5), f2.c(), It(f2, 1), f2.m(a2.parentNode, a2)) : f2 && (Ot(), Lt(f2, 1, 1, () => {
           f2 = null;
-        }), zt()), t5[0].body.length > t5[9] * t5[7] ? p2 ? (p2.p(t5, o3), 641 & o3[0] && It(p2, 1)) : (p2 = Pn2(t5), p2.c(), It(p2, 1), p2.m(s2.parentNode, s2)) : p2 && (Ot(), Lt(p2, 1, 1, () => {
+        }), zt()), t5[0].body.length > t5[9] * t5[7] ? p2 ? (p2.p(t5, o3), 641 & o3[0] && It(p2, 1)) : (p2 = Pn2(t5), p2.c(), It(p2, 1), p2.m(c2.parentNode, c2)) : p2 && (Ot(), Lt(p2, 1, 1, () => {
           p2 = null;
         }), zt());
       }, i(t5) {
@@ -1540,7 +1540,7 @@
       }, o(t5) {
         Lt(u2), Lt(d2), Lt(r2.$$.fragment, t5), Lt(f2), Lt(p2), l2 = false;
       }, d(t5) {
-        u2 && u2.d(t5), t5 && R(e4), d2 && d2.d(t5), t5 && R(n2), Xt(r2, t5), t5 && R(o2), f2 && f2.d(t5), t5 && R(a2), p2 && p2.d(t5), t5 && R(s2);
+        u2 && u2.d(t5), t5 && R(e4), d2 && d2.d(t5), t5 && R(n2), Xt(r2, t5), t5 && R(o2), f2 && f2.d(t5), t5 && R(a2), p2 && p2.d(t5), t5 && R(c2);
       }};
     }
     function Bn(t4) {
@@ -1554,21 +1554,21 @@
       }};
     }
     function Rn(t4) {
-      let e4, n2, r2, o2, s2, l2, i2, u2 = {ctx: t4, current: null, token: null, hasCatch: true, pending: Bn, then: rn3, catch: nn3, value: 33, error: 43, blocks: [, , ,]};
+      let e4, n2, r2, o2, c2, l2, i2, u2 = {ctx: t4, current: null, token: null, hasCatch: true, pending: Bn, then: rn3, catch: nn3, value: 33, error: 43, blocks: [, , ,]};
       return At4(o2 = t4[6], u2), {c() {
         e4 = T("div"), n2 = T("input"), r2 = F3(), u2.block.c(), H2(n2, "type", "text"), H2(n2, "placeholder", "Suche..."), H2(n2, "class", "p-2 rounded-md w-full"), H2(e4, "class", "flex flex-col gap-4 w-full");
       }, m(o3, a2) {
-        N(o3, e4, a2), O(e4, n2), Y6(n2, t4[1]), O(e4, r2), u2.block.m(e4, u2.anchor = null), u2.mount = () => e4, u2.anchor = null, s2 = true, l2 || (i2 = q(n2, "input", t4[19]), l2 = true);
+        N(o3, e4, a2), O(e4, n2), Y6(n2, t4[1]), O(e4, r2), u2.block.m(e4, u2.anchor = null), u2.mount = () => e4, u2.anchor = null, c2 = true, l2 || (i2 = q(n2, "input", t4[19]), l2 = true);
       }, p(e5, r3) {
         t4 = e5, 2 & r3[0] && n2.value !== t4[1] && Y6(n2, t4[1]), u2.ctx = t4, 64 & r3[0] && o2 !== (o2 = t4[6]) && At4(o2, u2) || Ct3(u2, t4, r3);
       }, i(t5) {
-        s2 || (It(u2.block), s2 = true);
+        c2 || (It(u2.block), c2 = true);
       }, o(t5) {
         for (let t6 = 0; t6 < 3; t6 += 1) {
           const e5 = u2.blocks[t6];
           Lt(e5);
         }
-        s2 = false;
+        c2 = false;
       }, d(t5) {
         t5 && R(e4), u2.block.d(), u2.token = null, u2 = null, l2 = false, i2();
       }};
@@ -1625,15 +1625,15 @@
     var Yn = () => {
     };
     function Vn(t4, e4, n2) {
-      let r2, o2, a2, s2;
-      p(t4, Gt2, (t5) => n2(15, a2 = t5)), p(t4, qt, (t5) => n2(16, s2 = t5));
-      let c2, l2, i2, u2 = {body: [], head: []}, d2 = ["id", "product"], f2 = new Promise(() => {
+      let r2, o2, a2, c2;
+      p(t4, Gt2, (t5) => n2(15, a2 = t5)), p(t4, qt, (t5) => n2(16, c2 = t5));
+      let s2, l2, i2, u2 = {body: [], head: []}, d2 = ["id", "product"], f2 = new Promise(() => {
       }), p2 = {col: "id", ascending: true}, $2 = 1;
       async function m2(t5, e5) {
-        let n3, r3, o3 = `${kt}${a2.order_url}`, s3 = `Foodsight_Bestellung.${t5}`;
+        let n3, r3, o3 = `${kt}/api/order`, c3 = `Foodsight_Bestellung.${t5}`;
         t5 === "xlsx" ? n3 = "arraybuffer" : t5 === "csv" && (n3 = "text"), a2?.tomorrow ? r3 = "tomorrow" : a2?.day_after_tomorrow ? r3 = "day_after_tomorrow" : a2?.next_seven_days && (r3 = "next_seven_days"), Mt({url: o3, method: "POST", responseType: n3, data: {option: t5, order_option: r3, data: e5}}).then((t6) => {
           const e6 = window.URL.createObjectURL(new Blob([t6.data])), n4 = document.createElement("a");
-          n4.href = e6, n4.setAttribute("download", s3), document.body.appendChild(n4), n4.click();
+          n4.href = e6, n4.setAttribute("download", c3), document.body.appendChild(n4), n4.click();
         });
       }
       return t4.$$.update = () => {
@@ -1643,14 +1643,14 @@
           let n3, r3 = [];
           try {
             let e6;
-            if (n3 = s2 && Object.keys(s2).length ? `${kt}${a2.forecast_url}/?store=${a2.store}` : `tableDataStore${a2.store}.json`, localStorage.getItem(n3) && JSON.stringify(JSON.parse(localStorage.getItem(n3)).user) === JSON.stringify(s2) && new Date(JSON.parse(localStorage.getItem(n3)).data.timestamp).getUTCDate() === new Date().getUTCDate()) {
+            if (n3 = c2 && Object.keys(c2).length ? `${kt}/api/forecast/?store=${a2.store}` : `tableDataStore${a2.store}.json`, localStorage.getItem(n3) && JSON.stringify(JSON.parse(localStorage.getItem(n3)).user) === JSON.stringify(c2) && new Date(JSON.parse(localStorage.getItem(n3)).data.timestamp).getUTCDate() === new Date().getUTCDate()) {
               t5({body: Ot4(JSON.parse(localStorage.getItem(n3)).data.body, ["id", "product"], l2), head: JSON.parse(localStorage.getItem(n3)).data.head, timestamp: JSON.parse(localStorage.getItem(n3)).data.timestamp});
             } else {
               e6 = await Mt.get(n3), e6.data.forEach((t6) => {
                 Object.keys(t6).forEach((t7) => {
                   r3.includes(t7) || r3.push(t7);
                 });
-              }), localStorage.setItem(n3, JSON.stringify({user: s2, data: {body: e6.data, head: r3, timestamp: Date.now()}}));
+              }), localStorage.setItem(n3, JSON.stringify({user: c2, data: {body: e6.data, head: r3, timestamp: Date.now()}}));
               let o3 = JSON.parse(localStorage.getItem("cachedStores")) || [];
               localStorage.setItem("cachedStores", JSON.stringify([...o3, n3])), t5({body: Ot4(e6.data, ["id", "product"], l2), head: r3, timestamp: Date.now()});
             }
@@ -1661,7 +1661,7 @@
           let t5 = JSON.parse(localStorage.getItem("cachedStores")) || [];
           t5.length && (t5.forEach((e5) => {
             let n3 = JSON.parse(localStorage.getItem(e5));
-            JSON.stringify(n3?.user) != JSON.stringify(s2) && (localStorage.removeItem(e5), t5 = t5.filter((t6) => t6 != e5));
+            JSON.stringify(n3?.user) != JSON.stringify(c2) && (localStorage.removeItem(e5), t5 = t5.filter((t6) => t6 != e5));
           }), localStorage.setItem("cachedStores", JSON.stringify([...new Set(t5)])));
         }
         32772 & t4.$$.dirty[0] && (a2?.next_seven_days ? n2(2, d2 = [...d2, "next7_order_range", "next7_order_qty"]) : d2.filter((t5) => !["next7_order_range", "next7_order_qty"].includes(t5))), 32772 & t4.$$.dirty[0] && (a2?.day_after_tomorrow ? n2(2, d2 = [...d2, "day_after_order_range", "day_after_order_qty"]) : d2.filter((t5) => !["day_after_order_range", "day_after_order_qty"].includes(t5))), 32772 & t4.$$.dirty[0] && (a2?.tomorrow ? n2(2, d2 = [...d2, "tomorrow_order_range", "tomorrow_order_qty"]) : d2.filter((t5) => !["tomorrow_order_range", "tomorrow_order_qty"].includes(t5))), 8 & t4.$$.dirty[0] && n2(4, o2 = (t5, e5) => {
@@ -1669,16 +1669,16 @@
           let r3 = p2.ascending ? 1 : -1;
           return t5.sort((t6, n3) => t6[e5] < n3[e5] ? -1 * r3 : t6[e5] > n3[e5] ? 1 * r3 : 0);
         });
-      }, [u2, l2, d2, p2, o2, c2, f2, $2, i2, r2, [{key: "id", text: "ID"}, {key: "product", text: "Produkt"}, {key: "tomorrow_order_range", text: "Vorschlag Morgen"}, {key: "tomorrow_order_qty", text: "Bestellung Morgen"}, {key: "day_after_order_range", text: "Vorschlag \xDCbermorgen"}, {key: "day_after_order_qty", text: "Bestellung \xDCbermorgen"}, {key: "next7_order_range", text: "Vorschlag Woche"}, {key: "next7_order_qty", text: "Bestellung Woche"}], [{key: "day_after_order_qty", type: "number"}, {key: "tomorrow_order_qty", type: "number"}, {key: "next7_order_qty", type: "number"}], m2, function(t5, e5) {
+      }, [u2, l2, d2, p2, o2, s2, f2, $2, i2, r2, [{key: "id", text: "ID"}, {key: "product", text: "Produkt"}, {key: "tomorrow_order_range", text: "Vorschlag Morgen"}, {key: "tomorrow_order_qty", text: "Bestellung Morgen"}, {key: "day_after_order_range", text: "Vorschlag \xDCbermorgen"}, {key: "day_after_order_qty", text: "Bestellung \xDCbermorgen"}, {key: "next7_order_range", text: "Vorschlag Woche"}, {key: "next7_order_qty", text: "Bestellung Woche"}], [{key: "day_after_order_qty", type: "number"}, {key: "tomorrow_order_qty", type: "number"}, {key: "next7_order_qty", type: "number"}], m2, function(t5, e5) {
         n2(0, u2 = e5);
       }, function(t5, e5) {
         return {update(t6) {
           if (!Object.keys(a2))
             return;
           let e6;
-          e6 = s2 && Object.keys(s2).length ? `${kt}${a2.forecast_url}/?store=${a2.store}` : `tableDataStore${a2.store}.json`, localStorage.setItem(e6, JSON.stringify({user: s2, data: t6}));
+          e6 = c2 && Object.keys(c2).length ? `${kt}/api/forecast/?store=${a2.store}` : `tableDataStore${a2.store}.json`, localStorage.setItem(e6, JSON.stringify({user: c2, data: t6}));
         }};
-      }, a2, s2, (t5, e5) => e5.key === t5, (t5, e5) => e5.key === t5, function() {
+      }, a2, c2, (t5, e5) => e5.key === t5, (t5, e5) => e5.key === t5, function() {
         l2 = this.value, n2(1, l2);
       }, (t5, e5) => e5.key === t5, (t5) => {
         n2(0, u2.body = o2(u2.body, t5), u2);
@@ -1688,9 +1688,9 @@
         dt[t5 ? "unshift" : "push"](() => {
           i2 = t5, n2(8, i2);
         });
-      }, () => m2("xlsx", u2.body), () => c2.setOpen(true), () => m2("xlsx", u2.body), () => m2("csv", u2.body), function(t5) {
+      }, () => m2("xlsx", u2.body), () => s2.setOpen(true), () => m2("xlsx", u2.body), () => m2("csv", u2.body), function(t5) {
         dt[t5 ? "unshift" : "push"](() => {
-          c2 = t5, n2(5, c2);
+          s2 = t5, n2(5, s2);
         });
       }, () => n2(7, $2--, $2), () => n2(7, $2 -= 1), () => {
         n2(7, $2 += 1);
@@ -1705,8 +1705,8 @@
     };
   });
 
-  // dist/build/settings-5694f095.js
-  var require_settings_5694f095 = __commonJS((exports) => {
+  // dist/build/settings-6765d1ac.js
+  var require_settings_6765d1ac = __commonJS((exports) => {
     __markAsModule(exports);
     __export(exports, {
       default: () => ps
@@ -4235,8 +4235,8 @@
     };
   });
 
-  // dist/build/signup-7d16528d.js
-  var require_signup_7d16528d = __commonJS((exports) => {
+  // dist/build/signup-64b8c774.js
+  var require_signup_64b8c774 = __commonJS((exports) => {
     __markAsModule(exports);
     __export(exports, {
       default: () => ct5
@@ -5109,8 +5109,8 @@
     };
   });
 
-  // dist/build/_layout-4091e486.js
-  var require_layout_4091e486 = __commonJS((exports) => {
+  // dist/build/_layout-55c3ebf9.js
+  var require_layout_55c3ebf9 = __commonJS((exports) => {
     __markAsModule(exports);
     __export(exports, {
       default: () => Sr
@@ -10498,9 +10498,9 @@
         Jt(e4, A3, s2), N(A3, t4, s2), Jt(r2, A3, s2), n2 = true;
       }, p(A3, t5) {
         const n3 = {};
-        262144 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
+        524288 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
         const s2 = {};
-        262144 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
+        524288 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
       }, i(A3) {
         n2 || (It(e4.$$.fragment, A3), It(r2.$$.fragment, A3), n2 = true);
       }, o(A3) {
@@ -10517,7 +10517,7 @@
         Jt(e4, A3, r2), t4 = true;
       }, p(A3, t5) {
         const r2 = {};
-        262144 & t5 && (r2.$$scope = {dirty: t5, ctx: A3}), e4.$set(r2);
+        524288 & t5 && (r2.$$scope = {dirty: t5, ctx: A3}), e4.$set(r2);
       }, i(A3) {
         t4 || (It(e4.$$.fragment, A3), t4 = true);
       }, o(A3) {
@@ -10527,13 +10527,13 @@
       }};
     }
     function or(A2) {
-      let e4, t4, r2 = (A2[5]?.username || "DEMO") + "";
+      let e4, t4, r2 = (A2[4]?.username || "DEMO") + "";
       return {c() {
         e4 = T("div"), t4 = C2(r2), H2(e4, "class", "sm:flex hidden");
       }, m(A3, r3) {
         N(A3, e4, r3), O(e4, t4);
       }, p(A3, e5) {
-        32 & e5 && r2 !== (r2 = (A3[5]?.username || "DEMO") + "") && X6(t4, r2);
+        16 & e5 && r2 !== (r2 = (A3[4]?.username || "DEMO") + "") && X6(t4, r2);
       }, d(A3) {
         A3 && R(e4);
       }};
@@ -10561,7 +10561,7 @@
     function ar(A2) {
       let e4, t4;
       function r2(A3, t5) {
-        return (e4 == null || 16 & t5) && (e4 = !(!A3[4] || !Object.keys(A3[4]).length)), e4 ? Br : ir;
+        return (e4 == null || 32 & t5) && (e4 = !(!A3[5] || !Object.keys(A3[5]).length)), e4 ? Br : ir;
       }
       let n2 = r2(A2, -1), s2 = n2(A2);
       return {c() {
@@ -10597,7 +10597,7 @@
     function ur(A2) {
       let e4, t4;
       function r2(A3, t5) {
-        return (e4 == null || 16 & t5) && (e4 = !(!A3[4] || !Object.keys(A3[4]).length)), e4 ? lr : cr;
+        return (e4 == null || 32 & t5) && (e4 = !(!A3[5] || !Object.keys(A3[5]).length)), e4 ? lr : cr;
       }
       let n2 = r2(A2, -1), s2 = n2(A2);
       return {c() {
@@ -10618,9 +10618,9 @@
         Jt(e4, A3, s2), N(A3, t4, s2), Jt(r2, A3, s2), n2 = true;
       }, p(A3, t5) {
         const n3 = {};
-        262160 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
+        524320 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
         const s2 = {};
-        262160 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
+        524320 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
       }, i(A3) {
         n2 || (It(e4.$$.fragment, A3), It(r2.$$.fragment, A3), n2 = true);
       }, o(A3) {
@@ -10657,9 +10657,9 @@
         Jt(e4, A3, s2), N(A3, t4, s2), Jt(r2, A3, s2), n2 = true;
       }, p(A3, t5) {
         const n3 = {};
-        262144 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
+        524288 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
         const s2 = {};
-        262144 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
+        524288 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
       }, i(A3) {
         n2 || (It(e4.$$.fragment, A3), It(r2.$$.fragment, A3), n2 = true);
       }, o(A3) {
@@ -10701,7 +10701,7 @@
     function Ur(A2) {
       let e4, t4, r2, n2, o2, B7, a2, c2, l2, u2, g2, w2;
       function Q7(A3, e5) {
-        return (t4 == null || 16 & e5) && (t4 = !(!A3[4] || !Object.keys(A3[4]).length)), t4 ? pr : Cr;
+        return (t4 == null || 32 & e5) && (t4 = !(!A3[5] || !Object.keys(A3[5]).length)), t4 ? pr : Cr;
       }
       let C4 = Q7(A2, -1), p2 = C4(A2);
       return {c() {
@@ -10732,15 +10732,15 @@
         Jt(e4, A3, s2), N(A3, t4, s2), Jt(r2, A3, s2), N(A3, n2, s2), Jt(o2, A3, s2), N(A3, B7, s2), N(A3, a2, s2), Jt(c2, a2, null), O(a2, u2), Jt(g2, a2, null), C4 = true;
       }, p(A3, t5) {
         const n3 = {};
-        262176 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
+        524304 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
         const s2 = {};
-        262160 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
+        524320 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
         const i2 = {};
-        262144 & t5 && (i2.$$scope = {dirty: t5, ctx: A3}), o2.$set(i2);
+        524288 & t5 && (i2.$$scope = {dirty: t5, ctx: A3}), o2.$set(i2);
         const B8 = {};
-        262144 & t5 && (B8.$$scope = {dirty: t5, ctx: A3}), !l2 && 1 & t5 && (l2 = true, B8.id = A3[0], yt2(() => l2 = false)), c2.$set(B8);
+        524288 & t5 && (B8.$$scope = {dirty: t5, ctx: A3}), !l2 && 1 & t5 && (l2 = true, B8.id = A3[0], yt2(() => l2 = false)), c2.$set(B8);
         const a3 = {};
-        262168 & t5 && (a3.$$scope = {dirty: t5, ctx: A3}), !h2 && 4 & t5 && (h2 = true, a3.menuToggle = A3[2], yt2(() => h2 = false)), g2.$set(a3);
+        524328 & t5 && (a3.$$scope = {dirty: t5, ctx: A3}), !h2 && 4 & t5 && (h2 = true, a3.menuToggle = A3[2], yt2(() => h2 = false)), g2.$set(a3);
       }, i(A3) {
         C4 || (It(e4.$$.fragment, A3), It(r2.$$.fragment, A3), It(o2.$$.fragment, A3), It(c2.$$.fragment, A3), It(g2.$$.fragment, A3), C4 = true);
       }, o(A3) {
@@ -10757,9 +10757,9 @@
         Jt(e4, A3, s2), N(A3, t4, s2), Jt(r2, A3, s2), n2 = true;
       }, p(A3, t5) {
         const n3 = {};
-        262144 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
+        524288 & t5 && (n3.$$scope = {dirty: t5, ctx: A3}), e4.$set(n3);
         const s2 = {};
-        262205 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
+        524349 & t5 && (s2.$$scope = {dirty: t5, ctx: A3}), r2.$set(s2);
       }, i(A3) {
         n2 || (It(e4.$$.fragment, A3), It(r2.$$.fragment, A3), n2 = true);
       }, o(A3) {
@@ -10776,7 +10776,7 @@
         Jt(e4, A3, r2), t4 = true;
       }, p(A3, t5) {
         const r2 = {};
-        262205 & t5 && (r2.$$scope = {dirty: t5, ctx: A3}), e4.$set(r2);
+        524349 & t5 && (r2.$$scope = {dirty: t5, ctx: A3}), e4.$set(r2);
       }, i(A3) {
         t4 || (It(e4.$$.fragment, A3), t4 = true);
       }, o(A3) {
@@ -10793,7 +10793,7 @@
         N(s2, e4, B7), Jt(t4, e4, null), r2 = true, n2 || (o2 = q(window, "resize", A2[8]), n2 = true);
       }, p(A3, [e5]) {
         const r3 = {};
-        262205 & e5 && (r3.$$scope = {dirty: e5, ctx: A3}), t4.$set(r3);
+        524349 & e5 && (r3.$$scope = {dirty: e5, ctx: A3}), t4.$set(r3);
       }, i(A3) {
         r2 || (It(t4.$$.fragment, A3), r2 = true);
       }, o(A3) {
@@ -10803,23 +10803,23 @@
       }};
     }
     function mr(A2, e4, t4) {
-      let r2, n2, s2, o2, i2, B7;
-      p(A2, zt2, (A3) => t4(16, r2 = A3)), p(A2, Me4, (A3) => t4(3, n2 = A3)), p(A2, qt, (A3) => t4(4, s2 = A3)), p(A2, Gt2, (A3) => t4(5, o2 = A3));
-      let a2 = false;
-      return [i2, B7, a2, n2, s2, o2, function() {
-        s2 && Object.keys(s2).length ? (localStorage.removeItem("auth"), $(qt, s2 = {}, s2)) : ($(zt2, r2.title = "Login", r2), $(zt2, r2.component = st4, r2)), n2("/");
+      let r2, n2, s2, o2, i2, B7, a2;
+      p(A2, zt2, (A3) => t4(16, r2 = A3)), p(A2, Me4, (A3) => t4(3, n2 = A3)), p(A2, Wt2, (A3) => t4(17, s2 = A3)), p(A2, Gt2, (A3) => t4(4, o2 = A3)), p(A2, qt, (A3) => t4(5, i2 = A3));
+      let c2 = false;
+      return [B7, a2, c2, n2, o2, i2, function() {
+        i2 && Object.keys(i2).length ? (localStorage.clear(), $(qt, i2 = {}, i2), $(Gt2, o2 = {}, o2), $(Wt2, s2 = {}, s2)) : ($(zt2, r2.title = "Login", r2), $(zt2, r2.component = st4, r2)), n2("/");
       }, function() {
         $(zt2, r2.title = "Idee oder Problem melden", r2), $(zt2, r2.component = Ue5, r2);
       }, function() {
-        t4(1, B7 = window.outerWidth);
+        t4(1, a2 = window.outerWidth);
       }, () => n2("/"), function(A3) {
-        i2 = A3, t4(0, i2);
-      }, () => t4(2, a2 = !a2), () => n2("/"), () => {
+        B7 = A3, t4(0, B7);
+      }, () => t4(2, c2 = !c2), () => n2("/"), () => {
         n2("/planning");
       }, () => {
         n2("/settings");
       }, function(A3) {
-        a2 = A3, t4(2, a2);
+        c2 = A3, t4(2, c2);
       }];
     }
     var Ir = class extends Gt {
@@ -12330,7 +12330,7 @@
   }
   var _n = {...wn, restoreDefaults: ({tree: t4}) => xn(t4), assignAPI: $n};
 
-  // dist/build/index-a1a996aa.js
+  // dist/build/index-92fcd14e.js
   var L = /^[a-z]+(?::(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
   var F = /^[^$]+(?:\$(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
   function B2(a2) {
@@ -13466,7 +13466,7 @@
     localStorage.setItem("user", JSON.stringify(e4)), e4 && Object.keys(e4).length != 0 && Mt.interceptors.request.use((t4) => (t4.headers.authorization = `Bearer ${e4.access_token}`, t4), (e5) => Promise.reject(e5));
   });
 
-  // dist/build/Subtitle-f0d03935.js
+  // dist/build/Subtitle-bc200c8c.js
   var k2 = /^[a-z]+(?::(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
   var B3 = /^[^$]+(?:\$(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
   function F2(l2) {
@@ -13762,7 +13762,7 @@
     }
   }});
 
-  // dist/build/CommonLabel-97ccdb69.js
+  // dist/build/CommonLabel-15ebc31c.js
   var J3 = /^[a-z]+(?::(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
   var K4 = /^[^$]+(?:\$(?:preventDefault|stopPropagation|passive|nonpassive|capture|once|self))+$/;
   function L3(o2) {
@@ -14035,7 +14035,7 @@
     }
   };
 
-  // dist/build/classAdderBuilder-99044939.js
+  // dist/build/classAdderBuilder-7baf3cb4.js
   /**
    * @license
    * Copyright 2020 Google Inc.
@@ -14262,7 +14262,7 @@
     return t4.prototype = re2, re2.$$render && (t4.$$render = (...t5) => Object.assign(ae2, ce2, e4) && re2.$$render(...t5)), re2.render && (t4.render = (...t5) => Object.assign(ae2, ce2, e4) && re2.render(...t5)), t4;
   }
 
-  // dist/build/Subheader-f892c36e.js
+  // dist/build/Subheader-4685c7cc.js
   /**
    * @license
    * Copyright 2018 Google Inc.
@@ -15900,7 +15900,7 @@
     }};
   }
 
-  // dist/build/NotchedOutline-663b70f8.js
+  // dist/build/NotchedOutline-3a9ccc74.js
   /**
    * @license
    * Copyright 2016 Google Inc.
@@ -16554,7 +16554,7 @@
     }
   };
 
-  // dist/build/Textfield-25808d54.js
+  // dist/build/Textfield-83ee2dc3.js
   function pt3(t4) {
     let e4, n2, v2, b2, x3;
     const _4 = t4[6].default, I3 = f(_4, t4, t4[5], null);
@@ -17995,7 +17995,7 @@
     }, t4;
   }();
 
-  // dist/build/FormField-a4f12fec.js
+  // dist/build/FormField-7d2f31b7.js
   /**
    * @license
    * Copyright 2017 Google Inc.
@@ -18200,7 +18200,7 @@
   };
 
   // dist/build/main.js
-  var Pn = {root: true, children: [{isFallback: true, path: "/_fallback", component: () => Promise.resolve().then(() => require_fallback_5efe72f4()).then((t4) => t4.default)}, {isIndex: true, isPage: true, path: "/index", id: "_index", component: () => Promise.resolve().then(() => require_index_4786a04d()).then((t4) => t4.default)}, {isPage: true, path: "/planning", id: "_planning", component: () => Promise.resolve().then(() => require_planning_4d468ee8()).then((t4) => t4.default)}, {isPage: true, path: "/settings", id: "_settings", component: () => Promise.resolve().then(() => require_settings_5694f095()).then((t4) => t4.default)}, {isPage: true, path: "/signup", id: "_signup", component: () => Promise.resolve().then(() => require_signup_7d16528d()).then((t4) => t4.default)}], isLayout: true, path: "/", id: "__layout", component: () => Promise.resolve().then(() => require_layout_4091e486()).then((t4) => t4.default)};
+  var Pn = {root: true, children: [{isFallback: true, path: "/_fallback", component: () => Promise.resolve().then(() => require_fallback_84266bc8()).then((t4) => t4.default)}, {isIndex: true, isPage: true, path: "/index", id: "_index", component: () => Promise.resolve().then(() => require_index_3f9730fe()).then((t4) => t4.default)}, {isPage: true, path: "/planning", id: "_planning", component: () => Promise.resolve().then(() => require_planning_900c6abe()).then((t4) => t4.default)}, {isPage: true, path: "/settings", id: "_settings", component: () => Promise.resolve().then(() => require_settings_6765d1ac()).then((t4) => t4.default)}, {isPage: true, path: "/signup", id: "_signup", component: () => Promise.resolve().then(() => require_signup_64b8c774()).then((t4) => t4.default)}], isLayout: true, path: "/", id: "__layout", component: () => Promise.resolve().then(() => require_layout_55c3ebf9()).then((t4) => t4.default)};
   var {tree: jn, routes: En} = function(t4) {
     const e4 = ["restoreDefaults", "setParamKeys", "setRegex", "setShortPath", "setRank", "assignLayout", "setPrototype", "addMetaChildren", "assignRelations", "setIsIndexable", "assignIndex", "assignAPI", "createFlatList"], n2 = {tree: t4, routes: []};
     for (let t5 of e4) {
