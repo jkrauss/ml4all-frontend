@@ -67,7 +67,7 @@
 				</Wrapper>
 				<Wrapper>
 					<IconButton class="material-icons" on:click={reportProblem}>
-						mail
+						construction
 					</IconButton>
 					<Tooltip>Idee oder Problem</Tooltip>
 				</Wrapper>
