@@ -36,7 +36,7 @@
 
 	// Submiting the Order
 	async function order(option, data) {
-		let orderUrl = `${backendURL}${$userSettings.order_url}`;
+		let orderUrl = `${backendURL}/api/order`;
 		let resType;
 		let filename = `Foodsight_Bestellung.${option}`;
 
@@ -85,7 +85,7 @@
 				if (!Object.keys($userSettings)) return;
 				let dataUrl;
 				if ($user && Object.keys($user).length) {
-					dataUrl = `${backendURL}${$userSettings.forecast_url}/?store=${$userSettings.store}`;
+					dataUrl = `${backendURL}/api/forecast/?store=${$userSettings.store}`;
 				} else {
 					dataUrl = `tableDataStore${$userSettings.store}.json`;
 				}
@@ -119,7 +119,7 @@
 
 		try {
 			if ($user && Object.keys($user).length) {
-				dataUrl = `${backendURL}${$userSettings.forecast_url}/?store=${$userSettings.store}`;
+				dataUrl = `${backendURL}/api/forecast/?store=${$userSettings.store}`;
 			} else {
 				dataUrl = `tableDataStore${$userSettings.store}.json`;
 			}
