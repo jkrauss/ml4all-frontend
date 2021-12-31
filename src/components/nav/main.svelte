@@ -70,7 +70,7 @@
 				</Wrapper>
 				<Wrapper>
 					<IconButton class="material-icons" on:click={reportProblem}>
-						construction
+						feedback
 					</IconButton>
 					<Tooltip>Idee oder Problem</Tooltip>
 				</Wrapper>
@@ -87,14 +87,14 @@
 							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
 						</li>
 						<li
-							on:click={() => $goto("/")}
+							on:click={() => $goto("/help")}
 							class="cursor-pointer p-2"
 						>
-							Los gehts
+							Hilfe
 						</li>
 						<li
 							on:click={() => {
-								$goto("/planning");
+								$goto("/");
 							}}
 							class="cursor-pointer p-2"
 						>
@@ -107,9 +107,6 @@
 							class="cursor-pointer p-2"
 						>
 							Einstellungen
-						</li>
-						<li on:click={reportProblem} class="cursor-pointer p-2">
-							Idee/Problem
 						</li>
 					</Menu>
 				</div>
