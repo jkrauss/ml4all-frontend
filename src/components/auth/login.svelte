@@ -32,6 +32,7 @@
 					localStorage.setItem("auth", JSON.stringify(data));
 					$modal = {};
 					bodyFormData = undefined;
+					// after every login or logout set the main content to show the homepage
 					$redirect("/")
 				}
 				res(data);
@@ -70,7 +71,7 @@
 					>
 				</Button>
 			{:then data}
-				Login sucessfull
+				Login sucessfull 
 			{:catch err}
 				<div class="text-red-500">
 					{err}
