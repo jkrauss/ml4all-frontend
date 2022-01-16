@@ -4,6 +4,8 @@
 	import Label from "@smui/list/Label.svelte";
 	import axios from "axios";
 	import { modal, user, backendURL } from "../stores";
+	import { goto, redirect } from "@roxi/routify";
+	
 	let userSettings = { grant_type: "password", username: "", password: "" };
 	let loginPromise;
 
@@ -30,6 +32,7 @@
 					localStorage.setItem("auth", JSON.stringify(data));
 					$modal = {};
 					bodyFormData = undefined;
+					$redirect("/")
 				}
 				res(data);
 			} catch (err) {

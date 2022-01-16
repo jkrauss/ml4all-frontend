@@ -30,7 +30,7 @@
 			$modal.component = Login;
 		}
 		// after every login or logout set the main content to show the homepage
-		$goto("/index");
+		$redirect("/settings");
 	}
 	function reportProblem() {
 		$modal.title = "Idee oder Problem melden";

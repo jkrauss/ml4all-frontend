@@ -97,10 +97,8 @@
 				let dataUrl;
 				if ($user && Object.keys($user).length) {
 					dataUrl = `${backendURL}/api/forecast/?store=${$userSettings.store}`;
-				} else {
-					dataUrl = `tableDataStore${$userSettings.store}.json`;
 				}
-
+				
 				localStorage.setItem(
 					dataUrl,
 					JSON.stringify({
