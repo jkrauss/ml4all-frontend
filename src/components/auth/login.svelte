@@ -32,7 +32,7 @@
 					localStorage.setItem("auth", JSON.stringify(data));
 					$modal = {};
 					bodyFormData = undefined;
-					// after every login or logout set the main content to show the homepage
+					// after every login set the main content to show the homepage
 					$redirect("/")
 				}
 				res(data);

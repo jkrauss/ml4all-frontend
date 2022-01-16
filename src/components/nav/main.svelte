@@ -24,6 +24,7 @@
 			$user = {};
 			$userSettings = {};
 			//$userSettingsInit = {};
+			$redirect("/signup")
 			
 		} else {
 			$modal.title = "Login";
