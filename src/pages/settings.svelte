@@ -1,5 +1,6 @@
 <script>
-	import { user, userSettings, userSettingsInit, notification } from "../components/stores";
+	//import { user, userSettings, userSettingsInit, notification } from "../components/stores";
+	import { user, userSettings, notification } from "../components/stores";
 	import Slider from "@smui/slider";
 	import Switch from "@smui/switch";
 	import FormField from "@smui/form-field";

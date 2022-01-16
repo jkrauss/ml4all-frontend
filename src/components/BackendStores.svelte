@@ -1,15 +1,16 @@
 <script>
 	import axios from "axios";
-	import { user, userSettings, userSettingsInit, backendURL } from "./stores";
+	//import { user, userSettings, userSettingsInit, backendURL } from "./stores";
+	import { user, userSettings, backendURL } from "./stores";
 
-	$: if ($userSettings && $userSettingsInit) {
+	//$: if ($userSettings && $userSettingsInit) {
 		//checking if stettings are idetical and if not updating the endpoint
-		if (
-			JSON.stringify($userSettings) != JSON.stringify($userSettingsInit)
-		) {
-			updateUserSettings();
-		}
-	}
+	//	if (
+	//		JSON.stringify($userSettings) != JSON.stringify($userSettingsInit)
+	//	) {
+	//		updateUserSettings();
+	//	}
+	//}
 
 	$: if ($user) {
 		//getuser Settings
@@ -37,7 +38,7 @@
 				`${backendURL}/api/usersettings/`,
 				$userSettings
 			);
-			$userSettingsInit = JSON.parse(JSON.stringify($userSettings));
+			//$userSettingsInit = JSON.parse(JSON.stringify($userSettings));
 		}
 	}
 
@@ -46,15 +47,15 @@
 		if ($user && Object.keys($user).length) {
 			let { data } = await axios.get(`${backendURL}/api/usersettings/`);
 			$userSettings = JSON.parse(JSON.stringify(data));
-			$userSettingsInit = JSON.parse(JSON.stringify(data));
+			//$userSettingsInit = JSON.parse(JSON.stringify(data));
 		}
-		if (!$user || Object.keys($user).length == 0) {
-			let { data } = await axios.get(
-				window.location.origin + "/userSettings.json"
-			);
-			$userSettings = JSON.parse(JSON.stringify(data));
-			$userSettings.day_after_tomorrow;
-			$userSettingsInit = JSON.parse(JSON.stringify(data));
-		}
+		// if (!$user || Object.keys($user).length == 0) {
+		// 	let { data } = await axios.get(
+		// 		window.location.origin + "/userSettings.json"
+		// 	);
+		// 	$userSettings = JSON.parse(JSON.stringify(data));
+		// 	$userSettings.day_after_tomorrow;
+		// 	$userSettingsInit = JSON.parse(JSON.stringify(data));
+		// }
 	}
 </script>

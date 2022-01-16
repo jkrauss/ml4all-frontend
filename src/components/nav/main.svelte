@@ -1,6 +1,7 @@
 <script>
 	import ReportProblem from "./../Modal/ReportProblem.svelte";
-	import { modal, user, userSettings, userSettingsInit } from "../stores.js";
+	//import { modal, user, userSettings, userSettingsInit } from "../stores.js";
+	import { modal, user, userSettings } from "../stores.js";
 	import TopAppBar, { Row, Section, Title } from "@smui/top-app-bar";
 	import IconButton from "@smui/icon-button";
 	import Img from "@smui/common/Img.svelte";
@@ -22,7 +23,7 @@
 			localStorage.clear()
 			$user = {};
 			$userSettings = {};
-			$userSettingsInit = {};
+			//$userSettingsInit = {};
 			
 		} else {
 			$modal.title = "Login";

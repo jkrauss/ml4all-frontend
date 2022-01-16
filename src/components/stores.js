@@ -11,12 +11,12 @@ const user = writable(
 const userSettings = writable({});
 const screenShotMode = writable(false);
 const problemReport = writable({});
-const userSettingsInit = writable({});
+//const userSettingsInit = writable({});
 const notification = writable({});
 
 const svelteRenderParent = writable();
 let interceptor;
-// user subscribtioin to handle axios interceptor for authentication
+// user subscribtion to handle axios interceptor for authentication
 user.subscribe((val) => {
 	localStorage.setItem("user", JSON.stringify(val));
 	if (val && Object.keys(val).length) {
@@ -42,7 +42,7 @@ export {
 	modal,
 	user,
 	userSettings,
-	userSettingsInit,
+	//userSettingsInit,
 	problemReport,
 	notification,
 	svelteRenderParent,
