@@ -6,10 +6,19 @@
 
 	import FormField from "@smui/form-field";
 	import Checkbox from "@smui/checkbox";
-	import { backendURL, modal, notification } from "../components/stores";
+	import { user, backendURL, modal, notification } from "../components/stores";
 	import axios from "axios";
-	import { goto } from "@roxi/routify";
+	import { goto, redirect } from "@roxi/routify";
 	import { fade } from "svelte/transition";
+
+	import { onMount } from 'svelte';
+
+	//make page only visible if logged out - otherwise redirect to index-page
+	onMount(() => {
+		if ($user && Object.keys($user).length) {
+			$redirect("/")
+		}
+	});
 
 	let name = "";
 	let email = "";

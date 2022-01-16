@@ -4,6 +4,17 @@
 	import { goto } from "@roxi/routify";
 	import {user} from "../components/stores.js";
 	import { fade } from "svelte/transition";
+
+	import { redirect } from "@roxi/routify";
+	import { onMount } from 'svelte';
+
+	//make page only visible if logged in - otherwise redirect to signup-page
+	onMount(() => {
+		if (!($user && Object.keys($user).length)) {
+			$redirect("/signup")
+		}
+	});
+
 </script>
 
 <div in:fade>

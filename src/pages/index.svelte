@@ -9,6 +9,17 @@
 	import { blur, fade } from "svelte/transition";
 	import Textfield from "@smui/textfield/Textfield.svelte";
 
+	import { redirect } from "@roxi/routify";
+	import { onMount } from 'svelte';
+
+	//make page only visible if logged in - otherwise redirect to signup-page
+	onMount(() => {
+		if (!($user && Object.keys($user).length)) {
+			$redirect("/signup")
+		}
+	});
+
+
 	let data = { body: [], head: [] };
 	let orderMenu;
 	let searchInputText;
@@ -241,7 +252,7 @@
 		);
 	}
 
-	//soring the data acording to the parameters
+	//sorting the data acording to the parameters
 	$: sort = (data, column) => {
 		if (sortBy.col == column) {
 			sortBy.ascending = !sortBy.ascending;

@@ -9,7 +9,7 @@
 	import Login from "../auth/login.svelte";
 	import Wrapper from "@smui/tooltip/Wrapper.svelte";
 	import Tooltip from "@smui/tooltip/Tooltip.svelte";
-	import { goto } from "@roxi/routify";
+	import { goto, redirect } from "@roxi/routify";
 
 	let menu;
 	let burger;
@@ -23,13 +23,13 @@
 			$user = {};
 			$userSettings = {};
 			$userSettingsInit = {};
-			//PURGECACHE
+			
 		} else {
 			$modal.title = "Login";
 			$modal.component = Login;
 		}
 		// after every login or logout set the main content to show the homepage
-		$goto("/");
+		$goto("/index");
 	}
 	function reportProblem() {
 		$modal.title = "Idee oder Problem melden";
@@ -86,28 +86,30 @@
 						<li on:click={auth} class="cursor-pointer p-2">
 							{#if $user && Object.keys($user).length}Logout{:else}Login{/if}
 						</li>
-						<li
-							on:click={() => $goto("/help")}
-							class="cursor-pointer p-2"
-						>
-							Hilfe
-						</li>
-						<li
-							on:click={() => {
-								$goto("/");
-							}}
-							class="cursor-pointer p-2"
-						>
-							Planung
-						</li>
-						<li
-							on:click={() => {
-								$goto("/settings");
-							}}
-							class="cursor-pointer p-2"
-						>
-							Einstellungen
-						</li>
+					{#if $user && Object.keys($user).length}
+					<li
+					on:click={() => $goto("/help")}
+					class="cursor-pointer p-2"
+					>
+						Hilfe
+					</li>
+					<li
+						on:click={() => {
+							$goto("/");
+						}}
+						class="cursor-pointer p-2"
+					>
+						Planung
+					</li>
+					<li
+						on:click={() => {
+							$goto("/settings");
+						}}
+						class="cursor-pointer p-2"
+					>
+						Einstellungen
+					</li>
+					{/if}
 					</Menu>
 				</div>
 			</Section>

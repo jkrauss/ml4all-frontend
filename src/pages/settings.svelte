@@ -9,6 +9,16 @@
 	import axios from "axios";
 	import { fade } from "svelte/transition";
 
+	import { redirect } from "@roxi/routify";
+	import { onMount } from 'svelte';
+
+	//make page only visible if logged in - otherwise redirect to signup-page
+	onMount(() => {
+		if (!($user && Object.keys($user).length)) {
+			$redirect("/signup")
+		}
+	});
+
 	function changeStore(storeObject) {
 		$userSettings.state = storeObject.state;
 		$userSettings.city = storeObject.city;
