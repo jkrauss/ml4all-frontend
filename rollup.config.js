@@ -9,6 +9,7 @@ import { spassr } from "spassr";
 import getConfig from "@roxi/routify/lib/utils/config";
 import autoPreprocess from "svelte-preprocess";
 import { injectManifest } from "rollup-plugin-workbox";
+import json from "@rollup/plugin-json";
 
 const { distDir } = getConfig(); // use Routify's distDir for SSOT
 const assetsDir = "assets";
@@ -71,6 +72,7 @@ export default {
 			dedupe: (importee) => !!importee.match(/svelte(\/|$)/),
 		}),
 		commonjs(),
+        json(),    
 
 		production && terser(),
 		!production && !isNollup && serve(),
