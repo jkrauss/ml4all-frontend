@@ -1,73 +1,50 @@
-### Oh hai! ❤
-We've created a new project called [**stackmix**](https://github.com/roxiness/stackmix). It's an experimental CLI that let's you customize new Routify templates. Go check it out!
 
----
+## Introduction
 
+I have started a new page 'dashboard.svelte' that's supposed to become the new start/main-page of the  app - please complete it and replace index.svelte. All pages except signup should only be visible to logged-in users. Here's a drawing how it should look like:
 
-# routify-starter
+![dashboard sketch](./sketch.jpeg)
 
-Starter template for [Routify](https://github.com/roxiness/routify).
+- on top are two donut-charts "Einsparung" and "Produktverfügbarkeit"
+- each has two segments green and orange
+- "Einsparung" shows how much money a bakery can save per month
+- "Produktverfügbarkeit" shows how much money a bakery might loose due to not enough product on the shelf
+- centered below them a total number "Einsparung" - "Produktverfügbarkeit"
+- below that an element that allows users to choose between 5 plans: XS, S, M, L, XL
+   - I thought a slider but the SMUI-slider "misbehaves", maybe 5 segmented buttons are better: https://sveltematerialui.com/demo/segmented-button/
+- below a line-diagram that shows "letzte Woche" vs. "Bestellvorschlag"
+- below the table that shows per product and per day the order proposal, and a weekly total at the end
+- below a button "Liste runterladen"
+- missing are two data-entry-elements that allow the user to enter
+  - "Referenz-Retoure": "Der durchschnittliche Warenwert der Produkte, die pro Tag nicht verkauft werden und daher 'weg' müssen"
+  - "EK/VK": "Der durchschnittliche Anteil des Einkaufspreises am Verkaufspreis"
 
-### Get started
+## Interactions
 
-#### Starter templates
-| Template                                  | Description                                                 |
-|-------------------------------------------|-------------------------------------------------------------|
-| [master](https://example.routify.dev/)    | Default template, includes examples folder                  |
-| [blog](https://blog-example.routify.dev/) | Generates a blog from local markdown posts. Includes mdsvex |
-| [auth](https://auth-example.routify.dev/) | Embedded login on protected pages. Includes Auth0           |
-
-To use a template, run:
-
-`npx @roxi/routify init`
-
-or
-
-`npx @roxi/routify init --branch <branch-name>`
-
-The above commands will populate the current directory, they don't create a new one.
-
-### npm scripts
-
-| Syntax           | Description                                                                       |
-|------------------|-----------------------------------------------------------------------------------|
-| `dev`            | Development (port 5000)                                                           |
-| `dev:nollup`     | Development with crazy fast rebuilds (port 5000)                                  |
-| `dev-dynamic`    | Development with dynamic imports                                                  |
-| `build`          | Build a bundled app with SSR + prerendering and dynamic imports                   |
-| `serve`          | Run after a build to preview. Serves SPA on 5000 and SSR on 5005                  |
-| `deploy:*`       | Deploy to netlify or now                                                          |
-| `export`         | Create static pages from content in dist folder (used by `npm run build`)         |
-
-### SSR and pre-rendering
-
-SSR and pre-rendering are included in the default build process.
-
-`npm run deploy:(now|netlify)` will deploy the app with SSR and prerendering included.
-
-To render async data, call the `$ready()` helper whenever your data is ready.
-
-If $ready() is present, rendering will be delayed till the function has been called.
-
-Otherwise it will be rendered instantly.
-
-See [src/pages/example/api/[showId].svelte](https://github.com/roxiness/routify-starter/blob/master/src/pages/example/api/%5BshowId%5D.svelte) for an example.
-
-### Production
-
-* For SPA or SSR apps please make sure that url rewrite is enabled on the server.
-* For SPA redirect to `__app.html`.
-* For SSR redirect to the lambda function or express server.
-
-### Typescript
-
-For Typescript, we recommend [@lamualfa](https://github.com/lamualfa) excellent [routify-ts](https://github.com/lamualfa/routify-ts/)
-
-New project: `npx routify-ts init <project-name> [routify-init-args]`
-
-Existing project: `npx routify-ts convert [project-directory]`
+- There's a functional prototype "Dashboard_Prototyp.xlsx" in the repository
+- When the user chooses a different plan, all elements on the dashboard need to change
+- When the user changes "Referenz-Retoure" or "EK/VK" they need to be changed in the usersettings and sent to /api/usersettings as 
+<code>
+    , 'returns_current': 250
+    , 'sales_price_cost_share': 0.3
+</code>
+- We need a method to give helper-texts to users. Think Hover-effect for Desktop and click-to-show for mobile/tablet. A text for each Donut, for the Total Number below, the XS-XL-Buttons, The line-diagram, "Referenz-Retoure" and "EK/VK"
 
 
-### Issues?
+## Signup-page
+- build a 2-column-layout:
+![signup sketch](./signup_sketch.jpeg)
+- after a successful signup show a page "Die Registrierung war erfolgreich, wir melden uns in Kürze bei Ihnen!". (Not just a message)
+- For "Kassensystem" make a dropdown with 3 values: "ready2order", "helloCash", "Anderes..", if "Anderes" allow manual entry
 
-File on Github! See https://github.com/sveltech/routify/issues .
+## Other changes
+- You proposed a refactoring of the table 3 months ago - I think that still makes sense? Let's roll into this sprint
+- remove the "Vorhersage und Planung" section from the settings-page
+- Increase Top-App-Bar height by 50%
+- There's a strange bug on mobile, a teammate reported he had id on an iPad on Safari, I can only reproduce in on chrome: When entering the register-form, in certain cases, the Top-App-Bar becomes invisible. Please see strange_bug.mp4
+
+## Backend
+- I'm will deploy tonight and give you a dev-url. I will be available for neccesary changes pretty quickly. 
+- In the repo is an example-response, <code>response_example.json</code>
+  - please amend what you like different / helps you.
+  - I will change 'products' to 'rows' and add 'columns' - the column-names (Days)
