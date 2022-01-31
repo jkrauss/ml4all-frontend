@@ -47,4 +47,3 @@ I have started a new page 'dashboard.svelte' that's supposed to become the new s
 - This is the url of the new dev-backend: https://foodsight-backend-b3grh.ondigitalocean.app/docs
 - In the repo is an example-response, <code>response_example.json</code>
   - please amend what you like different / helps you.
-  - I will change 'products' to 'rows' and add 'columns' - the column-names (Days)
