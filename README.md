@@ -44,7 +44,7 @@ I have started a new page 'dashboard.svelte' that's supposed to become the new s
 - There's a strange bug on mobile, a teammate reported he had id on an iPad on Safari, I can only reproduce in on chrome: When entering the register-form, in certain cases, the Top-App-Bar becomes invisible. Please see strange_bug.mp4
 
 ## Backend
-- I'm will deploy tonight and give you a dev-url. I will be available for neccesary changes pretty quickly. 
+- This is the url of the new dev-backend: https://foodsight-backend-b3grh.ondigitalocean.app/docs
 - In the repo is an example-response, <code>response_example.json</code>
   - please amend what you like different / helps you.
   - I will change 'products' to 'rows' and add 'columns' - the column-names (Days)
