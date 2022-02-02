@@ -12,10 +12,11 @@
 	import { fade } from "svelte/transition";
 
 	import { onMount } from 'svelte';
+	import {loginStatus} from "../components/auth/userStores";
 
 	//make page only visible if logged out - otherwise redirect to index-page
 	onMount(() => {
-		if ($user && Object.keys($user).length) {
+		if (loginStatus) {
 			$redirect("/")
 		}
 	});
