@@ -1,7 +1,7 @@
 <script>
     import axios from "axios";
     import Paper, {Content, Title} from "@smui/paper";
-    import {backendURL, user, userSettings} from "../components/stores";
+    import {backendURL, user, userSettings} from "./stores";
     import Menu from "@smui/menu";
     import Button, {Group, GroupItem, Icon, Label} from "@smui/button";
     import List, {Item, Text} from "@smui/list";
@@ -11,7 +11,7 @@
 
     import {redirect} from "@roxi/routify";
     import {onMount} from 'svelte';
-    import {loginStatus} from "../components/auth/userStores";
+    import {loginStatus} from "./auth/userStores";
 
     //make page only visible if logged in - otherwise redirect to signup-page
     onMount(() => {
