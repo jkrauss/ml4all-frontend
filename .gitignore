@@ -8,4 +8,4 @@ assets/build
 .vercel
 Dockerfile
 Docker-compose.yml
-dist/
+dist

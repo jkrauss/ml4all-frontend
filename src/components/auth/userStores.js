@@ -11,7 +11,6 @@ function createUserStore(value, auth = writable()) {
     let content = JSON.parse(localStorage.getItem("User")) || {};
     set(JSON.parse(JSON.stringify(content)));
     subscribe(async (n) => {
-        console.log(n, content);
         if (n && Object.keys(n).length && JSON.stringify(n) !== JSON.stringify(content)) {
             localStorage.setItem("User", JSON.stringify(n));
             let {data} = await axios.put(
@@ -30,7 +29,6 @@ function createUserStore(value, auth = writable()) {
                     content = JSON.parse(JSON.stringify(data))
                     set(data);
                     localStorage.setItem("User", JSON.stringify(data));
-
                 }
             }
         } else {
@@ -53,7 +51,6 @@ function createAuthStore(value) {
     subscribe((n) => {
         if (n) {
             if (new Date(n.expires) < new Date()) {
-                console.log(new Date(n.expires), new Date());
                 console.log("logedout because login is to old");
                 signout();
             }

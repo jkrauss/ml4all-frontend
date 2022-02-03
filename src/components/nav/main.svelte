@@ -1,7 +1,6 @@
 <script>
     import ReportProblem from "./../Modal/ReportProblem.svelte";
     import LoginModal from "../auth/loginModal.svelte";
-    //import { modal, user, userSettings, userSettingsInit } from "../stores.js";
     import {modal} from "../stores.js";
     import TopAppBar, {Row, Section, Title} from "@smui/top-app-bar";
     import IconButton from "@smui/icon-button";

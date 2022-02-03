@@ -1,5 +1,5 @@
 {
-  "name": "svelte-app",
+  "name": "ml4all-svelte-app",
   "version": "1.0.0",
   "@comments scripts": {
     "dev": "develop with blazing fast rebuilds",
