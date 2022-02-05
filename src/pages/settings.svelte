@@ -2,21 +2,20 @@
 
     import {notification} from "../components/stores";
     import Slider from "@smui/slider";
-    import Switch from "@smui/switch";
     import FormField from "@smui/form-field";
     import Paper, {Content, Title} from "@smui/paper";
     import Select, {Option} from "@smui/select";
     import List, {Separator} from "@smui/list";
     import axios from "axios";
     import {fade} from "svelte/transition";
-
+    /*    import Switch from '@smui/switch';*/
     import {redirect} from "@roxi/routify";
     import {onMount} from 'svelte';
     import {loginStatus, User} from "../components/auth/userStores";
 
     //make page only visible if logged in - otherwise redirect to signup-page
     onMount(() => {
-        if (!loginStatus) {
+        if (!$loginStatus) {
             $redirect("/signup")
         }
     });
@@ -104,7 +103,7 @@
     }
 </style>
 
-{#if Object.keys($User).length}
+{#if loginStatus}
     <section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto " in:fade>
         <Paper elevation={1}>
             <Title><h1 class="text-2xl my-6">Einstellungen</h1></Title>
@@ -130,9 +129,8 @@
                                                 accept=".xls,.xlsx, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"
                                         >
                                         <label for="file"
-                                               style="background: {"var(--mdc-theme-callout)"}"
-									class="px-4 py-2 m-0 text-white text-sm font-medium tracking-widest rounded-sm"
-									> DATEI HOCHLADEN </label>
+                                               class="px-4 py-2 m-0 text-white text-sm font-medium tracking-widest rounded-sm bg-[var(--mdc-theme-callout)]"
+                                        > DATEI HOCHLADEN </label>
                                     </div>
                                     {#if files && files[0]}
                                         <p>{files[0].name}</p>
@@ -154,11 +152,12 @@
                                     bind:value={$User.store}
                                     style="max-width:150px;"
                             >
-                                {#each $User.stores as s}
+                                {#each Object.keys($User?.stores) as s,i}
+                                    {@const item = $User.stores[s]}
                                     <Option
-                                            value={s.store}
-                                            on:SMUI:action={() => changeStore(s)}
-                                    >{s.store_name}</Option
+                                            value={i}
+                                            on:SMUI:action={() => changeStore(item)}
+                                    >{item.store_name}</Option
                                     >
                                 {:else}
                                     <Option>Problem Loading</Option>
@@ -185,28 +184,31 @@
                     <h2 class="text-xl my-6">Vorhersage und Planung</h2>
                     <div>
                         <FormField>
-                            <Switch
-                                    color="primary"
-                                    bind:checked={$User.tomorrow}
-                            />
+                            <!--                            <Switch
+                                                                color="primary"
+                                                                bind:checked={$User.tomorrow}
+                                                        />-->
+                            <input type="checkbox" bind:checked={$User.tomorrow}>
                             <span slot="label">Morgen</span>
                         </FormField>
                     </div>
                     <div>
                         <FormField>
-                            <Switch
-                                    color="primary"
-                                    bind:checked={$User.day_after_tomorrow}
-                            />
+                            <!--                            <Switch
+                                                                color="primary"
+                                                                bind:checked={$User.day_after_tomorrow}
+                                                        />-->
+                            <input type="checkbox" bind:checked={$User.day_after_tomorrow}>
                             <span slot="label">Übermorgen</span>
                         </FormField>
                     </div>
                     <div>
                         <FormField>
-                            <Switch
-                                    color="primary"
-                                    bind:checked={$User.next_seven_days}
-                            />
+                            <!--                            <Switch
+                                                                color="primary"
+                                                                bind:checked={$User.next_seven_days}
+                                                        />-->
+                            <input type="checkbox" bind:checked={$User.next_seven_days}>
                             <span slot="label">Nächste 7 Tage</span>
                         </FormField>
                     </div>

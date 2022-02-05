@@ -4,11 +4,8 @@
     import {modal} from "../stores.js";
     import TopAppBar, {Row, Section, Title} from "@smui/top-app-bar";
     import IconButton from "@smui/icon-button";
-    import Img from "@smui/common/Img.svelte";
-    import {Icon} from "@smui/button";
     import Menu from "../components/Menu.svelte";
-    import Wrapper from "@smui/tooltip/Wrapper.svelte";
-    import Tooltip from "@smui/tooltip/Tooltip.svelte";
+    import Tooltip, {Wrapper} from '@smui/tooltip';
     import {goto} from "@roxi/routify";
     import {Auth, loginStatus, User} from "../auth/userStores";
 
@@ -31,6 +28,7 @@
         $modal.title = "Idee oder Problem melden";
         $modal.component = ReportProblem;
     }
+    
 </script>
 
 <LoginModal bind:open={loginToggle}/>
@@ -43,11 +41,7 @@
             <Section on:click={() => $goto("/")}>
                 <Wrapper>
                     <Title class="cursor-pointer p-2">
-                        <Icon
-                                component={Img}
-                                src="/logo_pretzel.png"
-                                style="width:180px;"
-                        />
+                        <img alt="logo" src="/logo_pretzel.png" style="width:180px;">
                     </Title>
                     <Tooltip>Planung</Tooltip>
                 </Wrapper>
@@ -55,7 +49,7 @@
             <Section align="end">
                 <Wrapper>
                     <div class="sm:flex hidden">
-                        {$User?.username || "DEMO"}
+                        {$User?.display_name || "DEMO"}
                     </div>
                 </Wrapper>
                 <Wrapper>

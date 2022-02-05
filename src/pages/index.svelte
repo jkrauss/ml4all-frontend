@@ -64,9 +64,6 @@
     let data_ready = derived([dataStore, selected], ([$dataStore, $selected], set) => {
         set($dataStore[$selected])
     })
-
-
-    $:console.log($data_ready)
 </script>
 
 <div in:fade>

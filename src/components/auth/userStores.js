@@ -2,7 +2,6 @@ import {derived, writable} from "svelte/store";
 import axios from "axios";
 import {backendURL} from "../stores";
 
-const jwt = writable();
 
 function createUserStore(value, auth = writable()) {
     const {subscribe, set, update} = writable(value);
@@ -56,6 +55,7 @@ function createAuthStore(value) {
             }
         }
         if (n && !interceptor) {
+            console.log("sett interceptor")
             interceptor = axios.interceptors.request.use(
                 (config) => {
                     config.headers.Authorization = `Bearer ${n?.access_token}`;

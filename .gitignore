@@ -1,11 +1,3 @@
-**/node_modules/
-.DS_Store
-**/.history
-src/tmp/
+node_modules
 .routify
-.netlify
-assets/build
-.vercel
-Dockerfile
-Docker-compose.yml
-dist
+.history

@@ -1,8 +1,8 @@
 <script>
     import Paper, {Content, Title} from "@smui/paper";
     import Button, {Icon, Label} from "@smui/button";
-    import Textfield from "@smui/textfield";
-    import HelperText from "@smui/textfield/helper-text/index";
+    import Textfield from '@smui/textfield';
+    import HelperText from '@smui/textfield/helper-text';
 
     import FormField from "@smui/form-field";
     import Checkbox from "@smui/checkbox";
@@ -129,8 +129,8 @@
                 <Textfield bind:value={register} label="Kassensystem" type="text">
                     <HelperText slot="helper"
                     >Welches Kassensystem verwenden Sie?
-                    </HelperText
-                    >
+                    </HelperText>
+
                 </Textfield>
                 <FormField>
                     <Checkbox bind:checked={agree} input$required/>
