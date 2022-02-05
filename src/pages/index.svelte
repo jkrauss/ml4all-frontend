@@ -1,21 +1,38 @@
 <script>
     import Paper, {Title} from "@smui/paper";
-    import {goto} from "@roxi/routify";
+    import {goto, redirect} from "@roxi/routify";
     import {fade} from "svelte/transition";
     import {onMount} from 'svelte';
     import {loginStatus, User} from "../components/auth/userStores";
-    import {writable} from "svelte/store";
+    import {derived, writable} from "svelte/store";
     import axios from "axios";
     import {backendURL} from "../components/stores";
+    import {Content} from "@smui/card";
+    import Donut from "../components/components/Donut.svelte";
+    import SegmentedButton, {Segment} from '@smui/segmented-button';
+    import {Label} from '@smui/common';
 
-    async function createDataStore() {
-        let content = JSON.parse(localStorage.getItem("Dashboard-Data")) || [];
-        const {subscribe, set, update} = writable(content);
+    onMount(() => {
+        if (!$loginStatus) {
+            $redirect("/signup")
+        }
+    });
 
+    function createDataStore(v) {
+        const {subscribe, set, update} = writable({});
 
-        const {data} = await axios.get(`${backendURL}/api/forecast/?store=${$User.store}`)
-        localStorage.setItem("Dashboard-Data", JSON.stringify(data));
-        set(data)
+        const storageKey = "Dashboard-Data-Store"
+        let content = JSON.parse(localStorage.getItem(storageKey)) || []
+        set(JSON.parse(JSON.stringify(content)));
+        User.subscribe(async (n) => {
+            if ($loginStatus) {
+                let {data} = await axios.get(
+                    `${backendURL}/api/forecast/?store=${$User.store}`
+                );
+                content = JSON.parse(JSON.stringify(data));
+                set(data)
+            }
+        })
 
 
         return {
@@ -26,54 +43,58 @@
     }
 
 
+    const dataStore = createDataStore();
+
+
     onMount(() => {
         if (!loginStatus) {
             $goto("/signup")
         }
     });
 
-
-    let data = createDataStore();
+    let data = [90, 10]
     let labels = ['Einsparung', 'Verbleibende Retoure'];
     let id1 = "donut_save";
     let id2 = "donut_stock";
 
     let value = 0;
+    $: choices = Object.keys($dataStore);
+    let selected = writable("M");
 
-    $:console.log($data)
+    let data_ready = derived([dataStore, selected], ([$dataStore, $selected], set) => {
+        set($dataStore[$selected])
+    })
+
+
+    $:console.log($data_ready)
 </script>
 
 <div in:fade>
-
     <Paper class="md:w-10/12 w-full mx-auto" elevation={1}>
         <Title><h1 class="text-2xl my-6">Dashboard</h1></Title>
-        {#each $data as object}
-            Test
-            {JSON.stringify(object)}
-        {/each}
-        <!--<Content>
-            <input bind:value={data[0]} type="number">
-            <input bind:value={data[1]} type="number">
-            <div>
-                <div class="chart-container" style="width:45%; max-width:350px; position:relative; float:left;">
+        <Content>
+            <!--            <input bind:value={data[0]} type="number">
+                        <input bind:value={data[1]} type="number">-->
+            <div class="flex flex-col p-32 md:p-0 md:grid md:grid-cols-3 gap-64">
+                <div class="chart-container relative">
+                    <h2 class="text-xl my-6 mx-auto">
+                        Einsparung
+                    </h2>
                     <Donut {data} id={id1} {labels}/>
                 </div>
-                <div class="chart-container" style="width:45%; max-width:350px; position:relative; float:right;">
+                <div class="chart-container col-start-3">
+                    <h2 class="text-xl my-6">Produktverfügbarkeit</h2>
                     <Donut {data} id={id2} {labels}/>
                 </div>
             </div>
-            <br style="clear: both;"/>
-            <div style="padding: 0px 25%;">
-                <Slider
-                        bind:value
-                        discrete
-                        input$aria-label="Tick mark slider"
-                        max={2}
-                        min={-2}
-                        step={1}
-                        tickMarks
-                />
+            <div class="flex justify-center items-center">
+                <SegmentedButton bind:selected={$selected} let:segment segments={choices} singleSelect>
+                    <!-- Note: the `segment` property is required! -->
+                    <Segment {segment}>
+                        <Label>{segment}</Label>
+                    </Segment>
+                </SegmentedButton>
             </div>
-        </Content>-->
+        </Content>
     </Paper>
 </div>
