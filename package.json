@@ -29,7 +29,7 @@
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.6",
     "postcss-import": "^14.0.2",
-    "svelte": "^3.46.3",
+    "svelte": "^3.46.4",
     "svelte-preprocess": "^4.10.1",
     "vite": "^2.7.10"
   },
@@ -40,6 +40,7 @@
     "html2canvas": "^1.4.1",
     "html2canvas-objectfit-fix": "^1.2.0",
     "ss-search": "^1.6.1",
+    "svelte-frappe-charts": "^1.9.1",
     "svelte-material-ui": "^6.0.0-beta.13",
     "tailwindcss": "^3.0.18"
   }

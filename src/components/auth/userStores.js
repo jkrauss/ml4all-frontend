@@ -21,7 +21,7 @@ function createUserStore(value, auth = writable()) {
     })
 
     auth.subscribe(async (n) => {
-        if (n && Object.keys(n).length) {
+        if (n && Object.keys(n).length>0) {
             if (!content || Object.keys(content).length === 0) {
                 let {data} = await axios.get(`${backendURL}/api/usersettings/`);
                 if (data) {

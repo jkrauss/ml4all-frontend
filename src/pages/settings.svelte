@@ -152,13 +152,11 @@
                                     bind:value={$User.store}
                                     style="max-width:150px;"
                             >
-                                {#each Object.keys($User?.stores) as s,i}
-                                    {@const item = $User.stores[s]}
+                                {#each $User?.stores as s}
                                     <Option
-                                            value={i}
-                                            on:SMUI:action={() => changeStore(item)}
-                                    >{item.store_name}</Option
-                                    >
+                                            value={s.id}
+                                            on:SMUI:action={() => changeStore(s)}
+                                    >{s.store_name}</Option>
                                 {:else}
                                     <Option>Problem Loading</Option>
                                 {/each}
