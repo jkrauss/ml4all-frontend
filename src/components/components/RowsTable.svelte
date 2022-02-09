@@ -13,7 +13,6 @@
         })
         return temp;
     })
-    console.log(rowsReady)
     const weekday = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
 
 </script>
@@ -30,6 +29,7 @@
                 </Cell>
             {/each}
         </Row>
+
     </Head>
     <Body>
     {#each rowsReady as row }
@@ -41,5 +41,4 @@
         </Row>
     {/each}
     </Body>
-
 </DataTable>

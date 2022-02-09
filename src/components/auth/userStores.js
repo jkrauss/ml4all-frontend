@@ -2,11 +2,13 @@ import {derived, writable} from "svelte/store";
 import axios from "axios";
 import {backendURL} from "../stores";
 
+const Auth = createAuthStore({});
+const User = createUserStore({}, Auth);
+
 
 function createUserStore(value, auth = writable()) {
+    console.log("user init");
     const {subscribe, set, update} = writable(value);
-
-
     let content = JSON.parse(localStorage.getItem("User")) || {};
     set(JSON.parse(JSON.stringify(content)));
     subscribe(async (n) => {
@@ -19,9 +21,8 @@ function createUserStore(value, auth = writable()) {
         }
         content = JSON.parse(JSON.stringify(n));
     })
-
     auth.subscribe(async (n) => {
-        if (n && Object.keys(n).length>0) {
+        if (n && Object.keys(n).length) {
             if (!content || Object.keys(content).length === 0) {
                 let {data} = await axios.get(`${backendURL}/api/usersettings/`);
                 if (data) {
@@ -31,10 +32,12 @@ function createUserStore(value, auth = writable()) {
                 }
             }
         } else {
+            set({})
             content = {};
-            set({});
         }
     })
+
+
     return {
         subscribe,
         set,
@@ -43,6 +46,7 @@ function createUserStore(value, auth = writable()) {
 }
 
 function createAuthStore(value) {
+    console.log("auth init")
     const {subscribe, set, update} = writable(value);
     let interceptor;
     set(JSON.parse(localStorage.getItem("Auth")) || {});
@@ -55,7 +59,6 @@ function createAuthStore(value) {
             }
         }
         if (n && !interceptor) {
-            console.log("sett interceptor")
             interceptor = axios.interceptors.request.use(
                 (config) => {
                     config.headers.Authorization = `Bearer ${n?.access_token}`;
@@ -119,9 +122,6 @@ function createAuthStore(value) {
     };
 }
 
-
-const Auth = createAuthStore({});
-const User = createUserStore({}, Auth);
 
 const loginStatus = derived(Auth, ($Auth, set) => {
     set(false)

@@ -1,5 +1,4 @@
 <script>
-
     import {notification} from "../components/stores";
     import Slider from "@smui/slider";
     import FormField from "@smui/form-field";
@@ -12,7 +11,6 @@
     import {redirect} from "@roxi/routify";
     import {onMount} from 'svelte';
     import {loginStatus, User} from "../components/auth/userStores";
-
     //make page only visible if logged in - otherwise redirect to signup-page
     onMount(() => {
         if (!$loginStatus) {
@@ -34,14 +32,11 @@
     function testFileUploaded(newValue) {
         if (files && files[0]) {
             console.log(newValue[0].name);
-
             let ext = files[0].name.split('.').pop();
             switch (ext) {
                 case 'xls':
                 case 'xlsx':
-
                     console.log('Allowed');
-
                     let formData = new FormData();
                     formData.append('file', files[0]);
                     axios.post('/api/sales_upload',
@@ -57,7 +52,6 @@
                         .catch(function () {
                             console.log('FAILURE!!');
                         });
-
                     break;
                 default:
                     console.log('Not allowed');
@@ -102,7 +96,6 @@
         transition: transform .2s ease-out;
     }
 </style>
-
 {#if loginStatus}
     <section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto " in:fade>
         <Paper elevation={1}>
