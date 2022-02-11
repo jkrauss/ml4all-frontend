@@ -29,7 +29,7 @@
         User.subscribe(async (n) => {
             if ($loginStatus) {
                 let {data} = await axios.get(
-                    `${backendURL}/api/forecast/?store=${$User.store}`
+                    `${backendURL}/api/forecast/?store=${$User.store || 1n}`
                 );
                 content = JSON.parse(JSON.stringify(data));
                 set(data)
@@ -67,7 +67,7 @@
         set($dataStore[$selected])
     })
 
-    $: console.log($data_ready)
+
 </script>
 
 {#if $data_ready}

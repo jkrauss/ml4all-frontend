@@ -23,7 +23,6 @@
             loading = false
         })
     }
-
 </script>
 
 <Dialog

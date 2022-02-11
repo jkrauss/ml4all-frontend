@@ -1,13 +1,11 @@
 <script>
     import Paper, {Content, Title} from "@smui/paper";
-    import Button, {Icon, Label} from "@smui/button";
+    import Button, {Label} from "@smui/button";
     import Textfield from '@smui/textfield';
     import HelperText from '@smui/textfield/helper-text';
 
     import FormField from "@smui/form-field";
     import Checkbox from "@smui/checkbox";
-    import {backendURL, modal, notification} from "../components/stores";
-    import axios from "axios";
     import {goto} from "@roxi/routify";
     import {fade} from "svelte/transition";
 
@@ -21,49 +19,55 @@
         }
     });
 
+    let prename = "";
     let name = "";
     let email = "";
     let phone = "";
-    let password = "";
+    let company = "";
     let location = "";
     let register = "";
     let agree = null;
+    let street = "";
+    let streetNumber = "";
+    let city = "";
+    let postalcode = "";
+    let locationCount = "";
 
     async function sendSignup() {
-        let payload = {
-            name: name,
-            email: email,
-            phone: phone,
-            password: password,
-            location: location,
-            register_type: register,
-            agree: agree,
-        };
-        axios.post(`${backendURL}/api/signup`, payload).then(
-            (response) => {
-                $notification = {
-                    text: "Danke! Ihre Registrierung ist eingegangen. Wir melden uns in Kürze bei Ihnen.",
-                    bg: "var(--mdc-theme-callout);",
-                    color: "var(--mdc-theme-on-primary);",
-                };
-                setTimeout(() => {
-                    $notification = undefined;
-                    $modal = {};
-                    $goto("/");
-                }, 5000);
-            },
-            () => {
-                $notification = {
-                    text: "Leider ist etwas schiefgegangen. Bitte kontaktieren Sie uns unter support@ml4all.com",
-                    bg: "var(--mdc-theme-callout);",
-                    color: "var(--mdc-theme-on-primary);",
-                };
-                setTimeout(() => {
-                    $notification = undefined;
-                    $modal = {};
-                }, 5000);
-            }
-        );
+        /* let payload = {
+             name: name,
+             email: email,
+             phone: phone,
+             password: password,
+             location: location,
+             register_type: register,
+             agree: agree,
+         };
+         axios.post(`${backendURL}/api/signup`, payload).then(
+             (response) => {
+                 $notification = {
+                     text: "Danke! Ihre Registrierung ist eingegangen. Wir melden uns in Kürze bei Ihnen.",
+                     bg: "var(--mdc-theme-callout);",
+                     color: "var(--mdc-theme-on-primary);",
+                 };
+                 setTimeout(() => {
+                     $notification = undefined;
+                     $modal = {};
+                     $goto("/");
+                 }, 5000);
+             },
+             () => {
+                 $notification = {
+                     text: "Leider ist etwas schiefgegangen. Bitte kontaktieren Sie uns unter support@ml4all.com",
+                     bg: "var(--mdc-theme-callout);",
+                     color: "var(--mdc-theme-on-primary);",
+                 };
+                 setTimeout(() => {
+                     $notification = undefined;
+                     $modal = {};
+                 }, 5000);
+             }
+         );*/
     }
 
     let pwdIcon = "visibility";
@@ -86,67 +90,107 @@
     <Paper elevation={1}>
         <Title><h1 class="text-2xl my-6">Registrieren</h1></Title>
         <Content>
-            <form on:submit|preventDefault={sendSignup}>
-                <Textfield bind:value={name} label="Name" type="name">
-                    <HelperText slot="helper"
-                    >Wie dürfen wir Sie ansprechen?
-                    </HelperText
-                    >
-                </Textfield>
-                <Textfield bind:value={email} label="E-Mail" required type="email">
-                    <HelperText slot="helper">Gültige E-Mail-Adresse</HelperText>
-                </Textfield>
-                <Textfield bind:value={phone} label="Telefon" required type="phone">
-                    <HelperText slot="helper"
-                    >Benötigt z.B. wenn Sie ihr Passwort nicht mehr wissen
-                    </HelperText
-                    >
-                </Textfield>
-                <Textfield
-                        bind:value={password}
-                        input$pattern={pattern}
-                        label="Passwort"
-                        required
-                        style="width:200px"
-                        type={pwdType}
-                >
-                    <Icon
-                            class="material-icons"
-                            on:click={() => togglePwd()}
-                            slot="trailingIcon">{pwdIcon}</Icon
-                    >
-                    <HelperText slot="helper"
-                    >Mind.12 Zeichen, Buchstaben, Zahlen, Sonderzeichen
-                    </HelperText
-                    >
-                </Textfield>
-                <Textfield bind:value={location} label="Standort" type="text">
-                    <HelperText slot="helper"
-                    >Wo befindet sich Ihr (erstes) Geschäft?
-                    </HelperText
-                    >
-                </Textfield>
-                <Textfield bind:value={register} label="Kassensystem" type="text">
-                    <HelperText slot="helper"
-                    >Welches Kassensystem verwenden Sie?
-                    </HelperText>
+            <form class="grid gird-cols-2" on:submit|preventDefault={sendSignup}>
+                <div class="w-full">
+                    <Textfield bind:value={prename} label="Vorname" type="name">
+                        <HelperText slot="helper"
+                        >Wie dürfen wir Sie ansprechen?
+                        </HelperText
+                        >
+                    </Textfield>
+                    <Textfield bind:value={name} label="Name" type="name">
+                        <HelperText slot="helper"
+                        >Wie dürfen wir Sie ansprechen?
+                        </HelperText
+                        >
+                    </Textfield>
+                    <Textfield bind:value={email} label="E-Mail" required type="email">
+                        <HelperText slot="helper">Gültige E-Mail-Adresse</HelperText>
+                    </Textfield>
+                    <Textfield bind:value={phone} label="Telefon" required type="phone">
+                        <HelperText slot="helper"
+                        >Benötigt z.B. wenn Sie ihr Passwort nicht mehr wissen
+                        </HelperText
+                        >
+                    </Textfield>
+                </div>
+                <div>
+                    <Textfield bind:value={company} label="Firma" type="text">
+                        <HelperText slot="helper"
+                        >Name Ihrer Firma
+                        </HelperText>
+                    </Textfield>
+                    <div class="grid-cols-2 grid">
+                        <div>
+                            <Textfield bind:value={street} label="Straße" type="text">
+                                <HelperText slot="helper"
+                                >In welcher Straße befindet sich ihr Geschäft?
+                                </HelperText
+                                >
+                            </Textfield>
+                        </div>
 
-                </Textfield>
-                <FormField>
-                    <Checkbox bind:checked={agree} input$required/>
-                    <span slot="label">
+                        <div>
+                            <Textfield bind:value={streetNumber} label="Hausnummer" type="text">
+                                <HelperText slot="helper"
+                                >Welche Hausnummer hat ihr Geschäft?
+                                </HelperText
+                                >
+                            </Textfield>
+                        </div>
+
+                    </div>
+                    <div class="grid-cols-2 grid">
+                        <div>
+                            <Textfield bind:value={postalcode} label="Postleitzahl" type="text">
+                                <HelperText slot="helper"
+                                >Postleitzahl des Geschäfts.
+                                </HelperText
+                                >
+                            </Textfield>
+                        </div>
+
+                        <div>
+                            <Textfield bind:value={city} label="Ort" type="text">
+                                <HelperText slot="helper"
+                                >In welchem Ort befindet sich ihr Geschäft?
+                                </HelperText
+                                >
+                            </Textfield>
+                        </div>
+                    </div>
+
+                    <Textfield bind:value={locationCount} label="Fialenanzahl" type="text">
+                        <HelperText slot="helper"
+                        >Fialenanzal
+                        </HelperText>
+                    </Textfield>
+
+                    <Textfield bind:value={register} label="Kassensystem" type="text">
+                        <HelperText slot="helper"
+                        >Welches Kassensystem verwenden Sie?
+                        </HelperText>
+                    </Textfield>
+                </div>
+
+
+                <div class="col-span-2">
+                    <FormField>
+                        <Checkbox bind:checked={agree} input$required/>
+                        <span slot="label">
 					Ich stimme zu, dass foodsight mich per E-Mail und Telefon
 					zwecks Onboarding kontaktiert.
 				</span>
-                </FormField>
-                <br/>
-                <Button
-                        style="background: {'var(--mdc-theme-callout)'}"
-                        type="submit"
-                        variant="raised"
-                >
-                    <Label>Absenden</Label>
-                </Button>
+                    </FormField>
+                    <br/>
+                    <Button
+                            style="background: {'var(--mdc-theme-callout)'}"
+                            type="submit"
+                            variant="raised"
+                    >
+                        <Label>Absenden</Label>
+                    </Button>
+                </div>
             </form>
         </Content>
     </Paper>

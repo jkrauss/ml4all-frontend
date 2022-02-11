@@ -20,6 +20,8 @@ function createUserStore(value, auth = writable()) {
             );
         }
         content = JSON.parse(JSON.stringify(n));
+
+        console.log(n)
     })
     auth.subscribe(async (n) => {
         if (n && Object.keys(n).length) {
@@ -50,7 +52,6 @@ function createAuthStore(value) {
     const {subscribe, set, update} = writable(value);
     let interceptor;
     set(JSON.parse(localStorage.getItem("Auth")) || {});
-
     subscribe((n) => {
         if (n) {
             if (new Date(n.expires) < new Date()) {
@@ -61,16 +62,13 @@ function createAuthStore(value) {
         if (n && !interceptor) {
             interceptor = axios.interceptors.request.use(
                 (config) => {
-                    config.headers.Authorization = `Bearer ${n?.access_token}`;
+                    config.headers.Authorization = `Bearer ${data.access_token}`;
                     return config;
                 },
                 (error) => {
                     return Promise.reject(error);
                 }
             );
-        } else {
-            axios.interceptors.request.eject(interceptor);
-            interceptor = undefined;
         }
     });
 
@@ -80,29 +78,41 @@ function createAuthStore(value) {
     }) {
         if (!login_data?.password || !login_data?.username) return;
         let bodyFormData = new FormData();
-        bodyFormData.append("username", login_data.username);
-        bodyFormData.append("password", login_data.password);
-        const {data, status} = await axios.post(
-            `${backendURL}/api/token`,
-            bodyFormData,
+        console.log(login_data)
+        bodyFormData.append("username", login_data?.username);
+        bodyFormData.append("password", login_data?.password)
+        console.log(bodyFormData);
+
+        await axios.post(
+            `${backendURL}/api/token`, bodyFormData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/x-www-form-urlencoded",
                     Authorization: "Basic Og==",
                 },
             }
-        ).catch((er) => {
+        ).then((data) => {
+            localStorage.setItem("Auth", JSON.stringify(data.data));
+            set(data.data);
+            interceptor = axios.interceptors.request.use(
+                (config) => {
+                    config.headers.Authorization = `Bearer ${data?.data?.access_token}`;
+                    return config;
+                },
+                (error) => {
+                    return Promise.reject(error);
+                }
+            );
+            callback()
+        }).catch((er) => {
             fallback(er)
         });
-        if (status === 200) {
-            localStorage.setItem("Auth", JSON.stringify(data));
-            set(data);
-            callback()
-        }
     }
 
     function signout() {
         localStorage.clear();
+        axios.interceptors.request.eject(interceptor);
+        interceptor = undefined;
         update(() => {
             return {};
         });
