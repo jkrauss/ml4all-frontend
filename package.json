@@ -43,5 +43,9 @@
     "svelte-frappe-charts": "^1.9.1",
     "svelte-material-ui": "^6.0.0-beta.13",
     "tailwindcss": "^3.0.18"
+  },
+  "engines":{
+    "node": "^=16.7.0",
+    "npm": "^7.20.3"
   }
 }
