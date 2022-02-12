@@ -55,7 +55,7 @@ function createAuthStore(value) {
     subscribe((n) => {
         if (n) {
             if (new Date(n.expires) < new Date()) {
-                console.log("logedout because login is to old");
+                console.log("logged out because login is too old");
                 signout();
             }
         }
@@ -78,20 +78,22 @@ function createAuthStore(value) {
     }) {
         if (!login_data?.password || !login_data?.username) return;
         let bodyFormData = new FormData();
-        console.log(login_data)
-        bodyFormData.append("username", login_data?.username);
-        bodyFormData.append("password", login_data?.password)
-        console.log(bodyFormData);
-
+        console.log("userStores:signin:login_data  ", login_data.username, login_data.password); //all good
+        //bodyFormData.set("data", login_data);
+        bodyFormData.append("username", login_data.username);
+        bodyFormData.append("password", login_data.password);
+        console.log("userStores:signin:bodyFormData  ",bodyFormData.get("username"), bodyFormData.get("password"));
+        //still all good, error must be later
         await axios.post(
             `${backendURL}/api/token`, bodyFormData,
             {
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
-                    Authorization: "Basic Og==",
+                    Authorization: "Basic Og==", // what does this do and (why?) is it required?
                 },
             }
         ).then((data) => {
+            console.log("userStores:signin:data  ", data);
             localStorage.setItem("Auth", JSON.stringify(data.data));
             set(data.data);
             interceptor = axios.interceptors.request.use(
@@ -105,6 +107,7 @@ function createAuthStore(value) {
             );
             callback()
         }).catch((er) => {
+            console.log("userStores:signin:er  ", er);
             fallback(er)
         });
     }
