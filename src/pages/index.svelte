@@ -29,7 +29,7 @@
         User.subscribe(async (n) => {
             if ($loginStatus) {
                 let {data} = await axios.get(
-                    `${backendURL}/api/forecast/?store=${$User.store || 1n}`
+                    `${backendURL}/api/forecast/?store=${$User.store || 1}`
                 );
                 content = JSON.parse(JSON.stringify(data));
                 set(data)
