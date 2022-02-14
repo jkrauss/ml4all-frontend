@@ -1,6 +1,5 @@
 <script>
     import ReportProblem from "./../Modal/ReportProblem.svelte";
-    import LoginModal from "../auth/loginModal.svelte";
     import {modal} from "../stores.js";
     import TopAppBar, {Row, Section, Title} from "@smui/top-app-bar";
     import IconButton from "@smui/icon-button";
@@ -9,7 +8,6 @@
     import {goto} from "@roxi/routify";
     import {Auth, loginStatus, User} from "../auth/userStores";
 
-    let loginToggle = false;
     let menu;
     let burger;
     let width;
@@ -20,7 +18,8 @@
             Auth.signout();
             $goto("/signup")
         } else {
-            loginToggle = !loginToggle;
+            //loginToggle = !loginToggle;
+            $goto("/login")
         }
     }
 
@@ -30,8 +29,6 @@
     }
     
 </script>
-
-<LoginModal bind:open={loginToggle}/>
 
 <svelte:window bind:outerWidth={width}/>
 
@@ -49,7 +46,7 @@
             <Section align="end">
                 <Wrapper>
                     <div class="sm:flex hidden">
-                        {$User?.display_name || "DEMO"}
+                        {$User?.display_name || "Bitte Anmelden"}
                     </div>
                 </Wrapper>
                 <Wrapper>
@@ -83,12 +80,6 @@
                         </li>
                         {#if $loginStatus}
                             <li
-                                    on:click={() => $goto("/help")}
-                                    class="cursor-pointer p-2"
-                            >
-                                Hilfe
-                            </li>
-                            <li
                                     on:click={() => {
 							$goto("/");
 						}}
@@ -103,6 +94,12 @@
                                     class="cursor-pointer p-2"
                             >
                                 Einstellungen
+                            </li>
+                            <li
+                                    on:click={() => $goto("/help")}
+                                    class="cursor-pointer p-2"
+                            >
+                                Hilfe
                             </li>
                         {/if}
                     </Menu>

@@ -20,8 +20,6 @@ function createUserStore(value, auth = writable()) {
             );
         }
         content = JSON.parse(JSON.stringify(n));
-
-        console.log(n)
     })
     auth.subscribe(async (n) => {
         if (n && Object.keys(n).length) {
@@ -52,23 +50,27 @@ function createAuthStore(value) {
     const {subscribe, set, update} = writable(value);
     let interceptor;
     set(JSON.parse(localStorage.getItem("Auth")) || {});
+
     subscribe((n) => {
         if (n) {
             if (new Date(n.expires) < new Date()) {
-                console.log("logged out because login is too old");
+                console.log("logedout because login is to old");
                 signout();
             }
         }
         if (n && !interceptor) {
             interceptor = axios.interceptors.request.use(
                 (config) => {
-                    config.headers.Authorization = `Bearer ${data.access_token}`;
+                    config.headers.Authorization = `Bearer ${n?.access_token}`;
                     return config;
                 },
                 (error) => {
                     return Promise.reject(error);
                 }
             );
+        } else {
+            axios.interceptors.request.eject(interceptor);
+            interceptor = undefined;
         }
     });
 
@@ -78,44 +80,29 @@ function createAuthStore(value) {
     }) {
         if (!login_data?.password || !login_data?.username) return;
         let bodyFormData = new FormData();
-        console.log("userStores:signin:login_data  ", login_data.username, login_data.password); //all good
-        //bodyFormData.set("data", login_data);
         bodyFormData.append("username", login_data.username);
         bodyFormData.append("password", login_data.password);
-        console.log("userStores:signin:bodyFormData  ",bodyFormData.get("username"), bodyFormData.get("password"));
-        //still all good, error must be later
-        await axios.post(
-            `${backendURL}/api/token`, bodyFormData,
+        const {data, status} = await axios.post(
+            `${backendURL}/api/token`,
+            bodyFormData,
             {
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    Authorization: "Basic Og==", // what does this do and (why?) is it required?
+                    "Content-Type": "multipart/form-data",
+                    Authorization: "Basic Og==",
                 },
             }
-        ).then((data) => {
-            console.log("userStores:signin:data  ", data);
-            localStorage.setItem("Auth", JSON.stringify(data.data));
-            set(data.data);
-            interceptor = axios.interceptors.request.use(
-                (config) => {
-                    config.headers.Authorization = `Bearer ${data?.data?.access_token}`;
-                    return config;
-                },
-                (error) => {
-                    return Promise.reject(error);
-                }
-            );
-            callback()
-        }).catch((er) => {
-            console.log("userStores:signin:er  ", er);
+        ).catch((er) => {
             fallback(er)
         });
+        if (status === 200) {
+            localStorage.setItem("Auth", JSON.stringify(data));
+            set(data);
+            callback()
+        }
     }
 
     function signout() {
         localStorage.clear();
-        axios.interceptors.request.eject(interceptor);
-        interceptor = undefined;
         update(() => {
             return {};
         });

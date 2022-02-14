@@ -90,7 +90,7 @@
     <Paper elevation={1}>
         <Title><h1 class="text-2xl my-6">Registrieren</h1></Title>
         <Content>
-            <form class="grid gird-cols-2" on:submit|preventDefault={sendSignup}>
+            <form class="grid grid-cols-2" on:submit|preventDefault={sendSignup}>
                 <div class="w-full">
                     <Textfield bind:value={prename} label="Vorname" type="name">
                         <HelperText slot="helper"
@@ -192,6 +192,17 @@
                     </Button>
                 </div>
             </form>
+        </Content>
+    </Paper>
+    <br />
+    <Paper elevation={1} >
+        <Content>
+            <div class="flex flex-col justify-center items-center gap-2 w-full h-full">
+                oder
+                <Button variant="raised" on:click={() => $goto("/login")}>
+                    <Label>Login</Label>
+                </Button>
+            </div>
         </Content>
     </Paper>
 </div>
