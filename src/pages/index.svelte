@@ -58,6 +58,7 @@
     let labels = ['Einsparung', 'Verbleibende Retoure'];
     let id1 = "donut_save";
     let id2 = "donut_stock";
+    let idLine = "line_graph";
 
     let value = 0;
     $: choices = Object.keys($dataStore);
@@ -104,7 +105,7 @@
                 </section>
                 <section class="w-9/12 mx-auto">
                     {#key $data_ready}
-                        <LineGraph data={$data_ready.line_diagram}/>
+                        <LineGraph data={$data_ready.line_diagram} id={idLine}/>
                     {/key}
                 </section>
                 <section class="w-9/12 mx-auto">
