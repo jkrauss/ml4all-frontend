@@ -2,11 +2,11 @@
     import Paper, {Content, Title} from "@smui/paper";
     import Button, {Label} from "@smui/button";
     import Textfield from '@smui/textfield';
-    import {goto, redirect} from "@roxi/routify";
+    import {goto} from "@roxi/routify";
     import {fade} from "svelte/transition";
 
     import {onMount} from 'svelte';
-    import {loginStatus, Auth} from "../components/auth/userStores";
+    import {Auth, loginStatus} from "../components/auth/userStores";
 
     export let open = false;
     let userData = {username: "", password: ""};
@@ -19,7 +19,7 @@
         Auth.signin(userData, () => {
             loading = false;
             open = false;
-            $redirect("/");
+            $goto("/");
         }, (er) => {
             error = er
             loading = false
@@ -44,50 +44,50 @@
             </h1>
         </Title>
         <Content>
-                <form
-                action=""
-                class="flex flex-col justify-center items-center gap-2 w-full h-full"
-                on:submit|preventDefault={login}
-                >
+            <form
+                    action=""
+                    class="flex flex-col justify-center items-center gap-2 w-full h-full"
+                    on:submit|preventDefault={login}
+            >
                 <Textfield
-                bind:value={userData.username}
-                label="Benutzername"
-                
+                        bind:value={userData.username}
+                        label="Benutzername"
+
                 />
                 <Textfield
-                bind:value={userData.password}
-                label="Passwort"
-                            type="password"
-                            />
-                            {#if error}
-                            <div class="text-red-500">
-                                {error}
-                            </div>
-                            {/if}
-                            {#if loading}
-                            <Button variant="raised">
-                                <Label
-                                ><span class="material-icons animate-spin">
+                        bind:value={userData.password}
+                        label="Passwort"
+                        type="password"
+                />
+                {#if error}
+                    <div class="text-red-500">
+                        {error}
+                    </div>
+                {/if}
+                {#if loading}
+                    <Button variant="raised">
+                        <Label
+                        ><span class="material-icons animate-spin">
                                     sync
                                 </span></Label
-                                >
-                            </Button>
-                            {:else}
-                            <Button variant="raised" on:click={login}>
-                                <Label>Login</Label>
-                            </Button>
-                            {/if}
-                        </form>
-                        
-                    </Content>
-                </Paper>
-                <br />
+                        >
+                    </Button>
+                {:else}
+                    <Button variant="raised" on:click={login}>
+                        <Label>Login</Label>
+                    </Button>
+                {/if}
+            </form>
 
-    <Paper elevation={1} >
+        </Content>
+    </Paper>
+    <br/>
+
+    <Paper elevation={1}>
         <Content>
             <div class="flex flex-col justify-center items-center gap-2 w-full h-full">
                 oder
-                <Button variant="raised" on:click={() => $goto("/signup")}>
+                <Button on:click={() => $goto("/signup")} variant="raised">
                     <Label>Registrieren</Label>
                 </Button>
             </div>
