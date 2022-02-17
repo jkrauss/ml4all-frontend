@@ -1,7 +1,5 @@
 <script>
     import {notification} from "../components/stores";
-    import Slider from "@smui/slider";
-    import FormField from "@smui/form-field";
     import Paper, {Content, Title} from "@smui/paper";
     import Select, {Option} from "@smui/select";
     import List, {Separator} from "@smui/list";
@@ -22,6 +20,7 @@
         $User.state = storeObject.state;
         $User.city = storeObject.city;
         $User.store_name = storeObject.store_name;
+        $User.store = storeObject.id;
     }
 
     let files;
@@ -168,6 +167,7 @@
                         <h2>Stadt</h2>
                         <p>{$User?.city}</p>
                     </div>
+<!--
 
                     <Separator/>
                     <br/>
@@ -175,55 +175,56 @@
                     <h2 class="text-xl my-6">Vorhersage und Planung</h2>
                     <div>
                         <FormField>
-                            <!--                            <Switch
+                            &lt;!&ndash;                            <Switch
                                                                 color="primary"
                                                                 bind:checked={$User.tomorrow}
-                                                        />-->
+                                                        />&ndash;&gt;
                             <input type="checkbox" bind:checked={$User.tomorrow}>
                             <span slot="label">Morgen</span>
                         </FormField>
                     </div>
                     <div>
                         <FormField>
-                            <!--                            <Switch
+                            &lt;!&ndash;                            <Switch
                                                                 color="primary"
                                                                 bind:checked={$User.day_after_tomorrow}
-                                                        />-->
+                                                        />&ndash;&gt;
                             <input type="checkbox" bind:checked={$User.day_after_tomorrow}>
                             <span slot="label">Übermorgen</span>
                         </FormField>
                     </div>
                     <div>
                         <FormField>
-                            <!--                            <Switch
+                            &lt;!&ndash;                            <Switch
                                                                 color="primary"
                                                                 bind:checked={$User.next_seven_days}
-                                                        />-->
+                                                        />&ndash;&gt;
                             <input type="checkbox" bind:checked={$User.next_seven_days}>
                             <span slot="label">Nächste 7 Tage</span>
                         </FormField>
                     </div>
+-->
+                    <!--
+                                        {#if $User.rows_per_page}
+                                            <br/>
+                                                                <div class="flex flex-col">
+                                                                      <div class="flex justify-between">
+                                                                          <h2>Zeilen pro Seite</h2>
+                                                                          <p>{$User.rows_per_page}</p>
+                                                                      </div>
 
-                    {#if $User.rows_per_page}
-                        <br/>
-                        <div class="flex flex-col">
-                            <div class="flex justify-between">
-                                <h2>Zeilen pro Seite</h2>
-                                <p>{$User.rows_per_page}</p>
-                            </div>
-
-                            <div class="w-full">
-                                <Slider
-                                        bind:value={$User.rows_per_page}
-                                        min={10}
-                                        max={100}
-                                        step={10}
-                                        discrete
-                                        input$aria-label="Discrete slider"
-                                />
-                            </div>
-                        </div>
-                    {/if}
+                                                                      <div class="w-full">
+                                                                          <Slider
+                                                                                  bind:value={$User.rows_per_page}
+                                                                                  min={10}
+                                                                                  max={100}
+                                                                                  step={10}
+                                                                                  discrete
+                                                                                  input$aria-label="Discrete slider"
+                                                                          />
+                                                                      </div>
+                                                                  </div>
+                                        {/if}-->
                 </List>
             </Content>
         </Paper>
