@@ -90,24 +90,25 @@
     <Paper elevation={1}>
         <Title><h1 class="text-2xl my-6">Registrieren</h1></Title>
         <Content>
-            <form class="grid grid-cols-2" on:submit|preventDefault={sendSignup}>
+            <form class="grid grid-cols-1 md:grid-cols-2 md:gap-8"
+                  on:submit|preventDefault={sendSignup}>
                 <div class="w-full">
-                    <Textfield bind:value={prename} label="Vorname" type="name">
+                    <Textfield bind:value={prename} class="w-full" label="Vorname" type="name">
                         <HelperText slot="helper"
                         >Wie dürfen wir Sie ansprechen?
                         </HelperText
                         >
                     </Textfield>
-                    <Textfield bind:value={name} label="Name" type="name">
+                    <Textfield bind:value={name} class="w-full" label="Name" type="name">
                         <HelperText slot="helper"
                         >Wie dürfen wir Sie ansprechen?
                         </HelperText
                         >
                     </Textfield>
-                    <Textfield bind:value={email} label="E-Mail" required type="email">
+                    <Textfield bind:value={email} class="w-full" label="E-Mail" required type="email">
                         <HelperText slot="helper">Gültige E-Mail-Adresse</HelperText>
                     </Textfield>
-                    <Textfield bind:value={phone} label="Telefon" required type="phone">
+                    <Textfield bind:value={phone} class="w-full" label="Telefon" required type="phone">
                         <HelperText slot="helper"
                         >Benötigt z.B. wenn Sie ihr Passwort nicht mehr wissen
                         </HelperText
@@ -115,14 +116,14 @@
                     </Textfield>
                 </div>
                 <div>
-                    <Textfield bind:value={company} label="Firma" type="text">
+                    <Textfield bind:value={company} class="w-full" label="Firma" type="text">
                         <HelperText slot="helper"
                         >Name Ihrer Firma
                         </HelperText>
                     </Textfield>
-                    <div class="grid-cols-2 grid">
+                    <div class="grid-cols-1 md:grid-cols-2 grid md:gap-8">
                         <div>
-                            <Textfield bind:value={street} label="Straße" type="text">
+                            <Textfield bind:value={street} class="w-full" label="Straße" type="text">
                                 <HelperText slot="helper"
                                 >In welcher Straße befindet sich ihr Geschäft?
                                 </HelperText
@@ -131,7 +132,7 @@
                         </div>
 
                         <div>
-                            <Textfield bind:value={streetNumber} label="Hausnummer" type="text">
+                            <Textfield bind:value={streetNumber} class="w-full" label="Hausnummer" type="text">
                                 <HelperText slot="helper"
                                 >Welche Hausnummer hat ihr Geschäft?
                                 </HelperText
@@ -140,9 +141,9 @@
                         </div>
 
                     </div>
-                    <div class="grid-cols-2 grid">
+                    <div class="grid-cols-1 md:grid-cols-2 grid md:gap-8">
                         <div>
-                            <Textfield bind:value={postalcode} label="Postleitzahl" type="text">
+                            <Textfield bind:value={postalcode} class="w-full" label="Postleitzahl" type="text">
                                 <HelperText slot="helper"
                                 >Postleitzahl des Geschäfts.
                                 </HelperText
@@ -151,7 +152,7 @@
                         </div>
 
                         <div>
-                            <Textfield bind:value={city} label="Ort" type="text">
+                            <Textfield bind:value={city} class="w-full" label="Ort" type="text">
                                 <HelperText slot="helper"
                                 >In welchem Ort befindet sich ihr Geschäft?
                                 </HelperText
@@ -160,13 +161,13 @@
                         </div>
                     </div>
 
-                    <Textfield bind:value={locationCount} label="Fialenanzahl" type="text">
+                    <Textfield bind:value={locationCount} class="w-full" label="Fialenanzahl" type="text">
                         <HelperText slot="helper"
                         >Fialenanzal
                         </HelperText>
                     </Textfield>
 
-                    <Textfield bind:value={register} label="Kassensystem" type="text">
+                    <Textfield bind:value={register} class="w-full" label="Kassensystem" type="text">
                         <HelperText slot="helper"
                         >Welches Kassensystem verwenden Sie?
                         </HelperText>
@@ -174,7 +175,7 @@
                 </div>
 
 
-                <div class="col-span-2">
+                <div class="md:col-span-2 flex flex-col gap-4">
                     <FormField>
                         <Checkbox bind:checked={agree} input$required/>
                         <span slot="label">
@@ -184,6 +185,7 @@
                     </FormField>
                     <br/>
                     <Button
+                            class="w-full"
                             style="background: {'var(--mdc-theme-callout)'}"
                             type="submit"
                             variant="raised"
@@ -194,15 +196,21 @@
             </form>
         </Content>
     </Paper>
-    <br />
-    <Paper elevation={1} >
+    <br/>
+    <Paper elevation={1}>
         <Content>
             <div class="flex flex-col justify-center items-center gap-2 w-full h-full">
                 oder
-                <Button variant="raised" on:click={() => $goto("/login")}>
+                <Button class="w-full md:w-auto" on:click={() => $goto("/login")} variant="raised">
                     <Label>Login</Label>
                 </Button>
             </div>
         </Content>
     </Paper>
 </div>
+
+<style>
+    Textfield {
+        @apply w-full;
+    }
+</style>

@@ -5,11 +5,10 @@
     import List, {Separator} from "@smui/list";
     import axios from "axios";
     import {fade} from "svelte/transition";
-    /*    import Switch from '@smui/switch';*/
     import {redirect} from "@roxi/routify";
     import {onMount} from 'svelte';
     import {loginStatus, User} from "../components/auth/userStores";
-    //make page only visible if logged in - otherwise redirect to signup-page
+
     onMount(() => {
         if (!$loginStatus) {
             $redirect("/signup")
@@ -167,43 +166,43 @@
                         <h2>Stadt</h2>
                         <p>{$User?.city}</p>
                     </div>
-<!--
+                    <!--
 
-                    <Separator/>
-                    <br/>
+                                        <Separator/>
+                                        <br/>
 
-                    <h2 class="text-xl my-6">Vorhersage und Planung</h2>
-                    <div>
-                        <FormField>
-                            &lt;!&ndash;                            <Switch
-                                                                color="primary"
-                                                                bind:checked={$User.tomorrow}
-                                                        />&ndash;&gt;
-                            <input type="checkbox" bind:checked={$User.tomorrow}>
-                            <span slot="label">Morgen</span>
-                        </FormField>
-                    </div>
-                    <div>
-                        <FormField>
-                            &lt;!&ndash;                            <Switch
-                                                                color="primary"
-                                                                bind:checked={$User.day_after_tomorrow}
-                                                        />&ndash;&gt;
-                            <input type="checkbox" bind:checked={$User.day_after_tomorrow}>
-                            <span slot="label">Übermorgen</span>
-                        </FormField>
-                    </div>
-                    <div>
-                        <FormField>
-                            &lt;!&ndash;                            <Switch
-                                                                color="primary"
-                                                                bind:checked={$User.next_seven_days}
-                                                        />&ndash;&gt;
-                            <input type="checkbox" bind:checked={$User.next_seven_days}>
-                            <span slot="label">Nächste 7 Tage</span>
-                        </FormField>
-                    </div>
--->
+                                        <h2 class="text-xl my-6">Vorhersage und Planung</h2>
+                                        <div>
+                                            <FormField>
+                                                &lt;!&ndash;                            <Switch
+                                                                                    color="primary"
+                                                                                    bind:checked={$User.tomorrow}
+                                                                            />&ndash;&gt;
+                                                <input type="checkbox" bind:checked={$User.tomorrow}>
+                                                <span slot="label">Morgen</span>
+                                            </FormField>
+                                        </div>
+                                        <div>
+                                            <FormField>
+                                                &lt;!&ndash;                            <Switch
+                                                                                    color="primary"
+                                                                                    bind:checked={$User.day_after_tomorrow}
+                                                                            />&ndash;&gt;
+                                                <input type="checkbox" bind:checked={$User.day_after_tomorrow}>
+                                                <span slot="label">Übermorgen</span>
+                                            </FormField>
+                                        </div>
+                                        <div>
+                                            <FormField>
+                                                &lt;!&ndash;                            <Switch
+                                                                                    color="primary"
+                                                                                    bind:checked={$User.next_seven_days}
+                                                                            />&ndash;&gt;
+                                                <input type="checkbox" bind:checked={$User.next_seven_days}>
+                                                <span slot="label">Nächste 7 Tage</span>
+                                            </FormField>
+                                        </div>
+                    -->
                     <!--
                                         {#if $User.rows_per_page}
                                             <br/>

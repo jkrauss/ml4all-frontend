@@ -22,7 +22,6 @@
 
     function createDataStore(v) {
         const {subscribe, set, update} = writable({});
-
         const storageKey = "Dashboard-Data-Store"
         let content = JSON.parse(localStorage.getItem(storageKey)) || []
         set(JSON.parse(JSON.stringify(content)));
@@ -75,9 +74,7 @@
     <div in:fade>
         <Paper class="md:w-10/12 w-full mx-auto" elevation={1}>
             <Content class="gap-4">
-                <Title><h1 class="text-2xl my-6">Dashboard</h1></Title>
-                <!--            <input bind:value={data[0]} type="number">
-                            <input bind:value={data[1]} type="number">-->
+                <Title><h1 class="text-2xl">Dashboard</h1></Title>
                 <section class="p-0 grid grid-cols-2 md:grid-cols-3 gap-2 py-2">
                     <div class="chart-container">
                         <h2 class="text-xl my-6 mx-auto">

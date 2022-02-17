@@ -13,7 +13,7 @@
     let rowsReady = [];
     let searchText;
     let currentPage = 0;
-    rowsReady = rows.map((item) => {
+    $:rowsReady = rows.map((item) => {
         let temp = {name: item, array: []}
         Object.keys(orderqty).forEach((day) => {
             temp.array.push(orderqty[day][item]);
