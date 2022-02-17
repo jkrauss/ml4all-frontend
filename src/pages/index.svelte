@@ -74,12 +74,12 @@
 {#if $data_ready}
     <div in:fade>
         <Paper class="md:w-10/12 w-full mx-auto" elevation={1}>
-            <Title><h1 class="text-2xl my-6">Dashboard</h1></Title>
-            <Content>
+            <Content class="gap-4">
+                <Title><h1 class="text-2xl my-6">Dashboard</h1></Title>
                 <!--            <input bind:value={data[0]} type="number">
                             <input bind:value={data[1]} type="number">-->
-                <section class="flex flex-col p-32 md:p-0 md:grid md:grid-cols-3 gap-64">
-                    <div class="chart-container relative">
+                <section class="p-0 grid grid-cols-2 md:grid-cols-3 gap-2 py-2">
+                    <div class="chart-container">
                         <h2 class="text-xl my-6 mx-auto">
                             Einsparung
                         </h2>
@@ -88,7 +88,7 @@
                                id={id1}
                                {labels}/>
                     </div>
-                    <div class="chart-container col-start-3">
+                    <div class="chart-container md:col-start-3">
                         <h2 class="text-xl my-6">Produktverfügbarkeit</h2>
                         <Donut data={[
                         $data_ready.donut_data.returns_savings,$data_ready.donut_data.returns_remaining]} id={id2}
@@ -103,12 +103,12 @@
                         </Segment>
                     </SegmentedButton>
                 </section>
-                <section class="w-9/12 mx-auto">
+                <section class="">
                     {#key $data_ready}
                         <LineGraph data={$data_ready.line_diagram} id={idLine}/>
                     {/key}
                 </section>
-                <section class="w-9/12 mx-auto">
+                <section class="">
                     <RowsTable rows={$data_ready.rows} orderqty={$data_ready.order_quantity}>
 
                     </RowsTable>
