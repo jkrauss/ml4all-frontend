@@ -58,10 +58,10 @@ function createAuthStore(value) {
                 signout();
             }
         }
-        if (n && !interceptor) {
+        if (n && Object.keys(n) && !interceptor) {
             interceptor = axios.interceptors.request.use(
                 (config) => {
-                    config.headers.Authorization = `Bearer ${n?.access_token}`;
+                    config.headers.Authorization = `Bearer ${n.access_token}`;
                     return config;
                 },
                 (error) => {
@@ -87,7 +87,7 @@ function createAuthStore(value) {
             bodyFormData,
             {
                 headers: {
-                    "Content-Type": "multipart/form-data",
+                    "Content-Type": "application/x-www-form-urlencoded",
                     Authorization: "Basic Og==",
                 },
             }
