@@ -108,8 +108,16 @@ function createAuthStore(value) {
         });
     }
 
-    async function register(login_data, callback) {
-
+    async function register(login_data) {
+        return new Promise(async (resolve, reject) => {
+            axios.post(`${backendURL}/api/signup`, login_data).then(
+                (response) => {
+                    resolve(response);
+                }
+            ).catch((er) => {
+                reject(er)
+            })
+        })
     }
 
     return {

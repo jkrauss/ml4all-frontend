@@ -5,13 +5,14 @@
     import {User} from "../auth/userStores";
     import Select, {Option} from '@smui/select';
     import IconButton from '@smui/icon-button';
+    import Textfield from '@smui/textfield';
 
     export let rows;
     export let orderqty;
 
     let DataStore = writable([]);
     let rowsReady = [];
-    let searchText;
+    let searchText = "";
     let currentPage = 0;
     $:rowsReady = rows.map((item) => {
         let temp = {name: item, array: []}
@@ -44,8 +45,9 @@
     }
 
 </script>
-<input bind:value={searchText} class="w-full" placeholder="search" type="text">
-
+<Textfield bind:value={searchText} class="w-full mb-4" label="Search">
+    <!--    <HelperText persistent slot="helper">Helper Text</HelperText>-->
+</Textfield>
 <DataTable style="width: 100%;">
     <Head>
         <Row>
