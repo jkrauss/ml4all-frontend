@@ -45,7 +45,7 @@
     }
 
 </script>
-<Textfield bind:value={searchText} class="w-full mb-4" label="Search">
+<Textfield bind:value={searchText} class="w-full mb-4" label="Suche">
     <!--    <HelperText persistent slot="helper">Helper Text</HelperText>-->
 </Textfield>
 <DataTable style="width: 100%;">
@@ -74,7 +74,7 @@
     </Body>
     <Pagination slot="paginate">
         <svelte:fragment slot="rowsPerPage">
-            <Label>Rows Per Page</Label>
+            <Label>Zeilen pro Seite</Label>
             <Select bind:value={$User.rows_per_page} noLabel variant="outlined">
                 <Option value={10}>10</Option>
                 <Option value={25}>25</Option>

@@ -57,7 +57,6 @@
     });
 
     let data = [90, 10]
-    let labels = ['Einsparung', 'Verbleibende Retoure'];
     let id1 = "donut_save";
     let id2 = "donut_stock";
     let idLine = "line_graph";
@@ -84,11 +83,11 @@
                             <Information_icon class="text-sm">Zeigt Einsparungen</Information_icon>
                         </h2>
                         <Donut data={[
-                        $data_ready.donut_data.profits_lost,$data_ready.donut_data.profits_remaining]}
+                        $data_ready.donut_data.returns_savings,$data_ready.donut_data.returns_remaining]}
                                id={id1}
-                               {labels}/>
+                               labels={['Einsparung', 'Verbleibende Retoure']}/>
                         <div class="flex flex-col w-full justify-center items-center">
-                            Total: {$data_ready.donut_data.profits_current}
+                            Einsparung: {$data_ready.donut_data.returns_savings.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Monat
                         </div>
                     </div>
 
@@ -99,10 +98,10 @@
                             </Information_icon>
                         </h2>
                         <Donut data={[
-                        $data_ready.donut_data.returns_savings,$data_ready.donut_data.returns_remaining]} id={id2}
-                               {labels}/>
+                        $data_ready.donut_data.profits_remaining,$data_ready.donut_data.profits_lost]} id={id2}
+                               labels={['Produkte verfügbar', 'Verfügbarkeitsrisiko']}/>
                         <div class="flex flex-col w-full justify-center items-center">
-                            Total: {$data_ready.donut_data.returns_current}
+                            Verlustrisiko: -{$data_ready.donut_data.profits_lost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Monat
                         </div>
                     </div>
                 </section>

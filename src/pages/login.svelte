@@ -73,7 +73,11 @@
                         >
                     </Button>
                 {:else}
-                    <Button variant="raised" on:click={login}>
+                    <Button 
+                        variant="raised" 
+                        on:click={login}
+                        style="background: {'var(--mdc-theme-callout)'}"
+                    >
                         <Label>Login</Label>
                     </Button>
                 {/if}

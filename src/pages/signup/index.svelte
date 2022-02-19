@@ -22,9 +22,11 @@
     const last_name_field = field('last_name', '', []);
     const email_field = field('email', '', [required(), email()]);
     const phone_field = field('phone', '', [required(), pattern(
-        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/ // can start with +, 3 numbers, dash or not, 3 numbers, dash or not, 4-6 numbers
     )]);
-    const password_field = field('password', '', [required()]);
+    const password_field = field('password', '', [required(), pattern(
+        "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" // min 8 characters, at least one letter, one number
+    )]);
     const password_check_field = field('password_check', '', [required(), matchField(password_field)])
     const company_field = field('company', '', []);
     const street_field = field('street', '', []);
@@ -99,31 +101,31 @@
                                label="E-Mail"
                                required
                                type="email">
-                        <HelperText slot="helper">Gültige E-Mail-Adresse</HelperText>
+                        <HelperText slot="helper">Ihre E-Mail-Adresse</HelperText>
                     </Textfield>
                     <Textfield bind:value={$phone_field.value} class="w-full" label="Telefon" required type="phone">
                         <HelperText slot="helper"
-                        >Benötigt z.B. wenn Sie ihr Passwort nicht mehr wissen
+                        >Damit wir Sie ggf. erreichen können, 10-12 Ziffern, +49 und - sind erlaubt
                         </HelperText
                         >
                     </Textfield>
                     <Textfield bind:value={$password_field.value} class="w-full"
                                invalid={$register_form.hasError("password.required")||$register_form.hasError("password_check.match_field")}
-                               label="Password"
+                               label="Passwort"
                                required
                                type="password">
                         <HelperText slot="helper"
-                        >Benötigt z.B. wenn Sie ihr Passwort nicht mehr wissen
+                        >Mindestens 8 Zeichen, 1 Buchstabe und eine Zahl
                         </HelperText
                         >
                     </Textfield>
                     <Textfield bind:value={$password_check_field.value} class="w-full"
                                invalid={$register_form.hasError("password_check.required")||$register_form.hasError("password_check.match_field")}
-                               label="Password Bestätigung"
+                               label="Passwort Bestätigung"
                                required
                                type="password">
                         <HelperText slot="helper"
-                        >Benötigt z.B. wenn Sie ihr Passwort nicht mehr wissen
+                        >Mindestens 8 Zeichen, 1 Buchstabe und eine Zahl
                         </HelperText
                         >
                     </Textfield>
@@ -174,7 +176,7 @@
                         </div>
                     </div>
 
-                    <Textfield bind:value={$location_count_field.value} class="w-full" label="Fialenanzahl"
+                    <Textfield bind:value={$location_count_field.value} class="w-full" label="Anzahl Filialen"
                                type="number">
                         <HelperText slot="helper"
                         >Fialenanzal

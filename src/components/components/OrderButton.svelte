@@ -14,13 +14,17 @@
 </script>
 
 <Group variant="raised">
-    <Button on:click={() => {order("pdf")}} variant="raised">
-        <Label>Order as PDF</Label>
+    <Button 
+        on:click={() => {order("xlsx")}} 
+        variant="raised"
+        style="background: {'var(--mdc-theme-callout)'}"
+    >
+        <Label>Laden als Excel</Label>
     </Button>
     <div use:GroupItem>
         <Button
                 on:click={() => menu.setOpen(true)}
-                style="padding: 0; min-width: 36px;"
+                style="padding: 0; min-width: 36px; background: {'var(--mdc-theme-callout)'}"
                 variant="raised"
         >
             <Icon class="material-icons" style="margin: 0;">arrow_drop_down</Icon>
