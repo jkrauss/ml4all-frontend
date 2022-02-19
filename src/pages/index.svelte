@@ -13,6 +13,9 @@
     import {Label} from '@smui/common';
     import LineGraph from "../components/components/LineGraph.svelte";
     import RowsTable from "../components/components/RowsTable.svelte";
+    import Information_icon from "../components/components/Information_icon.svelte";
+    import OrderButton from "../components/components/OrderButton.svelte";
+
 
     onMount(() => {
         if (!$loginStatus) {
@@ -67,29 +70,40 @@
         set($dataStore[$selected])
     })
 
-
 </script>
 
 {#if $data_ready}
     <div in:fade>
         <Paper class="md:w-10/12 w-full mx-auto" elevation={1}>
-            <Content class="gap-4">
+            <Content class="flex flex-col gap-4">
                 <Title><h1 class="text-2xl">Dashboard</h1></Title>
                 <section class="p-0 grid grid-cols-2 md:grid-cols-3 gap-2 py-2">
-                    <div class="chart-container">
-                        <h2 class="text-xl my-6 mx-auto">
+                    <div class="chart-container flex flex-col gap-4">
+                        <h2 class="text-xl my-6 flex items-center ">
                             Einsparung
+                            <Information_icon class="text-sm">Zeigt Einsparungen</Information_icon>
                         </h2>
                         <Donut data={[
                         $data_ready.donut_data.profits_lost,$data_ready.donut_data.profits_remaining]}
                                id={id1}
                                {labels}/>
+                        <div class="flex flex-col w-full justify-center items-center">
+                            Total: {$data_ready.donut_data.profits_current}
+                        </div>
                     </div>
-                    <div class="chart-container md:col-start-3">
-                        <h2 class="text-xl my-6">Produktverfügbarkeit</h2>
+
+                    <div class="chart-container md:col-start-3 flex flex-col gap-4">
+                        <h2 class="text-xl my-6 flex">Produktverfügbarkeit
+                            <Information_icon class="text-sm">Zeigt
+                                Produkt verfügbarkeit
+                            </Information_icon>
+                        </h2>
                         <Donut data={[
                         $data_ready.donut_data.returns_savings,$data_ready.donut_data.returns_remaining]} id={id2}
                                {labels}/>
+                        <div class="flex flex-col w-full justify-center items-center">
+                            Total: {$data_ready.donut_data.returns_current}
+                        </div>
                     </div>
                 </section>
                 <section class="flex justify-center items-center">
@@ -109,7 +123,24 @@
                     <RowsTable rows={$data_ready.rows} orderqty={$data_ready.order_quantity}>
 
                     </RowsTable>
+
                 </section>
+
+                <section class="">
+                    <OrderButton on:click={(e)=>{
+                        	let filename = `Foodsight_Bestellung.${e.detail}`;
+                            console.log({ ...$data_ready, option:e.detail});
+                    axios.post(`${backendURL}/api/order`,{ ...$data_ready, option:e.detail}).then((response) => {
+			const url = window.URL.createObjectURL(new Blob([response.data]));
+			const link = document.createElement("a");
+			link.href = url;
+			link.setAttribute("download", filename);
+			document.body.appendChild(link);
+			link.click();
+		});
+                    }}/>
+                </section>
+
             </Content>
         </Paper>
     </div>
