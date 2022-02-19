@@ -16,7 +16,7 @@
     function auth() {
         if ($loginStatus) {
             Auth.signout();
-            $goto("/signup")
+            $goto("/login")
         } else {
             //loginToggle = !loginToggle;
             $goto("/login")

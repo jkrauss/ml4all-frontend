@@ -19,7 +19,7 @@
 
     onMount(() => {
         if (!$loginStatus) {
-            $redirect("/signup")
+            $redirect("/login")
         }
     });
 
@@ -48,13 +48,6 @@
 
 
     const dataStore = createDataStore();
-
-
-    onMount(() => {
-        if (!loginStatus) {
-            $goto("/signup")
-        }
-    });
 
     let data = [90, 10]
     let id1 = "donut_save";

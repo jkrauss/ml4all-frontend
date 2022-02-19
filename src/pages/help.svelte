@@ -9,7 +9,7 @@
     //make page only visible if logged in - otherwise redirect to signup-page
     onMount(() => {
         if (!$loginStatus) {
-            $redirect("/signup")
+            $redirect("/login")
         }
     });
 
