@@ -31,7 +31,8 @@
     "postcss-import": "^14.0.2",
     "svelte": "^3.46.4",
     "svelte-preprocess": "^4.10.1",
-    "vite": "^2.7.10"
+    "vite": "^2.7.10",
+    "vite-plugin-pwa": "^0.11.13"
   },
   "dependencies": {
     "axios": "^0.25.0",
@@ -39,13 +40,13 @@
     "chart.js": "^3.7.0",
     "html2canvas": "^1.4.1",
     "html2canvas-objectfit-fix": "^1.2.0",
+    "intl": "^1.2.5",
     "ss-search": "^1.6.1",
     "svelte-forms": "^2.2.1",
     "svelte-frappe-charts": "^1.9.1",
     "svelte-material-ui": "^4.2.0",
     "tailwindcss": "^3.0.18",
-    "typescript": "^4.5.5",
-    "intl": "^1.2.5"
+    "typescript": "^4.5.5"
   },
   "engines": {
     "node": "^=16.7.0",

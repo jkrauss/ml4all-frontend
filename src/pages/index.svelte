@@ -1,6 +1,6 @@
 <script>
     import Paper, {Title} from "@smui/paper";
-    import {goto, redirect} from "@roxi/routify";
+    import {redirect} from "@roxi/routify";
     import {fade} from "svelte/transition";
     import {onMount} from 'svelte';
     import {loginStatus, User} from "../components/auth/userStores";
@@ -70,7 +70,7 @@
             <Content class="flex flex-col gap-4">
                 <Title><h1 class="text-2xl">Dashboard</h1></Title>
                 <section class="p-0 grid grid-cols-2 md:grid-cols-3 gap-2 py-2">
-                    <div class="chart-container flex flex-col gap-4">
+                    <div class="col-start-1 chart-container flex flex-col gap-4">
                         <h2 class="text-xl my-6 flex items-center ">
                             Einsparung
                             <Information_icon class="text-sm">Zeigt Einsparungen</Information_icon>
@@ -80,8 +80,29 @@
                                id={id1}
                                labels={['Einsparung', 'Verbleibende Retoure']}/>
                         <div class="flex flex-col w-full justify-center items-center">
-                            Einsparung: {$data_ready.donut_data.returns_savings.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Monat
+                            Einsparung: {$data_ready.donut_data.returns_savings.toLocaleString('de-DE', {
+                            style: 'currency',
+                            currency: 'EUR'
+                        })}/Monat
                         </div>
+                    </div>
+
+                    <div class="col-start-1 row-start-2 md:row-start-1 col-start-1 md:col-start-2 col-span-2 md:col-span-1 flex justify-center items-center relative">
+                        <div class="bg-gray-900 text-white p-8 rounded">
+                            { ($data_ready.donut_data.returns_savings - $data_ready.donut_data.profits_lost).toLocaleString('de-DE', {
+                                style: 'currency',
+                                currency: 'EUR'
+                            }) }/Monat
+                            <Information_icon class="text-sm">Einsparung minus Verlustrisiko</Information_icon>
+                        </div>
+                        <div class="absolute border-x border-gray-900 bottom-0 h-1/3 hidden md:flex">
+                            <div style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);"
+                                 class="absolute -top-2 left-[-1rem] bg-gray-900 w-8 h-8"></div>
+                        </div>
+                        <div class="absolute bottom-0 border-y border-gray-900 w-full hidden md:flex">
+
+                        </div>
+
                     </div>
 
                     <div class="chart-container md:col-start-3 flex flex-col gap-4">
@@ -94,17 +115,25 @@
                         $data_ready.donut_data.profits_remaining,$data_ready.donut_data.profits_lost]} id={id2}
                                labels={['Produkte verfügbar', 'Verfügbarkeitsrisiko']}/>
                         <div class="flex flex-col w-full justify-center items-center">
-                            Verlustrisiko: -{$data_ready.donut_data.profits_lost.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' })}/Monat
+                            Verlustrisiko: -{$data_ready.donut_data.profits_lost.toLocaleString('de-DE', {
+                            style: 'currency',
+                            currency: 'EUR'
+                        })}/Monat
                         </div>
                     </div>
                 </section>
-                <section class="flex justify-center items-center">
+                <section class="flex justify-center items-center relative flex-col">
                     <SegmentedButton bind:selected={$selected} let:segment segments={choices} singleSelect>
                         <!-- Note: the `segment` property is required! -->
                         <Segment {segment}>
                             <Label>{segment}</Label>
                         </Segment>
                     </SegmentedButton>
+                    <Information_icon class="absolute left-0 top-full md:-right-8">Bitte wählen Sie aus, wieviel Sie
+                        einkaufen/produzieren
+                        möchten.
+                        Mit XS vermeiden Sie Retouren vollständig. Mit XL sichern Sie 100% Produktverfügbarkeit.
+                    </Information_icon>
                 </section>
                 <section class="">
                     {#key $data_ready}

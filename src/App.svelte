@@ -4,5 +4,5 @@
     import "./global.css"
 </script>
 
-<!--<Serviceworker/>-->
+
 <Router {routes}/>

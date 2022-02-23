@@ -8,7 +8,7 @@
     import {goto} from "@roxi/routify";
     import {fade} from "svelte/transition";
     import {onMount} from 'svelte';
-    import {loginStatus, User} from "../../components/auth/userStores";
+    import {Auth, loginStatus} from "../../components/auth/userStores";
     import {field, form} from 'svelte-forms';
     import {email, matchField, min, pattern, required} from 'svelte-forms/validators'
     import Select, {Option} from '@smui/select';
@@ -24,9 +24,7 @@
     const phone_field = field('phone', '', [required(), pattern(
         /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/ // can start with +, 3 numbers, dash or not, 3 numbers, dash or not, 4-6 numbers
     )]);
-    const password_field = field('password', '', [required(), pattern(
-        "^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" // min 8 characters, at least one letter, one number
-    )]);
+    const password_field = field('password', '', [required()]);
     const password_check_field = field('password_check', '', [required(), matchField(password_field)])
     const company_field = field('company', '', []);
     const street_field = field('street', '', []);
@@ -43,15 +41,14 @@
         street_field, street_number_field, postal_code_field, city_field, location_count_field, register_field,
         agree_field);
 
-    $: console.log();
 
     async function sendSignup() {
-
-        register_form.validate
+        await register_form.validate()
         if ($register_form.valid)
-            User.register(register_form.summary()).then(() => {
-                $goto("/")
+            Auth.register(register_form.summary()).then(() => {
+                $goto("./success")
             }).catch((er) => {
+                console.log(er)
                 $goto("./error/[er]", {er: encodeURIComponent(JSON.stringify(er))})
             })
     }
@@ -74,7 +71,6 @@
             register_field_select !== "helloCash" && register_field_select !== "ready2order" ? register_field_temp_value : register_field_select
     }
 
-    $:console.log($register_form.hasError("email.required"));
 </script>
 
 <div in:fade>
@@ -103,14 +99,15 @@
                                type="email">
                         <HelperText slot="helper">Ihre E-Mail-Adresse</HelperText>
                     </Textfield>
-                    <Textfield bind:value={$phone_field.value} class="w-full" label="Telefon" required type="phone">
+                    <Textfield bind:value={$phone_field.value} class="w-full" label="Telefon" required type="phone"
+                               invalid={$register_form.hasError("phone.required")}>
                         <HelperText slot="helper"
                         >Damit wir Sie ggf. erreichen können, 10-12 Ziffern, +49 und - sind erlaubt
                         </HelperText
                         >
                     </Textfield>
                     <Textfield bind:value={$password_field.value} class="w-full"
-                               invalid={$register_form.hasError("password.required")||$register_form.hasError("password_check.match_field")}
+                               invalid={$register_form.hasError("password.required")}
                                label="Passwort"
                                required
                                type="password">

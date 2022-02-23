@@ -5,7 +5,7 @@
     import List, {Separator} from "@smui/list";
     import axios from "axios";
     import {fade} from "svelte/transition";
-    import {redirect, goto} from "@roxi/routify";
+    import {redirect} from "@roxi/routify";
     import {onMount} from 'svelte';
     import {loginStatus, User} from "../components/auth/userStores";
 
@@ -94,7 +94,7 @@
         transition: transform .2s ease-out;
     }
 </style>
-{#if loginStatus}
+{#if $loginStatus}
     <section class="flex flex-col gap-4 md:w-10/12 w-full mx-auto " in:fade>
         <Paper elevation={1}>
             <Title><h1 class="text-2xl my-6">Einstellungen</h1></Title>
@@ -146,6 +146,7 @@
                                 {#each $User?.stores as s}
                                     <Option
                                             value={s.id}
+                                            number
                                             on:SMUI:action={() => changeStore(s)}
                                     >{s.store_name}</Option>
                                 {:else}
