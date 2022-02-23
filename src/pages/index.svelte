@@ -1,4 +1,6 @@
 <script>
+    import Textfield from '@smui/textfield';
+    import HelperText from '@smui/textfield/helper-text';
     import Paper, {Title} from "@smui/paper";
     import {redirect} from "@roxi/routify";
     import {fade} from "svelte/transition";
@@ -53,7 +55,8 @@
     let id1 = "donut_save";
     let id2 = "donut_stock";
     let idLine = "line_graph";
-
+    let returns_current = "";
+    let sales_price_cost_share = "";
     let value = 0;
     $: choices = Object.keys($dataStore);
     let selected = writable("M");
@@ -69,7 +72,7 @@
         <Paper class="md:w-10/12 w-full mx-auto" elevation={1}>
             <Content class="flex flex-col gap-4">
                 <Title><h1 class="text-2xl">Dashboard</h1></Title>
-                <section class="p-0 grid grid-cols-2 md:grid-cols-3 gap-2 py-2">
+                <section class="p-0 grid grid-cols-2 md:grid-cols-3 gap-8 py-2">
                     <div class="col-start-1 chart-container flex flex-col gap-4">
                         <h2 class="text-xl my-6 flex items-center ">
                             Einsparung
@@ -161,7 +164,22 @@
 		});
                     }}/>
                 </section>
-
+                <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <Textfield bind:value={returns_current} label="Derzeitige Retoure" suffix="€" class="w-full">
+                            <HelperText slot="helper">Der durchschnittliche Warenwert, der derzeit Abends übrig bleibt.
+                            </HelperText>
+                        </Textfield>
+                    </div>
+                    <div>
+                        <Textfield bind:value={sales_price_cost_share} label="EK/VK" suffix="%" class="w-full">
+                            <HelperText slot="helper">Wie viel Prozent vom Verkaufspreis ist im Schnitt ihr
+                                Einkaufspreis /
+                                Produktionskosten?
+                            </HelperText>
+                        </Textfield>
+                    </div>
+                </section>
             </Content>
         </Paper>
     </div>
