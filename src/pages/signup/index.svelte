@@ -24,7 +24,7 @@
     const phone_field = field('phone', '', [required(), pattern(
         /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/ // can start with +, 3 numbers, dash or not, 3 numbers, dash or not, 4-6 numbers
     )]);
-    const password_field = field('password', '', [required()]);
+    const password_field = field('password', '', [required(), min(8)]);
     const password_check_field = field('password_check', '', [required(), matchField(password_field)])
     const company_field = field('company', '', []);
     const street_field = field('street', '', []);
@@ -43,8 +43,9 @@
 
 
     async function sendSignup() {
-        await register_form.validate()
-        if ($register_form.valid)
+        await register_form.validate();
+
+        if ($register_form.valid && $agree_field.value)
             Auth.register(register_form.summary()).then(() => {
                 $goto("./success")
             }).catch((er) => {
@@ -107,7 +108,8 @@
                         >
                     </Textfield>
                     <Textfield bind:value={$password_field.value} class="w-full"
-                               invalid={$register_form.hasError("password.required")}
+                               invalid={$register_form.hasError("password.required")||
+                               $register_form.hasError("password.min")}
                                label="Passwort"
                                required
                                type="password">
