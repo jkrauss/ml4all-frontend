@@ -58,20 +58,6 @@ function createAuthStore(value) {
                 signout();
             }
         }
-        if (n && Object.keys(n) && !interceptor) {
-            interceptor = axios.interceptors.request.use(
-                (config) => {
-                    config.headers.Authorization = `Bearer ${n.access_token}`;
-                    return config;
-                },
-                (error) => {
-                    return Promise.reject(error);
-                }
-            );
-        } else {
-            axios.interceptors.request.eject(interceptor);
-            interceptor = undefined;
-        }
     });
 
 
@@ -82,7 +68,7 @@ function createAuthStore(value) {
         let bodyFormData = new FormData();
         bodyFormData.append("username", login_data.username);
         bodyFormData.append("password", login_data.password);
-        const {data, status} = await axios.post(
+        axios.post(
             `${backendURL}/api/token`,
             bodyFormData,
             {
@@ -91,17 +77,34 @@ function createAuthStore(value) {
                     Authorization: "Basic Og==",
                 },
             }
+        ).then((data) => {
+                interceptor = axios.interceptors.request.use(
+                    (config) => {
+                        config.headers.Authorization = `Bearer ${data.data.access_token}`;
+                        return config;
+                    },
+                    (error) => {
+                        return Promise.reject(error);
+                    }
+                );
+
+                localStorage.setItem("Auth", JSON.stringify(data.data));
+
+                set(data.data);
+                callback()
+                console.log(data)
+            }
         ).catch((er) => {
             fallback(er)
         });
         if (status === 200) {
-            localStorage.setItem("Auth", JSON.stringify(data));
-            set(data);
-            callback()
+
         }
     }
 
     function signout() {
+        axios.interceptors.request.eject(interceptor);
+        interceptor = undefined;
         localStorage.clear();
         update(() => {
             return {};
