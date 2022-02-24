@@ -166,13 +166,14 @@
                 </section>
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <Textfield bind:value={returns_current} label="Derzeitige Retoure" suffix="€" class="w-full">
+                        <Textfield bind:value={$User.returns_current} label="Derzeitige Retoure" suffix="€"
+                                   class="w-full">
                             <HelperText slot="helper">Der durchschnittliche Warenwert, der derzeit Abends übrig bleibt.
                             </HelperText>
                         </Textfield>
                     </div>
                     <div>
-                        <Textfield bind:value={sales_price_cost_share} label="EK/VK" suffix="%" class="w-full">
+                        <Textfield bind:value={$User.sales_price_cost_share} label="EK/VK" suffix="%" class="w-full">
                             <HelperText slot="helper">Wie viel Prozent vom Verkaufspreis ist im Schnitt ihr
                                 Einkaufspreis /
                                 Produktionskosten?

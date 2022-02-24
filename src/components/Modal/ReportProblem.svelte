@@ -1,40 +1,49 @@
 <script>
-	import Button, { Label } from "@smui/button";
+	import Button, {Label} from "@smui/button";
 	import html2canvas from "html2canvas";
-	import {
-		backendURL,
-		problemReport,
-		modal,
-		notification,
-		svelteRenderParent,
-	} from "../stores";
+	import {backendURL, modal, notification, problemReport, svelteRenderParent,} from "../stores";
 	import axios from "axios";
+
 	$: if (!$problemReport || Object.keys($problemReport).length == 0) {
 		$problemReport.problem_text = "";
 	}
 
+	let report_image;
 	let response;
+	let width;
+	let height;
+	$:console.log(width)
 </script>
 
+<svelte:window bind:innerWidth={width} bind:innerHeight={height}/>
+
 <section
-	class="w-full grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 p-4"
+		class="w-full grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-8 p-4"
 >
 	<div class="flex justify-center items-center flex-col">
 		<div class="flex justify-center items-center">
-			{#if $problemReport.screenshot}
+			<!--			{#if $problemReport.screenshot}
+                            <img
+                                src={$problemReport.screenshot}
+                                alt="screenshot"
+                                class="mx-auto aspect-w-16 aspect-h-9 max-h-32"
+                            />
+                        {/if}-->
+			{#if report_image}
 				<img
-					src={$problemReport.screenshot}
-					alt="screenshot"
-					class="mx-auto aspect-w-16 aspect-h-9 max-h-32"
+						src={report_image}
+						alt="screenshot"
+						class="mx-auto aspect-w-16 aspect-h-9 max-h-32"
 				/>
 			{/if}
 		</div>
 		<Button
 			class="whitespace-nowrap w-full"
 			on:click={() => {
-				html2canvas($svelteRenderParent).then((canvas) => {
+				html2canvas($svelteRenderParent,{width, height}).then((canvas) => {
 					const base64image = canvas.toDataURL("image/png");
 					$problemReport.screenshot = base64image;
+					report_image= base64image;
 				});
 			}}
 		>

@@ -3,6 +3,7 @@
     import Modal from "../components/Modal/main.svelte";
     import Nav from "../components/nav/main.svelte";
     import Footer from "../components/Footer.svelte";
+    import {svelteRenderParent} from "../components/stores";
     /*    import {svelteRenderParent} from "../components/stores";*/
 </script>
 
@@ -31,7 +32,7 @@
 <Notification/>
 <Modal/>
 
-<main class="flex flex-col h-screen">
+<main class="flex flex-col h-screen" bind:this={$svelteRenderParent}>
     <Nav/>
     <div class="p-2 h-full overflow-y-auto overflow-x-hidden">
         <slot/>

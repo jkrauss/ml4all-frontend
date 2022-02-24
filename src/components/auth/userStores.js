@@ -51,6 +51,18 @@ function createAuthStore(value) {
     let interceptor;
     set(JSON.parse(localStorage.getItem("Auth")) || {});
 
+    if (localStorage.getItem("Auth")) {
+        let storage = JSON.parse(localStorage.getItem("Auth"));
+        interceptor = axios.interceptors.request.use(
+            (config) => {
+                config.headers.Authorization = `Bearer ${storage.access_token}`;
+                return config;
+            },
+            (error) => {
+                return Promise.reject(error);
+            }
+        );
+    }
     subscribe((n) => {
         if (n) {
             if (new Date(n.expires) < new Date()) {
@@ -92,7 +104,6 @@ function createAuthStore(value) {
 
                 set(data.data);
                 callback()
-                console.log(data)
             }
         ).catch((er) => {
             fallback(er)
