@@ -65,6 +65,7 @@
         set($dataStore[$selected])
     })
 
+    $:console.log($data_ready, $User, $loginStatus)
 </script>
 
 {#if $data_ready}
@@ -166,19 +167,25 @@
                 </section>
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <Textfield bind:value={$User.returns_current} label="Derzeitige Retoure" suffix="€"
-                                   class="w-full">
-                            <HelperText slot="helper">Der durchschnittliche Warenwert, der derzeit Abends übrig bleibt.
-                            </HelperText>
-                        </Textfield>
+                        {#if $User.returns_current}
+                            <Textfield bind:value={$User.returns_current} label="Derzeitige Retoure" suffix="€"
+                                       class="w-full">
+                                <HelperText slot="helper">Der durchschnittliche Warenwert, der derzeit Abends übrig
+                                    bleibt.
+                                </HelperText>
+                            </Textfield>
+                        {/if}
                     </div>
                     <div>
-                        <Textfield bind:value={$User.sales_price_cost_share} label="EK/VK" suffix="%" class="w-full">
-                            <HelperText slot="helper">Wie viel Prozent vom Verkaufspreis ist im Schnitt ihr
-                                Einkaufspreis /
-                                Produktionskosten?
-                            </HelperText>
-                        </Textfield>
+                        {#if $User.sales_price_cost_share}
+                            <Textfield bind:value={$User.sales_price_cost_share} label="EK/VK" suffix="%"
+                                       class="w-full">
+                                <HelperText slot="helper">Wie viel Prozent vom Verkaufspreis ist im Schnitt ihr
+                                    Einkaufspreis /
+                                    Produktionskosten?
+                                </HelperText>
+                            </Textfield>
+                        {/if}
                     </div>
                 </section>
             </Content>
