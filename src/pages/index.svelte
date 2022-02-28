@@ -154,8 +154,19 @@
                 <section class="">
                     <OrderButton on:click={(e)=>{
                         	let filename = `Foodsight_Bestellung.${e.detail}`;
+                            let resType = "";
+                            if (e.detail === "xlsx") {
+                                resType = "arraybuffer";
+                            } else {
+                                resType = "text";
+                            }
                             console.log({ ...$data_ready, option:e.detail});
-                    axios.post(`${backendURL}/api/order`,{ ...$data_ready, option:e.detail}).then((response) => {
+                    axios({
+                        url: `${backendURL}/api/order`,
+                        method: 'POST',
+                        responseType: resType,
+                        data: { ...$data_ready, option:e.detail}
+                    }).then((response) => {
 			const url = window.URL.createObjectURL(new Blob([response.data]));
 			const link = document.createElement("a");
 			link.href = url;
