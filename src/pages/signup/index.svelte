@@ -178,7 +178,7 @@
                     <Textfield bind:value={$location_count_field.value} class="w-full" label="Anzahl Filialen"
                                type="number">
                         <HelperText slot="helper"
-                        >Fialenanzal
+                        >Wieviele Filialen haben Sie?
                         </HelperText>
                     </Textfield>
                     <Select bind:value={register_field_select} class="w-full" label="Kassensystem">

@@ -13,7 +13,7 @@
 </script>
 
 <Paper class="md:w-10/12 w-full mx-auto" elevation={1}>
-    <Title>Error</Title>
+    <Title>Fehler</Title>
     <Content class="gap-4">
         {$params.error}
     </Content>
