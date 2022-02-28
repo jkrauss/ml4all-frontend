@@ -40,11 +40,19 @@
             }
         })
 
+        async function recalc() {
+            let {data} = await axios.get(
+                `${backendURL}/api/forecast/?store=${$User.store || 1}&recalculate=true`
+            );
+            content = JSON.parse(JSON.stringify(data));
+            set(data)
+        }
 
         return {
             subscribe,
             set,
             update,
+            recalc
         }
     }
 
@@ -65,7 +73,11 @@
         set($dataStore[$selected])
     })
 
-    $:console.log($data_ready, $User, $loginStatus)
+    $:{
+        if ($User.sales_price_cost_share && $User.returns_current) {
+            dataStore.recalc();
+        }
+    }
 </script>
 
 {#if $data_ready}
